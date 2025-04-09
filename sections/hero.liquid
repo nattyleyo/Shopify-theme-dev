@@ -1,49 +1,80 @@
-<section>
+<!-- sections/hero.liquid -->
 
-    <div>Hero Section</div>
-</section>
+<section class="hero">
+    <div class="slide-2">
+      <div class="head-content-2">
+            {% assign headline = section.settings.headline %}
+            <h1 class="headline-6">{{ headline }}</h1>
 
-{% schema %}
-{
-  "name": "Hero",
-  "tag": "section",
-  "class": "hero",
-  "max_blocks": 5,
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Slideshow"
-    }
-  ],
-  "blocks": [
-     {
-       "name": "Slide",
-       "type": "slide",
-       "settings": [
-         {
-           "type": "image_picker",
-           "id": "image",
-           "label": "Image"
-         }
-       ]
-     }
-   ],
-  "presets": [
-    {
-      "name": "Hero Section",
-      "settings": {
-        "title": "Hero"
+
+  
+        <div class="subtext-3">{{ section.settings.subtext }}</div>
+        
+        <div class="cta-btn-3">
+          <a href="{{ section.settings.button_link }}" class="label-style-3">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      </div>
+  
+      <div class="hero-bg-3">
+        <img 
+            src="{{ section.settings.hero_image | image_url: width: 1200 }}" 
+            alt="Hero image" 
+            width="auto"
+            height="auto"
+            class="image-3" 
+            style="object-fit: contain;"
+
+          >
+          {% comment %} {{ section.settings.hero_image | image_url: width: 600 | image_tag: class: '', alt: 'Hero image',style:'object-' }} {% endcomment %}
+      </div>
+      
+    </div>
+  </section>
+  
+  
+  {% schema %}
+  {
+    "name": "Hero Section",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<p>The Future is Wearable. Stay Ahead with Smart Tech</p>"
       },
-      "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
-      ]
-    }
-  ]
-}
-{% endschema %}
+      {
+        "type": "richtext",
+        "id": "subtext",
+        "label": "Subtext",
+        "default": "<p>Wear the future, power your lifestyle. The most advanced tech wear & gadgets are here.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Text",
+        "default": "Explore Future Tech"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link",
+      },
+      
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Tech Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Section",
+        "category": "Custom"
+      }
+    ]
+  }
+  {% endschema %}
+  
