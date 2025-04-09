@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -331,89 +332,6 @@ pre.w-code-block code {
 
 .w-optimization {
   display: contents;
-}
-
-.w-webflow-badge,
-.w-webflow-badge > img {
-  box-sizing: unset;
-  width: unset;
-  height: unset;
-  max-height: unset;
-  max-width: unset;
-  min-height: unset;
-  min-width: unset;
-  margin: unset;
-  padding: unset;
-  float: unset;
-  clear: unset;
-  border: unset;
-  border-radius: unset;
-  background: unset;
-  background-image: unset;
-  background-position: unset;
-  background-size: unset;
-  background-repeat: unset;
-  background-origin: unset;
-  background-clip: unset;
-  background-attachment: unset;
-  background-color: unset;
-  box-shadow: unset;
-  transform: unset;
-  direction: unset;
-  font-family: unset;
-  font-weight: unset;
-  color: unset;
-  font-size: unset;
-  line-height: unset;
-  font-style: unset;
-  font-variant: unset;
-  text-align: unset;
-  letter-spacing: unset;
-  -webkit-text-decoration: unset;
-  text-decoration: unset;
-  text-indent: unset;
-  text-transform: unset;
-  list-style-type: unset;
-  text-shadow: unset;
-  vertical-align: unset;
-  cursor: unset;
-  white-space: unset;
-  word-break: unset;
-  word-spacing: unset;
-  word-wrap: unset;
-  transition: unset;
-}
-
-.w-webflow-badge {
-  white-space: nowrap;
-  cursor: pointer;
-  box-shadow: 0 0 0 1px #0000001a, 0 1px 3px #0000001a;
-  visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 2147483647 !important;
-  color: #aaadb0 !important;
-  overflow: unset !important;
-  background-color: #fff !important;
-  border-radius: 3px !important;
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 6px !important;
-  font-size: 12px !important;
-  line-height: 14px !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  position: fixed !important;
-  inset: auto 12px 12px auto !important;
-  transform: none !important;
-}
-
-.w-webflow-badge > img {
-  position: unset;
-  visibility: unset !important;
-  opacity: 1 !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
 }
 
 h1,
@@ -2265,7 +2183,7 @@ textarea.w-select {
 }
 
 .headline-2 {
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit";
 }
 
 .subtext-2 {
@@ -2317,7 +2235,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2329,7 +2247,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2345,7 +2263,7 @@ textarea.w-select {
 
 .headline-5 {
   color: var(--accent);
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .subtext-3 {
@@ -2388,13 +2306,14 @@ textarea.w-select {
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  width: 51%;
+  width: 60%;
   max-width: 700px;
   height: auto;
   margin-right: 0;
   display: flex;
   position: absolute;
-  inset: auto -3% -4% auto;
+  inset: auto -3% -11% auto;
+  padding: 48px;
 }
 
 .tech-pic-3 {
@@ -2402,23 +2321,26 @@ textarea.w-select {
 }
 
 .headline-6 {
+  position: relative;
   color: #040303;
   width: 100%;
   margin-top: 0;
   margin-bottom: 12px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
   text-decoration: none;
 }
-
+.headline-6 p strong {
+  color: #0082f3;
+}
 .headline-7 {
   color: #169fde;
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2474,7 +2396,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2486,7 +2408,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2511,7 +2433,7 @@ textarea.w-select {
   text-align: center;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -2655,7 +2577,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3058,7 +2980,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3132,7 +3054,7 @@ textarea.w-select {
   text-align: center;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -3181,7 +3103,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -3204,7 +3126,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3554,7 +3476,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3749,7 +3671,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3908,7 +3830,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3992,7 +3914,7 @@ textarea.w-select {
   color: #000;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 22px;
@@ -4075,7 +3997,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -4199,7 +4121,7 @@ textarea.w-select {
   color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
@@ -4291,7 +4213,7 @@ textarea.w-select {
   color: #040303;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -4396,7 +4318,7 @@ textarea.w-select {
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 18px;
@@ -4526,7 +4448,7 @@ textarea.w-select {
 
 .heading {
   color: var(--neutral-1);
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
@@ -4540,19 +4462,9 @@ textarea.w-select {
   max-width: none;
 }
 
-.image-2 {
-  width: 86%;
-  margin-bottom: -46%;
-  margin-right: -47px;
-  position: static;
-  bottom: 39%;
-  right: -10%;
-}
-
 .image-3 {
-  width: 100%;
+  width: 90%;
   height: auto;
-  margin-left: auto;
 }
 
 .div-block {
@@ -4623,8 +4535,8 @@ textarea.w-select {
     font-family: Onest, sans-serif;
   }
   .hero-bg-3 {
-    width: 50%;
-    left: 48%;
+    width: 52%;
+    left: 52%;
     right: auto;
   }
   .headline-6 {
