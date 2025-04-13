@@ -78,3 +78,83 @@
   }
   {% endschema %}
   
+<!-- sections/hero.liquid -->
+
+<section class="hero">
+    <div class="slide-2">
+      <div class="head-content-2">
+            {% assign headline = section.settings.headline %}
+            <h1 class="headline-6">{{ headline }}</h1>
+
+
+  
+        <div class="subtext-3">{{ section.settings.subtext }}</div>
+        
+        <div class="cta-btn-3">
+          <a href="{{ section.settings.button_link }}" class="label-style-3">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      </div>
+  
+      <div class="hero-bg-3">
+        <img 
+            src="{{ section.settings.hero_image | image_url: width: 1200 }}" 
+            alt="Hero image" 
+            width="auto"
+            height="auto"
+            class="image-3" 
+            style="object-fit: contain;"
+
+          >
+          {% comment %} {{ section.settings.hero_image | image_url: width: 600 | image_tag: class: '', alt: 'Hero image',style:'object-' }} {% endcomment %}
+      </div>
+      
+    </div>
+  </section>
+  
+  
+  {% schema %}
+  {
+    "name": "Hero Section",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "headline",
+        "label": "Headline",
+        "default": "<p>The Future is Wearable. Stay Ahead with Smart Tech</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "subtext",
+        "label": "Subtext",
+        "default": "<p>Wear the future, power your lifestyle. The most advanced tech wear & gadgets are here.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Text",
+        "default": "Explore Future Tech"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link",
+      },
+      
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Tech Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Section",
+        "category": "Custom"
+      }
+    ]
+  }
+  {% endschema %}
+  
