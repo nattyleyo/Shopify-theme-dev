@@ -2094,7 +2094,12 @@ textarea.w-select {
   line-height: 100%;
   text-decoration: none;
 }
-
+.header-wrapper {
+  border: none;
+}
+.header {
+  border: none;
+}
 .headline-1 {
   color: #169fde;
   width: 100%;
@@ -4594,7 +4599,21 @@ textarea.w-select {
     margin-left: 10%;
   }
 }
-
+@media screen and (min-width: 990px) {
+  .header {
+    min-width: 98vw;
+    padding: 24px 8% !important;
+    margin: 0px;
+  }
+  .header__heading {
+    width: 20vw;
+  }
+  .header__inline-menu {
+    display: flex;
+    width: 40vw;
+    justify-content: center;
+  }
+}
 @media screen and (max-width: 991px) {
   .hero {
     padding-left: 6%;
