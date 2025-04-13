@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -333,138 +334,17 @@ pre.w-code-block code {
   display: contents;
 }
 
-.w-webflow-badge,
-.w-webflow-badge > img {
-  box-sizing: unset;
-  width: unset;
-  height: unset;
-  max-height: unset;
-  max-width: unset;
-  min-height: unset;
-  min-width: unset;
-  margin: unset;
-  padding: unset;
-  float: unset;
-  clear: unset;
-  border: unset;
-  border-radius: unset;
-  background: unset;
-  background-image: unset;
-  background-position: unset;
-  background-size: unset;
-  background-repeat: unset;
-  background-origin: unset;
-  background-clip: unset;
-  background-attachment: unset;
-  background-color: unset;
-  box-shadow: unset;
-  transform: unset;
-  direction: unset;
-  font-family: unset;
-  font-weight: unset;
-  color: unset;
-  font-size: unset;
-  line-height: unset;
-  font-style: unset;
-  font-variant: unset;
-  text-align: unset;
-  letter-spacing: unset;
-  -webkit-text-decoration: unset;
-  text-decoration: unset;
-  text-indent: unset;
-  text-transform: unset;
-  list-style-type: unset;
-  text-shadow: unset;
-  vertical-align: unset;
-  cursor: unset;
-  white-space: unset;
-  word-break: unset;
-  word-spacing: unset;
-  word-wrap: unset;
-  transition: unset;
-}
-
-.w-webflow-badge {
-  white-space: nowrap;
-  cursor: pointer;
-  box-shadow: 0 0 0 1px #0000001a, 0 1px 3px #0000001a;
-  visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 2147483647 !important;
-  color: #aaadb0 !important;
-  overflow: unset !important;
-  background-color: #fff !important;
-  border-radius: 3px !important;
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 6px !important;
-  font-size: 12px !important;
-  line-height: 14px !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  position: fixed !important;
-  inset: auto 12px 12px auto !important;
-  transform: none !important;
-}
-
-.w-webflow-badge > img {
-  position: unset;
-  visibility: unset !important;
-  opacity: 1 !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 10px;
   font-weight: bold;
+  margin: 0px;
 }
-
-h1 {
-  margin-top: 20px;
-  font-size: 38px;
-  line-height: 44px;
-}
-
-h2 {
-  margin-top: 20px;
-  font-size: 32px;
-  line-height: 36px;
-}
-
-h3 {
-  margin-top: 20px;
-  font-size: 24px;
-  line-height: 30px;
-}
-
-h4 {
-  margin-top: 10px;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-h5 {
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-h6 {
-  margin-top: 10px;
-  font-size: 12px;
-  line-height: 18px;
-}
-
 p {
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0px;
 }
 
 blockquote {
@@ -2162,7 +2042,7 @@ textarea.w-select {
 }
 
 .subtext {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
@@ -2174,7 +2054,7 @@ textarea.w-select {
 
 .cta-btn {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -2205,7 +2085,7 @@ textarea.w-select {
 }
 
 .headline-0 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
@@ -2253,8 +2133,8 @@ textarea.w-select {
 }
 
 .head-content-2 {
-  grid-row-gap: 24px;
-  z-index: 3;
+  grid-row-gap: 32px;
+  z-index: 0;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -2265,11 +2145,11 @@ textarea.w-select {
 }
 
 .headline-2 {
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit";
 }
 
 .subtext-2 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
@@ -2281,7 +2161,7 @@ textarea.w-select {
 
 .cta-btn-2 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -2313,11 +2193,11 @@ textarea.w-select {
 }
 
 .headline-3 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2329,7 +2209,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2345,7 +2225,7 @@ textarea.w-select {
 
 .headline-5 {
   color: var(--accent);
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 .subtext-3 {
@@ -2362,7 +2242,7 @@ textarea.w-select {
 
 .cta-btn-3 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -2388,13 +2268,14 @@ textarea.w-select {
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  width: 51%;
+  width: 60%;
   max-width: 700px;
   height: auto;
   margin-right: 0;
   display: flex;
   position: absolute;
-  inset: auto -3% -4% auto;
+  inset: auto -3% -11% auto;
+  padding: 48px;
 }
 
 .tech-pic-3 {
@@ -2402,23 +2283,27 @@ textarea.w-select {
 }
 
 .headline-6 {
-  color: #040303;
+  position: relative;
+  color: var(--neutral-1);
   width: 100%;
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
   text-decoration: none;
+  margin: 0px;
 }
-
+.headline-6 p strong {
+  color: #0082f3;
+}
 .headline-7 {
   color: #169fde;
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2426,7 +2311,7 @@ textarea.w-select {
 }
 
 .subtext-4 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
@@ -2438,7 +2323,7 @@ textarea.w-select {
 
 .cta-btn-4 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -2470,11 +2355,11 @@ textarea.w-select {
 }
 
 .headline-9 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2486,7 +2371,7 @@ textarea.w-select {
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 52px;
   font-weight: 500;
   line-height: 100%;
@@ -2507,11 +2392,11 @@ textarea.w-select {
 }
 
 .title-style {
-  color: #040303;
+  color: var(--neutral-1);
   text-align: center;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -2568,7 +2453,7 @@ textarea.w-select {
 }
 
 .text {
-  color: #040303;
+  color: var(--neutral-1);
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -2652,10 +2537,10 @@ textarea.w-select {
 }
 
 .title-style-3 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -2663,7 +2548,7 @@ textarea.w-select {
 }
 
 .label-style-5 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Lato, sans-serif;
@@ -2828,7 +2713,7 @@ textarea.w-select {
 
 .dot-2 {
   grid-row-gap: 1.44px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border: 0.5625px solid #f8f8f8;
   border-radius: 17.82px;
   flex-direction: column;
@@ -2906,7 +2791,7 @@ textarea.w-select {
 }
 
 .text-2 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Onest, sans-serif;
@@ -2930,7 +2815,7 @@ textarea.w-select {
 }
 
 .label-style-7 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Onest, sans-serif;
@@ -3029,7 +2914,7 @@ textarea.w-select {
 
 .dot-7 {
   grid-row-gap: 1.28px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 15.84px;
   flex-direction: column;
   justify-content: center;
@@ -3055,10 +2940,10 @@ textarea.w-select {
 }
 
 .title-style-6 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3128,11 +3013,11 @@ textarea.w-select {
 }
 
 .card-title {
-  color: #040303;
+  color: var(--neutral-1);
   text-align: center;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -3141,7 +3026,7 @@ textarea.w-select {
 
 .subtext-5 {
   opacity: 0.8;
-  color: #040303;
+  color: var(--neutral-1);
   text-align: center;
   width: 100%;
   margin-top: 0;
@@ -3155,7 +3040,7 @@ textarea.w-select {
 
 .cta-btn-5 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -3177,11 +3062,11 @@ textarea.w-select {
 }
 
 .headline-12 {
-  color: #040303;
+  color: var(--neutral-1);
   width: 100%;
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -3201,10 +3086,10 @@ textarea.w-select {
 }
 
 .title-style-7 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3302,7 +3187,7 @@ textarea.w-select {
 }
 
 .label-style-9 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Onest, sans-serif;
@@ -3379,7 +3264,7 @@ textarea.w-select {
 
 .dot-8 {
   grid-row-gap: 1.44px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border: 0.5625px solid #f8f8f8;
   border-radius: 17.82px;
   flex-direction: column;
@@ -3431,7 +3316,7 @@ textarea.w-select {
 }
 
 .prices {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Onest, sans-serif;
@@ -3517,7 +3402,7 @@ textarea.w-select {
 
 .cart-btn {
   grid-column-gap: 10px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   justify-content: center;
   align-items: center;
@@ -3551,10 +3436,10 @@ textarea.w-select {
 }
 
 .title-style-10 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3626,7 +3511,7 @@ textarea.w-select {
 
 .icon-close {
   grid-row-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex-direction: column;
   justify-content: flex-start;
@@ -3693,7 +3578,7 @@ textarea.w-select {
 
 .cta-btn-6 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -3746,10 +3631,10 @@ textarea.w-select {
 }
 
 .title-style-13 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3905,10 +3790,10 @@ textarea.w-select {
 }
 
 .title-style-15 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -3992,7 +3877,7 @@ textarea.w-select {
   color: #000;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 22px;
@@ -4072,10 +3957,10 @@ textarea.w-select {
 }
 
 .title-style-16 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 11.5674px;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -4117,7 +4002,7 @@ textarea.w-select {
 
 .frame-style-5 {
   grid-row-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex-direction: column;
   justify-content: flex-start;
@@ -4199,7 +4084,7 @@ textarea.w-select {
   color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
@@ -4207,7 +4092,7 @@ textarea.w-select {
 }
 
 .subheadline-cta {
-  color: #040303;
+  color: var(--neutral-1);
   width: 85%;
   margin-top: 0;
   margin-bottom: 0;
@@ -4220,7 +4105,7 @@ textarea.w-select {
 
 .cta-btn-7 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 99px;
   flex: 0 auto;
   justify-content: center;
@@ -4288,10 +4173,10 @@ textarea.w-select {
 }
 
 .title-style-17 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 36px;
   font-weight: 500;
   line-height: 100%;
@@ -4299,7 +4184,7 @@ textarea.w-select {
 }
 
 .subtext-6 {
-  color: #040303;
+  color: var(--neutral-1);
   margin-top: 0;
   margin-bottom: 0;
   font-family: Onest, sans-serif;
@@ -4334,7 +4219,7 @@ textarea.w-select {
 
 .cta-btn-8 {
   grid-column-gap: 8px;
-  background-color: #040303;
+  background-color: var(--neutral-1);
   border-radius: 20px;
   flex: 0 auto;
   justify-content: center;
@@ -4396,7 +4281,7 @@ textarea.w-select {
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 18px;
@@ -4526,7 +4411,7 @@ textarea.w-select {
 
 .heading {
   color: var(--neutral-1);
-  font-family: Outfit, sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 48px;
   font-weight: 500;
   line-height: 100%;
@@ -4540,19 +4425,9 @@ textarea.w-select {
   max-width: none;
 }
 
-.image-2 {
-  width: 86%;
-  margin-bottom: -46%;
-  margin-right: -47px;
-  position: static;
-  bottom: 39%;
-  right: -10%;
-}
-
 .image-3 {
-  width: 100%;
+  width: 90%;
   height: auto;
-  margin-left: auto;
 }
 
 .div-block {
@@ -4623,8 +4498,8 @@ textarea.w-select {
     font-family: Onest, sans-serif;
   }
   .hero-bg-3 {
-    width: 50%;
-    left: 48%;
+    width: 52%;
+    left: 52%;
     right: auto;
   }
   .headline-6 {
@@ -4735,6 +4610,7 @@ textarea.w-select {
   }
   .head-content-2 {
     width: 100%;
+    grid-row-gap: 24px;
   }
   .subtext-3 {
     line-height: 120%;
@@ -4742,6 +4618,8 @@ textarea.w-select {
   .hero-bg-3 {
     width: 100%;
     position: static;
+    padding: 0px;
+    padding-top: 48px;
   }
   .category {
     padding-left: 6%;
