@@ -3171,7 +3171,7 @@ textarea.w-select {
   display: flex;
 }
 
-.cart-items {
+.cart-itm {
   grid-column-gap: 24px;
   border-radius: 12px;
   justify-content: flex-start;
@@ -4907,7 +4907,7 @@ textarea.w-select {
   .img-style {
     max-width: 96px;
   }
-  .cart-items {
+  .cart-itm {
     flex-flow: wrap;
     justify-content: flex-start;
     align-items: center;
@@ -5051,7 +5051,7 @@ textarea.w-select {
   .card-container {
     grid-template-columns: 1fr;
   }
-  .cart-items {
+  .cart-itm {
     grid-row-gap: 24px;
     flex-flow: column;
     justify-content: center;
