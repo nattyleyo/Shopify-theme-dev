@@ -1,0 +1,111 @@
+<section class="faq">
+    <div class="title-style">{{ section.settings.title }}</div>
+      <div class="faq-box">
+        {% for block in section.blocks %}
+        <div class="active-accordon">
+            <div class="{% if block.settings.active %}accordon-1{% else  %} accordon-2{% endif %}">
+                <div class="accordon-label">{{ block.settings.question }}</div>
+                <div class="icon-close">
+                <img
+                    src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee726bb73c6c43a83b19_Vector.svg"
+                    loading="lazy"
+                    alt=""
+                    height="Auto"
+                    class="icon-x"
+                />
+                </div>
+            </div>
+            <div class="acc-body">
+                <div class="title-style-12" style="{% if block.settings.active %}display:flex{% else  %} display:none{% endif %}">
+                    {{ block.settings.answer }}
+                </div>
+            </div>
+        </div>
+       
+       
+        {% endfor %}
+      </div>
+    
+  </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const accordions = document.querySelectorAll(".active-accordon");
+  
+      accordions.forEach((accordion) => {
+        const header = accordion.querySelector(".accordon-1, .accordon-2");
+        const body = accordion.querySelector(".acc-body");
+        const answer = body.querySelector(".title-style-12");
+        const icon = accordion.querySelector(".icon-toggle");
+  
+        // Set initial styles
+        answer.style.overflow = "hidden";
+        answer.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+        answer.style.display = "block";
+        answer.style.maxHeight = answer.style.display === "flex" ? answer.scrollHeight + "px" : "0";
+        answer.style.opacity = answer.style.display === "flex" ? "1" : "0";
+  
+        header.addEventListener("click", function () {
+          const isOpen = answer.style.maxHeight !== "0px";
+  
+          if (isOpen) {
+            answer.style.maxHeight = "0";
+            answer.style.opacity = "0";
+            icon.style.transform = "rotate(0deg)";
+          } else {
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            answer.style.opacity = "1";
+            icon.style.transform = "rotate(45deg)";
+          }
+        });
+      });
+    });
+  </script>
+  
+  {% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "FAQ",
+  "settings": [
+    {
+    "type": "text",
+    "id": "title",
+    "label": "Title",
+    "default":"FAQ"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "default_item",
+        "name": "Default Item",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Question",
+            "id": "question",
+            "default": "How can I track my order?"
+          },
+          {
+            "type": "textarea",
+            "label": "Answer",
+            "id": "answer",
+            "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
+          },
+          {
+            "type": "checkbox",
+            "label": "Active",
+            "id": "active",
+            "default": false          
+            }
+        ]
+      },
+   
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "category": "Featured"
+    }
+  ]
+}
+{% endschema %}

@@ -2643,9 +2643,6 @@ textarea.w-select {
   object-fit: cover;
   width: 80%;
   height: auto;
-  margin-left: 10%;
-  margin-right: 0;
-  padding-right: 0;
 }
 
 .content-box {
@@ -3496,7 +3493,7 @@ textarea.w-select {
   display: flex;
 }
 
-.accordon {
+.accordon-1 {
   background-color: #f8f8f8;
   border-radius: 99px;
   justify-content: space-between;
@@ -3537,7 +3534,7 @@ textarea.w-select {
   max-width: none;
 }
 
-.item-3 {
+.acc-body {
   grid-row-gap: 32px;
   border-radius: 12px;
   flex-direction: column;
@@ -4734,7 +4731,7 @@ textarea.w-select {
     width: auto;
     max-width: none;
   }
-  .item-3 {
+  .acc-body {
     padding-left: 48px;
     padding-right: 48px;
   }
@@ -5084,7 +5081,7 @@ textarea.w-select {
     justify-content: center;
     align-items: center;
   }
-  .item-3 {
+  .acc-body {
     padding: 24px 32px;
   }
   .row {

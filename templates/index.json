@@ -38,6 +38,55 @@
     },
     "ctm_testmoney_Yj9Ty6": {
       "type": "ctm-testmoney",
+      "blocks": {
+        "testimonial_kziDhY": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex R.",
+            "role": "Techwear Enthusiast",
+            "message": "This store perfectly combines futuristic fashion with high-quality gadgets."
+          }
+        },
+        "testimonial_yeJdar": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex R.",
+            "role": "Techwear Enthusiast",
+            "message": "This store perfectly combines futuristic fashion with high-quality gadgets."
+          }
+        },
+        "testimonial_yCKHht": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex R.",
+            "role": "Techwear Enthusiast",
+            "message": "This store perfectly combines futuristic fashion with high-quality gadgets."
+          }
+        },
+        "testimonial_KNFmx7": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex R.",
+            "role": "Techwear Enthusiast",
+            "message": "This store perfectly combines futuristic fashion with high-quality gadgets."
+          }
+        },
+        "testimonial_bTk8KM": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex R.",
+            "role": "Techwear Enthusiast",
+            "message": "This store perfectly combines futuristic fashion with high-quality gadgets."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_kziDhY",
+        "testimonial_yeJdar",
+        "testimonial_yCKHht",
+        "testimonial_KNFmx7",
+        "testimonial_bTk8KM"
+      ],
       "settings": {}
     },
     "ctm_lifestyle_sec_7PJfzt": {
