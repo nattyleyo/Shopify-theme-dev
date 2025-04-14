@@ -11,8 +11,6 @@
   "sections": {
     "hero_4q6VQK": {
       "type": "hero",
-    "hero_4q6VQK": {
-      "type": "hero",
       "settings": {
         "headline": "<p>The Future is Wearable. Stay Ahead with Smart Tech<strong>.</strong></p>",
         "subtext": "<p>Wear the future, power your lifestyle. The most advanced tech wear & gadgets are here</p>",
@@ -21,37 +19,58 @@
         "hero_image": "shopify://shop_images/hero-bg.png"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "ctm_top_selling_jYbN7i": {
+      "type": "ctm-top-selling",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
+        "collection": "top-selling",
+        "section_title": "Top Selling",
+        "view_all_text": "<p><a href=\"/collections/all\" title=\"All products\">View All</a></p>",
+        "products_limit": 5
       }
+    },
+    "ctm_most_popular_jW6KQ8": {
+      "type": "ctm-most-popular",
+      "settings": {}
+    },
+    "ctm_gearup_sec_Vh76eV": {
+      "type": "ctm-gearup-sec",
+      "settings": {}
+    },
+    "ctm_testmoney_Yj9Ty6": {
+      "type": "ctm-testmoney",
+      "settings": {}
+    },
+    "ctm_lifestyle_sec_7PJfzt": {
+      "type": "ctm-lifestyle-sec",
+      "settings": {}
+    },
+    "ctm_collections_njXTJY": {
+      "type": "ctm-collections",
+      "settings": {}
+    },
+    "ctm_cta_sec_QXB9eg": {
+      "type": "ctm-cta-sec",
+      "settings": {}
+    },
+    "ctm_subscribe_erVWKL": {
+      "type": "ctm-subscribe",
+      "settings": {}
+    },
+    "ctm_footer_yzKQMm": {
+      "type": "ctm-footer",
+      "settings": {}
     }
   },
   "order": [
     "hero_4q6VQK",
-    "featured_collection"
+    "ctm_top_selling_jYbN7i",
+    "ctm_most_popular_jW6KQ8",
+    "ctm_gearup_sec_Vh76eV",
+    "ctm_testmoney_Yj9Ty6",
+    "ctm_lifestyle_sec_7PJfzt",
+    "ctm_collections_njXTJY",
+    "ctm_cta_sec_QXB9eg",
+    "ctm_subscribe_erVWKL",
+    "ctm_footer_yzKQMm"
   ]
 }

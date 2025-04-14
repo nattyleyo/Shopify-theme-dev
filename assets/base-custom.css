@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Outfit:wght@100..900&display=swap");
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -2573,6 +2572,10 @@ textarea.w-select {
   width: 100%;
   text-decoration: none;
   display: flex;
+  overflow-x: auto;
+}
+.title-bb {
+  width: 90vw !important;
 }
 
 .list-2 {
@@ -3168,7 +3171,7 @@ textarea.w-select {
   display: flex;
 }
 
-.cart-items {
+.cart-itm {
   grid-column-gap: 24px;
   border-radius: 12px;
   justify-content: flex-start;
@@ -4904,7 +4907,7 @@ textarea.w-select {
   .img-style {
     max-width: 96px;
   }
-  .cart-items {
+  .cart-itm {
     flex-flow: wrap;
     justify-content: flex-start;
     align-items: center;
@@ -5048,7 +5051,7 @@ textarea.w-select {
   .card-container {
     grid-template-columns: 1fr;
   }
-  .cart-items {
+  .cart-itm {
     grid-row-gap: 24px;
     flex-flow: column;
     justify-content: center;
