@@ -1,16 +1,16 @@
 {% assign collection = collections[section.settings.collection] %}
 
 {% if collection != blank %}
-{% comment %} <section class="top-selling">
-  <div class="color-box">
-    <div class="title-style">{{ section.settings.section_title }}</div>
-    <a href="{{ collection.url }}" class="label-style-5">{{ section.settings.view_all_text }}</a>
-  </div>
 
+<section class="top-selling">
+  <div class="color-box title-bb">
+    <div class="title-style">{{ section.settings.section_title }}</div>
+    <div class="label-style-5">View All</div>
+  </div>
   <div class="cate-list">
     <div class="list-2">
       {% for product in collection.products limit: section.settings.products_limit %}
-        <div class="pr-card">
+        <a href="{{ product.url }}" class="pr-card">
           <div class="img-box">
             {% if product.tags contains 'NEW' %}
               <div class="tag">
@@ -25,7 +25,6 @@
                 <div class="label-style-6">Pre-Order</div>
               </div>
             {% endif %}
-
             <img
               src="{{ product.featured_image | img_url: 'medium' }}"
               alt="{{ product.title }}"
@@ -35,288 +34,52 @@
               height="230"
             />
           </div>
-
           <div class="content-box">
             <div class="review-box">
-              <!-- Placeholder for review stars (replace with review app) -->
-              {% comment %} <img
-                src="{{ 'rating-stars.svg' | asset_url }}"
-                width="auto"
-                height="auto"
-                alt="Rating"
-                class="frame-10"
+              <img
+                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
                 loading="lazy"
-              /> {% endcomment %}
-              <div class="title-style-4">
-                {{ product.metafields.reviews.count | default: '13' }} Reviews
-              </div>
+                width="138.842041015625"
+                height="22.5789852142334"
+                alt=""
+                class="frame-10"
+              />
+              <div class="title-style-4">13 Reviews</div>
             </div>
-
+            
             <div class="color-box">
               <div class="title-style-5">Color</div>
               <div class="frame-144">
-                {% assign variant_colors = product.options_with_values | where: "name", "Color" %}
-                {% for value in variant_colors[0].values %}
-                  <div class="frame-158">
-                    <div class="dot-{{ forloop.index }}"></div>
-                  </div>
+                {% assign color_option_index = 0 %}
+                {% for option in product.options_with_values %}
+                  {% if option.name == 'Color' %}
+                    {% assign color_option_index = forloop.index0 %}
+                  {% endif %}
+                {% endfor %}
+                
+                {% assign colors_displayed = '' %}
+                
+                {% for variant in product.variants %}
+                  {% assign color = variant.options[color_option_index] %}
+                  
+                  {% unless colors_displayed contains color %}
+                    {% assign colors_displayed = colors_displayed | append: color | append: ',' %}
+                    <div class="dot-3 color-dot" title="{{ color }}" style="background: {{ color }}; width:16px !important;height:16px !important;border-radius:100%"></div>
+                  {% endunless %}
                 {% endfor %}
               </div>
             </div>
-
+            
             <div class="pr-title">{{ product.title }}</div>
             <div class="price">
               <div class="text-2">{{ product.price | money }}</div>
             </div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     </div>
   </div>
-
-  {% comment %} <div class="scroll-overlay">
-    <div class="dot">
-      <img
-        src="{{ '' | asset_url }}"
-        alt="Scroll"
-        class="frame-style"
-        width="24"
-        height="24"
-        loading="lazy"
-      />
-    </div>
-  </div> {% endcomment %}
-</section> {% endcomment %}
-<section class="top-selling">
-  <div class="color-box title-bb">
-    <div class="title-style">Top Selling</div>
-    <div class="label-style-5">View All</div>
-  </div>
-  <div class="cate-list">
-    <div class="list-2">
-      <div class="pr-card">
-        <div class="img-box">
-          <div class="tag">
-            <div class="label-style-6">NEW!</div>
-          </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9b935fe19efc4d66a_4k-tripple-Photoroom-1.png"
-            loading="lazy"
-            width="260"
-            height="230"
-            alt=""
-            class="product-img"
-          />
-        </div>
-        <div class="content-box">
-          <div class="review-box">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
-              loading="lazy"
-              width="138.842041015625"
-              height="22.5789852142334"
-              alt=""
-              class="frame-10"
-            />
-            <div class="title-style-4">13 Reviews</div>
-          </div>
-          <div class="color-box">
-            <div class="title-style-5">Color</div>
-            <div class="frame-144">
-              <div class="frame-158">
-                <div class="dot-2"></div>
-              </div>
-              <div class="dot-3"></div>
-              <div class="dot-4"></div>
-              <div class="dot-5"></div>
-            </div>
-          </div>
-          <div class="pr-title">Triple 4K Display Docking Station</div>
-          <div class="price">
-            <div class="text-2">$270</div>
-          </div>
-        </div>
-      </div>
-      <div class="pr-card">
-        <div class="img-box">
-          <div class="tag-2">
-            <div class="label-style-7">Best Seller</div>
-          </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9761c2aa6b0893d22_sim-Photoroom-1.png"
-            loading="lazy"
-            width="260"
-            height="230"
-            alt=""
-            class="product-img"
-          />
-        </div>
-        <div class="content-box">
-          <div class="review-box">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
-              loading="lazy"
-              width="138.842041015625"
-              height="22.5789852142334"
-              alt=""
-              class="frame-10"
-            />
-            <div class="title-style-4">13 Reviews</div>
-          </div>
-          <div class="color-box">
-            <div class="title-style-5">Color</div>
-            <div class="frame-144">
-              <div class="frame-158">
-                <div class="dot-2"></div>
-              </div>
-              <div class="dot-3"></div>
-              <div class="dot-5"></div>
-            </div>
-          </div>
-          <div class="pr-title">
-            SM3 Slim Mechanical Backlit Bluetooth Keyboard
-          </div>
-          <div class="price">
-            <div class="text-2">$270</div>
-          </div>
-        </div>
-      </div>
-      <div class="pr-card">
-        <div class="img-box">
-          <div class="tag-3">
-            <div class="label-style-6">Pre-Order</div>
-          </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ed9a522c269b5da615e7_wireless-Photoroom-2.png"
-            loading="lazy"
-            width="260"
-            height="192"
-            alt=""
-            class="product-img"
-          />
-        </div>
-        <div class="content-box">
-          <div class="review-box">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
-              loading="lazy"
-              width="138.842041015625"
-              height="22.5789852142334"
-              alt=""
-              class="frame-10"
-            />
-            <div class="title-style-4">13 Reviews</div>
-          </div>
-          <div class="color-box">
-            <div class="title-style-5">Color</div>
-            <div class="frame-144">
-              <div class="frame-158">
-                <div class="dot-2"></div>
-              </div>
-              <div class="dot-3"></div>
-              <div class="dot-5"></div>
-            </div>
-          </div>
-          <div class="pr-title">Qi2 Trio Wireless Charging Pad</div>
-          <div class="price">
-            <div class="text-2">$270</div>
-          </div>
-        </div>
-      </div>
-      <div class="pr-card">
-        <div class="img-box">
-          <div class="tag">
-            <div class="label-style-6">NEW!</div>
-          </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ed9a2047d86831e5d87e_audo-Photoroom-2.png"
-            loading="lazy"
-            width="260"
-            height="230"
-            alt=""
-            class="product-img"
-          />
-        </div>
-        <div class="content-box">
-          <div class="review-box">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
-              loading="lazy"
-              width="138.842041015625"
-              height="22.5789852142334"
-              alt=""
-              class="frame-10"
-            />
-            <div class="title-style-4">13 Reviews</div>
-          </div>
-          <div class="color-box">
-            <div class="title-style-5">Color</div>
-            <div class="frame-144">
-              <div class="frame-158">
-                <div class="dot-2"></div>
-              </div>
-              <div class="dot-3"></div>
-              <div class="dot-5"></div>
-            </div>
-          </div>
-          <div class="pr-title">Qi2 Trio Wireless Charging Pad</div>
-          <div class="price">
-            <div class="text-2">$270</div>
-          </div>
-        </div>
-      </div>
-      <div class="pr-card">
-        <div class="img-box-2">
-          <div class="tag">
-            <div class="label-style-6">NEW!</div>
-          </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ed9a2047d86831e5d87e_audo-Photoroom-2.png"
-            loading="lazy"
-            width="260"
-            height="230"
-            alt=""
-            class="product-img"
-          />
-        </div>
-        <div class="content-box">
-          <div class="review-box">
-            <div class="frame-159">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9846a9a3907001e33_Star-1.svg"
-                loading="lazy"
-                width="22.5789852142334"
-                height="22.5789852142334"
-                alt=""
-                class="star-1"
-              /><img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9bfc0fbcd4e52d37e_Star-2.svg"
-                loading="lazy"
-                width="22.5789852142334"
-                height="22.5789852142334"
-                alt=""
-                class="star-1"
-              /><img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9169c3b75cdfaba4a_Star-3.svg"
-                loading="lazy"
-                width="22.5789852142334"
-                height="22.5789852142334"
-                alt=""
-                class="star-1"
-              />
-            </div>
-          </div>
-          <div class="color-box">
-            <div class="title-style-5">Color</div>
-          </div>
-          <div class="pr-title">Qi2 Trio Wireless Charging Pad</div>
-          <div class="price">
-            <div class="text-2">$270</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   <div class="scroll-overlay">
     <div class="dot">
       <img
@@ -330,7 +93,31 @@
     </div>
   </div>
 </section>
+
 {% endif %}
+
+<style>
+  /* Add this to your CSS file or within a <style> tag in your HTML */
+
+.pr-card .img-box {
+  transition: transform 0.3s ease-in-out; /* Smooth scaling transition */
+}
+
+.pr-card:hover .img-box {
+  transform: scale(1.03); /* Scale the image to 110% when hovered */
+}
+
+.product-img {
+  width: 100%; /* Ensure the image fills the container */
+  height: auto;
+  transition: transform 0.3s ease-in-out; /* Smooth transition for the image itself */
+}
+
+.pr-card:hover .product-img {
+  transform: scale(1.09); /* Scale the image up on hover */
+}
+
+</style>
 
 {% schema %}
 {
@@ -341,7 +128,7 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Top Selling Collection",
+      "label": "Top Selling Collection"
     },
     {
       "type": "text",
@@ -359,8 +146,7 @@
       "type": "number",
       "id": "products_limit",
       "label": "Number of products to show",
-      "default": 5,
-      
+      "default": 5
     }
   ],
   "presets": [
@@ -371,4 +157,3 @@
   ]
 }
 {% endschema %}
-
