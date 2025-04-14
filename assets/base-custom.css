@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Onest&family=Outfit&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Outfit:wght@100..900&display=swap");
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -2573,6 +2572,10 @@ textarea.w-select {
   width: 100%;
   text-decoration: none;
   display: flex;
+  overflow-x: auto;
+}
+.title-bb {
+  width: 90vw !important;
 }
 
 .list-2 {
