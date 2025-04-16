@@ -3560,13 +3560,29 @@ textarea.w-select {
 
 .accordon-2 {
   background-color: #fff;
-  border-radius: 99px;
+  border-radius: 2px;
+  border-bottom: 1.5px solid var(--secondary-2);
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 16px 32px;
   text-decoration: none;
   display: flex;
+}
+
+/* .accordon-1:hover {
+  cursor: pointer;
+  background-color: #f7f7f7;
+  border-radius: 99px !important;
+} */
+.acc:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+  border-radius: 99px !important;
+}
+/* Hover state */
+.accordon-2:hover .icon-close {
+  background: var(--neutral-2) !important;
 }
 
 .frame-style-3 {

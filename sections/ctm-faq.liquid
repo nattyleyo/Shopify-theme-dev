@@ -1,110 +1,139 @@
 <section class="faq">
-    <div class="title-style">{{ section.settings.title }}</div>
-      <div class="faq-box">
-        {% for block in section.blocks %}
-        <div class="active-accordon">
-            <div class="{% if block.settings.active %}accordon-1{% else  %} accordon-2{% endif %}">
-                <div class="accordon-label">{{ block.settings.question }}</div>
-                <div class="icon-close">
-                <img
-                    src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee726bb73c6c43a83b19_Vector.svg"
-                    loading="lazy"
-                    alt=""
-                    height="Auto"
-                    class="icon-x"
-                />
-                </div>
-            </div>
-            <div class="acc-body">
-                <div class="title-style-12" style="{% if block.settings.active %}display:flex{% else  %} display:none{% endif %}">
-                    {{ block.settings.answer }}
-                </div>
-            </div>
+  <div class="title-style">{{ section.settings.title }}</div>
+  <div class="faq-box">
+    {% for block in section.blocks %}
+    <div class="active-accordon" data-accordion data-accordion-id="accordion-{{ forloop.index }}">
+      <div class="acc {% if block.settings.active %}accordon-1{% else %}accordon-2{% endif %}" data-accordion-header>
+        <div class="accordon-label">{{ block.settings.question }}</div>
+        <div class="icon-close" style="background: {% if block.settings.active %}var(--neutral-1){% else %}var(--secondary-2){% endif %};">
+          <span class="icon-x" style="display: {% if block.settings.active %}flex{% else %}none{% endif %};" >
+            {{ 'icon-x.svg' | asset_url | img_tag: 'Close icon' }}
+          </span>
+          <span class="icon-plus" style="display: {% if block.settings.active %}none{% else %}block{% endif %};">
+            {{ 'icon-plus.svg' | asset_url | img_tag: 'Plus icon' }}
+          </span>
         </div>
-       
-       
-        {% endfor %}
       </div>
-    
-  </section>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const accordions = document.querySelectorAll(".active-accordon");
+      <div class="acc-body" style="display: {% if block.settings.active %}flex{% else %}none{% endif %};" data-accordion-body>
+        <div class="title-style-12">
+          {{ block.settings.answer }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize accordions on page load
+  initAccordions();
   
-      accordions.forEach((accordion) => {
-        const header = accordion.querySelector(".accordon-1, .accordon-2");
-        const body = accordion.querySelector(".acc-body");
-        const answer = body.querySelector(".title-style-12");
-        const icon = accordion.querySelector(".icon-toggle");
-  
-        // Set initial styles
-        answer.style.overflow = "hidden";
-        answer.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
-        answer.style.display = "block";
-        answer.style.maxHeight = answer.style.display === "flex" ? answer.scrollHeight + "px" : "0";
-        answer.style.opacity = answer.style.display === "flex" ? "1" : "0";
-  
-        header.addEventListener("click", function () {
-          const isOpen = answer.style.maxHeight !== "0px";
-  
-          if (isOpen) {
-            answer.style.maxHeight = "0";
-            answer.style.opacity = "0";
-            icon.style.transform = "rotate(0deg)";
-          } else {
-            answer.style.maxHeight = answer.scrollHeight + "px";
-            answer.style.opacity = "1";
-            icon.style.transform = "rotate(45deg)";
-          }
-        });
-      });
+  // Shopify theme editor might add new blocks dynamically
+  if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+      initAccordions(event.target);
     });
-  </script>
+  }
   
-  {% schema %}
+  function initAccordions(container = document) {
+    const accordions = container.querySelectorAll('[data-accordion]');
+    
+    accordions.forEach(accordion => {
+      // Skip if already initialized
+      if (accordion.dataset.initialized) return;
+      
+      const header = accordion.querySelector('[data-accordion-header]');
+      const body = accordion.querySelector('[data-accordion-body]');
+      const iconX = accordion.querySelector('.icon-x');
+      const iconPar = accordion.querySelector('.icon-close');
+      const iconPlus = accordion.querySelector('.icon-plus');
+      
+      header.addEventListener('click', function() {
+        const isOpen = body.style.display === 'flex';
+        
+        // Toggle body visibility
+        body.style.display = isOpen ? 'none' : 'flex';
+        
+        // Toggle icons
+        iconX.style.display = isOpen ? 'none' : 'block';
+        iconPlus.style.display = isOpen ? 'block' : 'none';
+        iconPar.style.background = isOpen ? 'var(--secondary-2)' : 'var(--neutral-1)';
+        
+        header.style.borderBottom = isOpen ? '1.5px solid var(--secondary-2)' : 'none';
+        header.style.borderRadius = !isOpen ? '99px' : '2px';
+        
+        // Toggle accordion classes
+        if (header.classList.contains('accordon-1')) {
+          header.classList.remove('accordon-1');
+          header.classList.add('accordon-2');
+        } else {
+          header.classList.remove('accordon-2');
+          header.classList.add('accordon-1');
+        }
+      });
+      
+      // Mark as initialized to prevent duplicate event listeners
+      accordion.dataset.initialized = true;
+    });
+  }
+});
+</script>
+  
+{% schema %}
 {
   "name": "FAQ",
   "tag": "section",
   "class": "FAQ",
   "settings": [
     {
-    "type": "text",
-    "id": "title",
-    "label": "Title",
-    "default":"FAQ"
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions (FAQ)"
     }
   ],
   "blocks": [
     {
-        "type": "default_item",
-        "name": "Default Item",
-        "settings": [
-          {
-            "type": "text",
-            "label": "Question",
-            "id": "question",
-            "default": "How can I track my order?"
-          },
-          {
-            "type": "textarea",
-            "label": "Answer",
-            "id": "answer",
-            "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
-          },
-          {
-            "type": "checkbox",
-            "label": "Active",
-            "id": "active",
-            "default": false          
-            }
-        ]
-      },
-   
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Question",
+          "id": "question",
+          "default": "How can I track my order?"
+        },
+        {
+          "type": "textarea",
+          "label": "Answer",
+          "id": "answer",
+          "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
+        },
+        {
+          "type": "checkbox",
+          "label": "Active by default",
+          "id": "active",
+          "default": false
+        }
+      ]
+    }
   ],
   "presets": [
     {
       "name": "FAQ",
-      "category": "Featured"
+      "category": "Featured",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item" 
+        }
+      ]
     }
   ]
 }

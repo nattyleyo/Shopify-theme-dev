@@ -101,6 +101,53 @@
       "type": "ctm-cta-sec",
       "settings": {}
     },
+    "ctm_faq_FnXKHM": {
+      "type": "ctm-faq",
+      "blocks": {
+        "faq_item_Rg8DWc": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
+            "active": false
+          }
+        },
+        "faq_item_ETQfG9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "We accept all major credit and debit cards, PayPal, and other secure payment options for your convenience.",
+            "active": false
+          }
+        },
+        "faq_item_QtAzD6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I return or exchange an item?",
+            "answer": "You can easily return or exchange items within our return window. Just follow the steps on our Returns & Exchanges page.",
+            "active": false
+          }
+        },
+        "faq_item_xBf38U": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I contact customer support?",
+            "answer": "Our support team is here to help! Reach out via email, live chat, or our contact form—we’ll get back to you as soon as possible.",
+            "active": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_Rg8DWc",
+        "faq_item_ETQfG9",
+        "faq_item_QtAzD6",
+        "faq_item_xBf38U"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "title": "Frequently Asked Questions (FAQ)"
+      }
+    },
     "ctm_subscribe_erVWKL": {
       "type": "ctm-subscribe",
       "settings": {}
@@ -118,6 +165,7 @@
     "ctm_testmoney_Yj9Ty6",
     "ctm_lifestyle_sec_7PJfzt",
     "ctm_collections_njXTJY",
+    "ctm_faq_FnXKHM",
     "ctm_cta_sec_QXB9eg",
     "ctm_subscribe_erVWKL",
     "ctm_footer_yzKQMm"
