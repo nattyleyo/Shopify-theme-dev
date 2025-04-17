@@ -93,10 +93,10 @@
       "type": "ctm-lifestyle-sec",
       "settings": {}
     },
-    "ctm_collections_njXTJY": {
+    "ctm_collections_M9CVdg": {
       "type": "ctm-collections",
       "blocks": {
-        "collection_row_wNU38P": {
+        "collection_row_dQUMzc": {
           "type": "collection_row",
           "settings": {
             "collection_1": "frontpage",
@@ -104,19 +104,20 @@
             "layout": "ls"
           }
         },
-        "collection_row_kXknrW": {
+        "collection_row_jtVx4d": {
           "type": "collection_row",
           "settings": {
             "collection_1": "top-selling",
             "collection_2": "frontpage",
-            "layout": "sl"
+            "layout": "ls"
           }
         }
       },
       "block_order": [
-        "collection_row_wNU38P",
-        "collection_row_kXknrW"
+        "collection_row_dQUMzc",
+        "collection_row_jtVx4d"
       ],
+      "name": "Collections",
       "settings": {
         "title": "Explore Our Curated Collections"
       }
@@ -188,7 +189,7 @@
     "ctm_gearup_sec_Vh76eV",
     "ctm_testmoney_Yj9Ty6",
     "ctm_lifestyle_sec_7PJfzt",
-    "ctm_collections_njXTJY",
+    "ctm_collections_M9CVdg",
     "ctm_faq_FnXKHM",
     "ctm_cta_sec_QXB9eg",
     "ctm_subscribe_erVWKL",

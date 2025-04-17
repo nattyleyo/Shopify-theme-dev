@@ -3698,7 +3698,14 @@ textarea.w-select {
   position: relative;
   overflow: hidden;
 }
-
+.item-4:hover,
+.item-5:hover {
+  cursor: pointer;
+}
+.item-4:hover .image-4,
+.item-5:hover .image-4 {
+  transform: scale(1.08) !important;
+}
 .tag-4 {
   grid-row-gap: 16px;
   background-color: #fff;
@@ -4501,6 +4508,7 @@ textarea.w-select {
 .image-4 {
   object-fit: contain;
   width: 80%;
+  height: 94%;
   max-width: none;
   margin-left: 10%;
 }

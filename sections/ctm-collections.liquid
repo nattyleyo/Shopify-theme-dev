@@ -2,8 +2,8 @@
   <div class="title-style">{{ section.settings.title }}</div>
   <div class="collection-items">
     {% for block in section.blocks %}
-      {% assign collection1 = collections[block.settings.collection_1] %}
-      {% assign collection2 = collections[block.settings.collection_2] %}
+      {% assign collection1 = block.settings.collection_1 %}
+      {% assign collection2 = block.settings.collection_2 %}
       
       {% if block.settings.layout == "ls" %}
         <div class="row" {{ block.shopify_attributes }}>
@@ -12,15 +12,13 @@
               <div class="tag-4">
                 <div class="title-style-14">{{ collection1.title }}</div>
               </div>
-              {% if collection1.image %}
-                <img
-                  src="{{ collection1.image | img_url: '500x' }}"
-                  loading="lazy"
-                  alt="{{ collection1.title }}"
-                  class="image-4"
-                  width="500"
-                  height="{{ 500 | divided_by: collection1.image.aspect_ratio | round }}"
-                />
+              {% if collection1.featured_image %}
+                {{ collection1.featured_image | image_url: width: 500 | image_tag: 
+                  alt: collection1.title,
+                  class: 'image-4',
+                  loading: 'lazy',
+                  widths: '250, 375, 500, 750, 1000'
+                }}
               {% else %}
                 <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
               {% endif %}
@@ -31,15 +29,13 @@
               <div class="tag-4">
                 <div class="title-style-14">{{ collection2.title }}</div>
               </div>
-              {% if collection2.image %}
-                <img
-                  src="{{ collection2.image | img_url: '500x' }}"
-                  loading="lazy"
-                  alt="{{ collection2.title }}"
-                  class="image-4"
-                  width="500"
-                  height="{{ 500 | divided_by: collection2.image.aspect_ratio | round }}"
-                />
+              {% if collection2.featured_image %}
+                {{ collection2.featured_image | image_url: width: 500 | image_tag: 
+                  alt: collection2.title,
+                  class: 'image-4',
+                  loading: 'lazy',
+                  widths: '250, 375, 500, 750, 1000'
+                }}
               {% else %}
                 <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
               {% endif %}
@@ -53,15 +49,13 @@
               <div class="tag-4">
                 <div class="title-style-14">{{ collection1.title }}</div>
               </div>
-              {% if collection1.image %}
-                <img
-                  src="{{ collection1.image | img_url: '500x' }}"
-                  loading="lazy"
-                  alt="{{ collection1.title }}"
-                  class="image-4"
-                  width="500"
-                  height="{{ 500 | divided_by: collection1.image.aspect_ratio | round }}"
-                />
+              {% if collection1.featured_image %}
+                {{ collection1.featured_image | image_url: width: 500 | image_tag: 
+                  alt: collection1.title,
+                  class: 'image-4',
+                  loading: 'lazy',
+                  widths: '250, 375, 500, 750, 1000'
+                }}
               {% else %}
                 <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
               {% endif %}
@@ -72,15 +66,13 @@
               <div class="tag-4">
                 <div class="title-style-14">{{ collection2.title }}</div>
               </div>
-              {% if collection2.image %}
-                <img
-                  src="{{ collection2.image | img_url: '500x' }}"
-                  loading="lazy"
-                  alt="{{ collection2.title }}"
-                  class="image-4"
-                  width="500"
-                  height="{{ 500 | divided_by: collection2.image.aspect_ratio | round }}"
-                />
+              {% if collection2.featured_image %}
+                {{ collection2.featured_image | image_url: width: 500 | image_tag: 
+                  alt: collection2.title,
+                  class: 'image-4',
+                  loading: 'lazy',
+                  widths: '250, 375, 500, 750, 1000'
+                }}
               {% else %}
                 <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
               {% endif %}
