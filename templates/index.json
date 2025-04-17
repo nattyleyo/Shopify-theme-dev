@@ -95,11 +95,31 @@
     },
     "ctm_collections_njXTJY": {
       "type": "ctm-collections",
-      "settings": {}
-    },
-    "ctm_cta_sec_QXB9eg": {
-      "type": "ctm-cta-sec",
-      "settings": {}
+      "blocks": {
+        "collection_row_wNU38P": {
+          "type": "collection_row",
+          "settings": {
+            "collection_1": "frontpage",
+            "collection_2": "top-selling",
+            "layout": "ls"
+          }
+        },
+        "collection_row_kXknrW": {
+          "type": "collection_row",
+          "settings": {
+            "collection_1": "top-selling",
+            "collection_2": "frontpage",
+            "layout": "sl"
+          }
+        }
+      },
+      "block_order": [
+        "collection_row_wNU38P",
+        "collection_row_kXknrW"
+      ],
+      "settings": {
+        "title": "Explore Our Curated Collections"
+      }
     },
     "ctm_faq_FnXKHM": {
       "type": "ctm-faq",
@@ -147,6 +167,10 @@
       "settings": {
         "title": "Frequently Asked Questions (FAQ)"
       }
+    },
+    "ctm_cta_sec_QXB9eg": {
+      "type": "ctm-cta-sec",
+      "settings": {}
     },
     "ctm_subscribe_erVWKL": {
       "type": "ctm-subscribe",

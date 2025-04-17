@@ -1,75 +1,154 @@
 <section class="collections">
-    <div class="title-style">Explore Our Curated Collections</div>
-    <div class="collection-items">
-      <div class="row">
-        <div class="item-4">
-          <div class="tag-4">
-            <div class="title-style-14">Tech Wear</div>
+  <div class="title-style">{{ section.settings.title }}</div>
+  <div class="collection-items">
+    {% for block in section.blocks %}
+      {% assign collection1 = collections[block.settings.collection_1] %}
+      {% assign collection2 = collections[block.settings.collection_2] %}
+      
+      {% if block.settings.layout == "ls" %}
+        <div class="row" {{ block.shopify_attributes }}>
+          <div class="item-4">
+            {% if collection1 %}
+              <div class="tag-4">
+                <div class="title-style-14">{{ collection1.title }}</div>
+              </div>
+              {% if collection1.image %}
+                <img
+                  src="{{ collection1.image | img_url: '500x' }}"
+                  loading="lazy"
+                  alt="{{ collection1.title }}"
+                  class="image-4"
+                  width="500"
+                  height="{{ 500 | divided_by: collection1.image.aspect_ratio | round }}"
+                />
+              {% else %}
+                <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
+              {% endif %}
+            {% endif %}
           </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f5378a0ccde707c51cf304_61I1JGOL8aL._AC_SX466_-Photoroom.png"
-            loading="lazy"
-            alt=""
-            class="image-4"
-          />
-        </div>
-        <div class="item-5">
-          <div class="tag-4">
-            <div class="title-style-14">Trending Gadgets</div>
+          <div class="item-5">
+            {% if collection2 %}
+              <div class="tag-4">
+                <div class="title-style-14">{{ collection2.title }}</div>
+              </div>
+              {% if collection2.image %}
+                <img
+                  src="{{ collection2.image | img_url: '500x' }}"
+                  loading="lazy"
+                  alt="{{ collection2.title }}"
+                  class="image-4"
+                  width="500"
+                  height="{{ 500 | divided_by: collection2.image.aspect_ratio | round }}"
+                />
+              {% else %}
+                <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
+              {% endif %}
+            {% endif %}
           </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eeaaa16b25f40a56134d_img-bg.svg"
-            loading="lazy"
-            width="249.13491821289062"
-            height="223.68212890625"
-            alt=""
-            class="image-4"
-          />
         </div>
-      </div>
-      <div class="row">
-        <div class="item-5">
-          <div class="tag-4">
-            <div class="title-style-14">Audio &amp; Accessories</div>
+      {% else %}
+        <div class="row" {{ block.shopify_attributes }}>
+          <div class="item-5">
+            {% if collection1 %}
+              <div class="tag-4">
+                <div class="title-style-14">{{ collection1.title }}</div>
+              </div>
+              {% if collection1.image %}
+                <img
+                  src="{{ collection1.image | img_url: '500x' }}"
+                  loading="lazy"
+                  alt="{{ collection1.title }}"
+                  class="image-4"
+                  width="500"
+                  height="{{ 500 | divided_by: collection1.image.aspect_ratio | round }}"
+                />
+              {% else %}
+                <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
+              {% endif %}
+            {% endif %}
           </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eeaae812c2258728558a_img.png"
-            loading="lazy"
-            width="180.03077697753906"
-            height="218.58126831054688"
-            alt=""
-            class="image-4"
-          />
-        </div>
-        <div class="item-6">
-          <div class="tag-4">
-            <div class="title-style-14">Gaming &amp; Streaming</div>
+          <div class="item-6">
+            {% if collection2 %}
+              <div class="tag-4">
+                <div class="title-style-14">{{ collection2.title }}</div>
+              </div>
+              {% if collection2.image %}
+                <img
+                  src="{{ collection2.image | img_url: '500x' }}"
+                  loading="lazy"
+                  alt="{{ collection2.title }}"
+                  class="image-4"
+                  width="500"
+                  height="{{ 500 | divided_by: collection2.image.aspect_ratio | round }}"
+                />
+              {% else %}
+                <div class="image-4" style="background: #f5f5f5; height: 300px;"></div>
+              {% endif %}
+            {% endif %}
           </div>
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eeaacf10d5037ede9783_img.png"
-            loading="lazy"
-            width="257.15093994140625"
-            height="316"
-            alt=""
-            class="image-4"
-          />
         </div>
-      </div>
-    </div>
-  </section>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
 
-  {% schema %}
+{% schema %}
 {
   "name": "Collections",
   "tag": "section",
   "class": "Collections",
   "settings": [
-   
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Explore Our Curated Collections"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_row",
+      "name": "Collection Row",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "collection",
+          "label": "First Collection",
+          "id": "collection_1"
+        },
+        {
+          "type": "collection",
+          "label": "Second Collection",
+          "id": "collection_2"
+        },
+        {
+          "type": "radio",
+          "label": "Layout",
+          "id": "layout",
+          "options": [
+            {
+              "value": "ls",
+              "label": "Large-Small"
+            },
+            {
+              "value": "sl",
+              "label": "Small-Large"
+            }
+          ],
+          "default": "ls"
+        }
+      ]
+    }
   ],
   "presets": [
     {
       "name": "Collections",
-      "category": "Featured"
+      "category": "Featured",
+      "blocks": [
+        {
+          "type": "collection_row"
+        }
+      ]
     }
   ]
 }
