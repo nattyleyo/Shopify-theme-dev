@@ -1,6 +1,5 @@
 <!-- sections/hero.liquid -->
 
-<section class="hero">
     <div class="slide-2">
       <div class="head-content-2">
             {% assign headline = section.settings.headline %}
@@ -31,13 +30,14 @@
       </div>
       
     </div>
-  </section>
+
   
   
   {% schema %}
   {
     "name": "Hero Section",
     "tag": "section",
+    "class": "hero",
     "settings": [
       {
         "type": "richtext",

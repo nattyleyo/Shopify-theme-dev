@@ -1,4 +1,4 @@
-<section class="collections">
+
   <div class="title-style">{{ section.settings.title }}</div>
   <div class="collection-items">
     {% for block in section.blocks %}
@@ -46,13 +46,12 @@
       </div>
     {% endfor %}
   </div>
-</section>
 
 {% schema %}
 {
   "name": "Collections",
   "tag": "section",
-  "class": "Collections",
+  "class": "collections",
   "settings": [
     {
       "type": "text",

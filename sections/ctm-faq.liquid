@@ -1,11 +1,11 @@
-<section class="faq">
+
   <div class="title-style">{{ section.settings.title }}</div>
   <div class="faq-box">
     {% for block in section.blocks %}
       {% render 'collapsable', settings:block.settings %}
     {% endfor %}
   </div>
-</section>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "FAQ",
   "tag": "section",
-  "class": "FAQ",
+  "class": "faq FAQ",
   "settings": [
     {
       "type": "text",

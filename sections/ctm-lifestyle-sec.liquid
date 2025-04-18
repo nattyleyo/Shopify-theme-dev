@@ -1,4 +1,4 @@
-<section class="lifestyle-sec">
+
     <div class="title-style">
       {{ section.settings.title }}
     </div>
@@ -18,13 +18,12 @@
       {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks %}
       
     </div>
-  </section>
 
   {% schema %}
   {
     "name": "Custom Gallery",
     "tag": "section",
-    "class": "custom-gallery",
+    "class": "lifestyle-sec custom-gallery",
     "settings": [
       {
         "type": "text",
