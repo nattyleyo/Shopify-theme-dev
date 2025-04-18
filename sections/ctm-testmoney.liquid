@@ -1,51 +1,141 @@
 <section class="testimony">
-    <div class="title-box">
-      <div class="title-style">Our Happy Customers</div>
-    </div>
-    <div class="cate-list">
-      <div class="list-4">
-        {% for block in section.blocks %}
-          <div class="client-box{% if forloop.index > 1 %}-2{% endif %}">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eece4f553428ede0febc_stars.svg"
-              loading="lazy"
-              width="138"
-              height="23"
-              alt="stars"
-              class="stars"
-            />
-            <div class="review-box-2">
-              <div class="name-box">
-                <div class="text-6">{{ block.settings.name }}</div>
-                <img
-                  src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eece2047d86831e725a3_Frame.svg"
-                  loading="lazy"
-                  width="24"
-                  height="24"
-                  alt="avatar-icon"
-                  class="left"
-                />
-              </div>
-              <div class="role">
-                <div class="text-7">{{ block.settings.role }}</div>
-              </div>
-              <div class="review">
-                <div class="text-8">"{{ block.settings.message }}"</div>
-              </div>
+  <div class="title-box">
+    <div class="title-style">{{ section.settings.title }}</div>
+  </div>
+  <div class="cate-list">
+    <div class="list-4">
+      {% for block in section.blocks %}
+        <div class="client-box{% if forloop.index > 1 %}-2{% endif %}">
+          <img src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eece4f553428ede0febc_stars.svg" loading="lazy" width="138" height="23" alt="stars" class="stars"/>
+          <div class="review-box-2">
+            <div class="name-box">
+              <div class="text-6">{{ block.settings.name }}</div>
+              <img src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4eece2047d86831e725a3_Frame.svg" loading="lazy" width="24" height="24" alt="avatar-icon" class="left"/>
+            </div>
+            <div class="role">
+              <div class="text-7">{{ block.settings.role }}</div>
+            </div>
+            <div class="review">
+              <div class="text-8">"{{ block.settings.message }}"</div>
             </div>
           </div>
-        {% endfor %}
-      </div>
+        </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
 
+<style>
+  .testimony {
+    overflow: hidden;
+    position: relative;
+  }
   
-  {% schema %}
+  .cate-list {
+    overflow: hidden;
+  }
+  
+  .list-4 {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    will-change: transform; /* Optimize for animation */
+  }
+  
+  .client-box, .client-box-2 {
+    flex: 0 0 auto;
+    width: 300px; /* Adjust based on your design */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const list = document.querySelector('.list-4');
+    const items = document.querySelectorAll('.client-box, .client-box-2');
+    
+    {% if section.settings.autoscroll and section.blocks.size > 1 %}
+      let position = 0;
+      let animationId;
+      let isPaused = false;
+      const gap = 20; // Should match  CSS gap
+      const itemWidth = items[0].offsetWidth + gap;
+      
+      // Convert delay (seconds) to pixels per frame (60fps)
+      // Lower delay = faster speed
+      const pixelsPerSecond = 100; // Base speed (adjust this to change overall speed range)
+      const speed = pixelsPerSecond / ({{ section.settings.delay }} * 60);
+      
+      function animate() {
+        if (isPaused) {
+          animationId = requestAnimationFrame(animate);
+          return;
+        }
+        
+        position -= speed;
+        
+        // When we've scrolled one item's width, move it to the end
+        if (position <= -itemWidth) {
+          position += itemWidth;
+          list.appendChild(list.firstElementChild.cloneNode(true));
+          list.removeChild(list.firstElementChild);
+        }
+        
+        list.style.transform = `translateX(${position}px)`;
+        animationId = requestAnimationFrame(animate);
+      }
+      
+      // Start animation
+      animate();
+      
+      // Pause on hover
+      list.addEventListener('mouseenter', () => {
+        isPaused = true;
+      });
+      
+      list.addEventListener('mouseleave', () => {
+        isPaused = false;
+        if (!animationId) {
+          animate();
+        }
+      });
+      
+      // Clean up on unmount
+      document.addEventListener('shopify:section:unload', () => {
+        cancelAnimationFrame(animationId);
+      });
+    {% endif %}
+  });
+</script>
+  
+{% schema %}
   {
     "name": "Testimony",
     "tag": "section",
     "class": "testimony",
-    "settings": [],
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Our Happy Customers"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoscroll",
+        "label": "Enable autoplay",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "delay",
+        "label": "Scroll delay (seconds)",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "default": 3,
+        "unit": "s"
+      },
+    ],
     "blocks": [
       {
         "type": "testimonial",
