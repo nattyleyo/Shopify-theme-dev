@@ -1,111 +1,122 @@
 <section class="lifestyle-sec">
     <div class="title-style">
-      Level up your lifestyle with the latest tech
+      {{ section.settings.title }}
     </div>
     <div class="life-box">
       <div class="left-content">
         <div class="contents">
           {% for block in section.blocks %}
-            {% render 'collapsable', settings:block.settings %}
+            {% if block.type == "collapse_item" %}
+              {% render 'collapsable', settings:block.settings %}
+            {% endif %}
           {% endfor %}
         </div> 
         <div class="cta-btn-6">
           <div class="label-style-10">Shop the Future Now →</div>
         </div>
       </div>
-      <div class="img-slides">
-        <img
-          src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee7272636f90f6b44aa1_img.png"
-          loading="lazy"
-          width="283.9275207519531"
-          height="538"
-          alt=""
-          class="image-wear"
-        />
-        <div class="buttons">
-          <div class="dot-11">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee4580e384bd84331019_Frame.svg"
-              loading="lazy"
-              width="24"
-              height="24"
-              alt=""
-              class="frame-style-4"
-            />
-          </div>
-          <div class="dot-11">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee45e19d4cb7e62a89de_Frame.svg"
-              loading="lazy"
-              width="24"
-              height="24"
-              alt=""
-              class="frame-style-4"
-            />
-          </div>
-        </div>
-      </div>
+      {% render 'ctm-slideShow' blocks:section.blocks %}
+      
     </div>
   </section>
+
   {% schema %}
-{
-  "name": "Custom-Gallery",
-  "tag": "section",
-  "class": "Custom-Gallery",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Frequently Asked Questions (FAQ)"
-      
-    }
-  ],
-  "blocks": [
-    {
-      "type": "collapse_item",
-      "name": "Collapse Item",
-      "settings": [
-        {
-          "type": "text",
-          "label": "Question",
-          "id": "question",
-          "default": "How can I track my order?"
-        },
-        {
-          "type": "textarea",
-          "label": "Answer",
-          "id": "answer",
-          "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
-        },
-        {
-          "type": "checkbox",
-          "label": "Active by default",
-          "id": "active",
-          "default": false
-        }
-      ]
-      
-    }
-  ],
-  "presets": [
-    {
-      "name": "Collapsable",
-      "category": "Featured",
-      "blocks": [
-        {
-          "type": "collapse_item"
-        },
-        {
-          "type": "collapse_item"
-        },
-        {
-          "type": "collapse_item"
-        }
-      ]
-      
-    }
-  ]
- 
-}
-{% endschema %}
+  {
+    "name": "Custom Gallery",
+    "tag": "section",
+    "class": "custom-gallery",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Level up your lifestyle with the latest tech"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Enable autoplay",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "delay",
+        "label": "Slide delay (seconds)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 5,
+        "unit": "s"
+      },
+      {
+        "type": "select",
+        "id": "transition",
+        "label": "Transition effect",
+        "options": [
+          {
+            "value": "fade",
+            "label": "Fade"
+          },
+          {
+            "value": "slide",
+            "label": "Slide"
+          }
+        ],
+        "default": "fade"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collapse_item",
+        "name": "Collapse Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question",
+            "default": "How can I track my order?"
+          },
+          {
+            "type": "textarea",
+            "id": "answer",
+            "label": "Answer",
+            "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
+          },
+          {
+            "type": "checkbox",
+            "id": "active",
+            "label": "Active by default",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Image",
+          },
+           
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Gallery",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "collapse_item"
+          },
+          {
+            "type": "slide",
+          }
+
+        ]
+      }
+    ]
+  }
+  {% endschema %}

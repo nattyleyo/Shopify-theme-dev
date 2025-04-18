@@ -1,0 +1,91 @@
+<div class="slideShow">
+  <div class="img-slides">
+    {% for block in blocks %}
+      {% if block.type == "slide" %}
+        {% if block.settings.slide_image != blank %}
+          <img
+            src="{{ block.settings.slide_image | image_url: width: 800 }}"
+            loading="lazy"
+            width="auto"
+            height="auto"
+            alt="{{ block.settings.slide_image.alt | escape }}"
+            class="image-wear {% if forloop.first %}active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+          />
+      {% else %}
+        <div class="image-4" style="background: #f5f5f5; height: 500px;"></div>
+      {% endif %}
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="buttons">
+    <div class="dot-11 left-arrow" onclick="prevSlide()">
+      {{ "icon-arrow-left.svg" | asset_url | img_tag: 'Left arrow', "frame-style-4" }}
+    </div>
+    <div class="dot-11 right-arrow" onclick="nextSlide()">
+      {{ "icon-arrow-right.svg" | asset_url | img_tag: 'Right arrow', "frame-style-4" }}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.img-slides .image-wear');
+    if (slides.length <= 1) return; // No need for slideshow with 0 or 1 slide
+    
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    
+    // Initialize first slide
+    slides[currentIndex].classList.add('active');
+    
+    // Transition function with fade effect
+    function transitionSlides(newIndex) {
+      slides[currentIndex].classList.remove('active');
+      slides[newIndex].classList.add('active');
+      currentIndex = newIndex;
+    }
+    
+    // Next slide function
+    window.nextSlide = function() {
+      const newIndex = (currentIndex + 1) % totalSlides;
+      transitionSlides(newIndex);
+    };
+    
+    // Previous slide function
+    window.prevSlide = function() {
+      const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      transitionSlides(newIndex);
+    };
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+  });
+</script>
+
+<style>
+  /* Add this to your existing CSS without changing your classes */
+  .img-slides .image-wear {
+    display: none;
+    transition: opacity 0.5s ease;
+  }
+  
+  .img-slides .image-wear.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Existing button styles remain unchanged */
+  .buttons .dot-11 {
+    cursor: pointer;
+  }
+</style>
