@@ -3111,8 +3111,19 @@ textarea.w-select {
   text-decoration: none;
   display: flex;
 }
-
 .img-slides {
+  display: flex;
+  justify-content: center;
+  height: 500px;
+  padding: 24px;
+}
+.img-slides img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.slideShow {
   grid-row-gap: 24px;
   background-color: #f8f8f8;
   border-radius: 12px;
@@ -3121,7 +3132,7 @@ textarea.w-select {
   align-items: center;
   width: 50%;
   max-width: 565px;
-  height: auto;
+  max-height: 530px;
   padding: 24px 36px;
   text-decoration: none;
   display: flex;
@@ -3568,6 +3579,7 @@ textarea.w-select {
   padding: 16px 32px;
   text-decoration: none;
   display: flex;
+  gap: 12px;
 }
 
 /* .accordon-1:hover {
@@ -3698,7 +3710,15 @@ textarea.w-select {
   position: relative;
   overflow: hidden;
 }
-
+.item-4:hover,
+.item-5:hover {
+  cursor: pointer;
+  background: #f2f2f2;
+}
+.item-4:hover .image-4,
+.item-5:hover .image-4 {
+  transform: scale(1.08) !important;
+}
 .tag-4 {
   grid-row-gap: 16px;
   background-color: #fff;
@@ -3743,6 +3763,7 @@ textarea.w-select {
   display: flex;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .img-bg {
@@ -4501,6 +4522,7 @@ textarea.w-select {
 .image-4 {
   object-fit: contain;
   width: 80%;
+  height: 94%;
   max-width: none;
   margin-left: 10%;
 }
@@ -4716,7 +4738,7 @@ textarea.w-select {
     padding-left: 0;
     padding-right: 0;
   }
-  .img-slides {
+  .slideShow {
     width: 100%;
     max-width: none;
   }
@@ -5050,7 +5072,6 @@ textarea.w-select {
   }
   .product-img {
     width: 70%;
-    margin-left: 15%;
   }
   .content-box {
     width: 100%;
