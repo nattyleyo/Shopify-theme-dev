@@ -5,70 +5,10 @@
     <div class="life-box">
       <div class="left-content">
         <div class="contents">
-          <div class="frame-135">
-            <div class="accordon">
-              <div class="accordon-label">Next-Gen Innovation</div>
-              <div class="icon-close">
-                <img
-                  src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee726bb73c6c43a83b19_Vector.svg"
-                  loading="lazy"
-                  alt=""
-                  height="Auto"
-                  class="icon-x"
-                />
-              </div>
-            </div>
-            <div class="item-3">
-              <div class="title-style-12">
-                From AI-driven smart wear to cutting-edge wearables,
-                experience the technology redefining daily life.
-              </div>
-            </div>
-          </div>
-          <div class="accordon-2">
-            <div class="accordon-label">Designed for Performance</div>
-            <div class="frame-style-3">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee728b743aa3456b2b17_Vector.svg"
-                loading="lazy"
-                width="Auto"
-                height="Auto"
-                alt=""
-                class="icon-x"
-              />
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div class="accordon-2">
-            <div class="accordon-label">Tech Meets Sustainability</div>
-            <div class="frame-style-3">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee728b743aa3456b2b17_Vector.svg"
-                loading="lazy"
-                width="14"
-                height="13.999999046325684"
-                alt=""
-                class="icon-x"
-              />
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div class="accordon-2">
-            <div class="accordon-label">
-              How can I contact customer support?
-            </div>
-            <div class="frame-style-3">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee728b743aa3456b2b17_Vector.svg"
-                loading="lazy"
-                width="14"
-                height="13.999999046325684"
-                alt=""
-                class="icon-x"
-              />
-            </div>
-          </div>
-        </div>
+          {% for block in section.blocks %}
+            {% render 'collapsable', settings:block.settings %}
+          {% endfor %}
+        </div> 
         <div class="cta-btn-6">
           <div class="label-style-10">Shop the Future Now →</div>
         </div>
@@ -113,13 +53,59 @@
   "tag": "section",
   "class": "Custom-Gallery",
   "settings": [
-   
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions (FAQ)"
+      
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collapse_item",
+      "name": "Collapse Item",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Question",
+          "id": "question",
+          "default": "How can I track my order?"
+        },
+        {
+          "type": "textarea",
+          "label": "Answer",
+          "id": "answer",
+          "default": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life."
+        },
+        {
+          "type": "checkbox",
+          "label": "Active by default",
+          "id": "active",
+          "default": false
+        }
+      ]
+      
+    }
   ],
   "presets": [
     {
-      "name": "Custom-Gallery",
-      "category": "Custom"
+      "name": "Collapsable",
+      "category": "Featured",
+      "blocks": [
+        {
+          "type": "collapse_item"
+        },
+        {
+          "type": "collapse_item"
+        },
+        {
+          "type": "collapse_item"
+        }
+      ]
+      
     }
   ]
+ 
 }
 {% endschema %}

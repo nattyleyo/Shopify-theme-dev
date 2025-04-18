@@ -1,0 +1,20 @@
+
+
+<div class="active-accordon" data-accordion data-accordion-id="accordion-{{ forloop.index }}">
+    <div class="acc {% if settings.active %}accordon-1{% else %}accordon-2{% endif %}" data-accordion-header>
+      <div class="accordon-label">{{ settings.question }}</div>
+      <div class="icon-close" style="background: {% if settings.active %}var(--neutral-1){% else %}var(--secondary-2){% endif %};">
+        <span class="icon-x" style="display: {% if settings.active %}flex{% else %}none{% endif %};" >
+          {{ 'icon-x.svg' | asset_url | img_tag: 'Close icon' }}
+        </span>
+        <span class="icon-plus" style="display: {% if settings.active %}none{% else %}block{% endif %};">
+          {{ 'icon-plus.svg' | asset_url | img_tag: 'Plus icon' }}
+        </span>
+      </div>
+    </div>
+    <div class="acc-body" style="display: {% if settings.active %}flex{% else %}none{% endif %};" data-accordion-body>
+      <div class="title-style-12">
+        {{ settings.answer }}
+      </div>
+    </div>
+  </div>
