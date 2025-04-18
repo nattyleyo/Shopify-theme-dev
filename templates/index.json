@@ -91,7 +91,66 @@
     },
     "ctm_lifestyle_sec_7PJfzt": {
       "type": "ctm-lifestyle-sec",
-      "settings": {}
+      "blocks": {
+        "collapse_item_eWQ3aH": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "Next-Gen Innovation",
+            "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
+            "active": true
+          }
+        },
+        "collapse_item_hM4pWW": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "Designed for Performance",
+            "answer": "Engineered with precision and built for speed, every feature is optimized to deliver seamless performance in any environment.",
+            "active": false
+          }
+        },
+        "collapse_item_UyUN6J": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "Tech Meets Sustainability",
+            "answer": "Harnessing innovation with a conscience—our devices combine advanced technology with eco-friendly materials for a smarter, greener future.",
+            "active": false
+          }
+        },
+        "collapse_item_8nrkVw": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "How can I contact customer support?",
+            "answer": "Need help? Our dedicated support team is just a click away—available 24/7 to assist you through live chat, email, or phone.",
+            "active": false
+          }
+        },
+        "slide_AqjyWH": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/611G_F_loBL._AC_SX466_-Photoroom.png"
+          }
+        },
+        "slide_xkGdVp": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/71a-ndyECJL._AC_SX466_-Photoroom.png"
+          }
+        }
+      },
+      "block_order": [
+        "collapse_item_eWQ3aH",
+        "collapse_item_hM4pWW",
+        "collapse_item_UyUN6J",
+        "collapse_item_8nrkVw",
+        "slide_AqjyWH",
+        "slide_xkGdVp"
+      ],
+      "settings": {
+        "title": "Level up your lifestyle with the latest tech",
+        "autoplay": true,
+        "delay": 5,
+        "transition": "fade"
+      }
     },
     "ctm_collections_M9CVdg": {
       "type": "ctm-collections",
@@ -117,7 +176,6 @@
         "collection_row_dQUMzc",
         "collection_row_jtVx4d"
       ],
-      "name": "Collections",
       "settings": {
         "title": "Explore Our Curated Collections"
       }
@@ -125,32 +183,32 @@
     "ctm_faq_FnXKHM": {
       "type": "ctm-faq",
       "blocks": {
-        "faq_item_Rg8DWc": {
-          "type": "faq_item",
+        "collapse_item_mg7W9Q": {
+          "type": "collapse_item",
           "settings": {
             "question": "How can I track my order?",
             "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
-            "active": false
+            "active": true
           }
         },
-        "faq_item_ETQfG9": {
-          "type": "faq_item",
+        "collapse_item_nCEnJh": {
+          "type": "collapse_item",
           "settings": {
             "question": "What payment methods do you accept?",
             "answer": "We accept all major credit and debit cards, PayPal, and other secure payment options for your convenience.",
             "active": false
           }
         },
-        "faq_item_QtAzD6": {
-          "type": "faq_item",
+        "collapse_item_mg4x64": {
+          "type": "collapse_item",
           "settings": {
             "question": "How do I return or exchange an item?",
             "answer": "You can easily return or exchange items within our return window. Just follow the steps on our Returns & Exchanges page.",
             "active": false
           }
         },
-        "faq_item_xBf38U": {
-          "type": "faq_item",
+        "collapse_item_V9ywNj": {
+          "type": "collapse_item",
           "settings": {
             "question": "How can I contact customer support?",
             "answer": "Our support team is here to help! Reach out via email, live chat, or our contact form—we’ll get back to you as soon as possible.",
@@ -159,12 +217,11 @@
         }
       },
       "block_order": [
-        "faq_item_Rg8DWc",
-        "faq_item_ETQfG9",
-        "faq_item_QtAzD6",
-        "faq_item_xBf38U"
+        "collapse_item_mg7W9Q",
+        "collapse_item_nCEnJh",
+        "collapse_item_mg4x64",
+        "collapse_item_V9ywNj"
       ],
-      "name": "FAQ",
       "settings": {
         "title": "Frequently Asked Questions (FAQ)"
       }
