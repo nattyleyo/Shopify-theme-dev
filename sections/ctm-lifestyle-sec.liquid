@@ -15,7 +15,7 @@
           <div class="label-style-10">Shop the Future Now →</div>
         </div>
       </div>
-      {% render 'ctm-slideShow' blocks:section.blocks %}
+      {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks %}
       
     </div>
   </section>
@@ -43,9 +43,9 @@
         "id": "delay",
         "label": "Slide delay (seconds)",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1,
-        "default": 5,
+        "default": 3,
         "unit": "s"
       },
       {

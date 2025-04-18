@@ -1,4 +1,4 @@
-<div class="slideShow">
+<div class="slideShow" data-autoplay="{{ settings.autoplay }}" data-delay="{{ settings.delay | times : 1000 }}">
   <div class="img-slides">
     {% for block in blocks %}
       {% if block.type == "slide" %}
@@ -31,32 +31,35 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    const slideshow = document.querySelector('.slideShow');
     const slides = document.querySelectorAll('.img-slides .image-wear');
-    if (slides.length <= 1) return; // No need for slideshow with 0 or 1 slide
+    if (slides.length <= 1) return;
     
     let currentIndex = 0;
     const totalSlides = slides.length;
+    const autoplay = slideshow.dataset.autoplay === 'true';
+    const delay = parseInt(slideshow.dataset.delay) || 5000;
+    let autoplayInterval;
     
     // Initialize first slide
     slides[currentIndex].classList.add('active');
     
-    // Transition function with fade effect
     function transitionSlides(newIndex) {
       slides[currentIndex].classList.remove('active');
       slides[newIndex].classList.add('active');
       currentIndex = newIndex;
     }
     
-    // Next slide function
     window.nextSlide = function() {
       const newIndex = (currentIndex + 1) % totalSlides;
       transitionSlides(newIndex);
+      resetAutoplay();
     };
     
-    // Previous slide function
     window.prevSlide = function() {
       const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       transitionSlides(newIndex);
+      resetAutoplay();
     };
     
     // Keyboard navigation
@@ -64,6 +67,29 @@
       if (e.key === 'ArrowLeft') prevSlide();
       if (e.key === 'ArrowRight') nextSlide();
     });
+    
+    // Autoplay functionality
+    function startAutoplay() {
+      if (autoplay) {
+        autoplayInterval = setInterval(nextSlide, delay);
+      }
+    }
+    
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+    
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+    
+    // Initialize autoplay
+    startAutoplay();
+    
+    // Pause on hover
+    slideshow.addEventListener('mouseenter', stopAutoplay);
+    slideshow.addEventListener('mouseleave', startAutoplay);
   });
 </script>
 
