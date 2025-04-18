@@ -3818,12 +3818,14 @@ textarea.w-select {
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  padding: 120px 8%;
+  padding: 120px 0px;
   text-decoration: none;
   display: flex;
   overflow: hidden;
 }
-
+.test-title {
+  padding: 0px 8%;
+}
 .title-box {
   justify-content: center;
   align-items: center;
@@ -4698,6 +4700,9 @@ textarea.w-select {
   .text {
     font-size: 20px;
   }
+  .test-title {
+    padding: 0px 6%;
+  }
   .title-style-3 {
     font-size: 32px;
   }
@@ -5039,6 +5044,9 @@ textarea.w-select {
 }
 
 @media screen and (max-width: 479px) {
+  .test-title {
+    padding: 0px 20px;
+  }
   .slide-2 {
     padding-left: 12px;
     padding-right: 12px;
