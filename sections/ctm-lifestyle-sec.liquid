@@ -7,7 +7,7 @@
         <div class="contents">
           {% for block in section.blocks %}
             {% if block.type == "collapse_item" %}
-              {% render 'collapsable', settings:block.settings %}
+              {% render 'ctm-collapsable', settings:block.settings %}
             {% endif %}
           {% endfor %}
         </div> 
@@ -15,7 +15,7 @@
           <div class="label-style-10">Shop the Future Now →</div>
         </div>
       </div>
-      {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks %}
+      {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks ,slideShowId:"slide-show-lifestyle"%}
       
     </div>
 

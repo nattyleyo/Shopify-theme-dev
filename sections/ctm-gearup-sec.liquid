@@ -1,270 +1,106 @@
+{% assign collection = collections[section.settings.collection] %}
 
-    <div class="title-style">Don&#x27;t Miss Out Gear Up Now!</div>
-    <div class="gear-box">
-      <div class="img-slides">
-        <div class="buttons">
-          <div class="dot-6">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee4580e384bd84331019_Frame.svg"
-              loading="lazy"
-              width="24"
-              height="24"
-              alt=""
-              class="frame-style"
-            />
-          </div>
-          <div class="dot-6">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee45e19d4cb7e62a89de_Frame.svg"
-              loading="lazy"
-              width="24"
-              height="24"
-              alt=""
-              class="frame-style"
-            />
-          </div>
-        </div>
-        <img
-          src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee11213f3f8e60ddb8da_41XWCbvwy1L._AC_-Photoroom-1.png"
-          loading="lazy"
-          width="380"
-          height="380"
-          alt=""
-          class="img-active"
-        />
-      </div>
+  <div class="title-style">{{ section.settings.title }}</div>
+  <div class="gear-box">
+    {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks, slideShowId:"slide-show-gear" %}
+    {% if collection != blank %}
       <div class="cart-lists">
         <div class="list-3">
-          <div class="cart-itm">
-            <div class="no">
-              <div class="label-style-9">1</div>
-            </div>
-            <div class="img-b">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee113f375a6f0e0d53e5_51aCbrU88ZL._AC_SL1500_-Photoroom-1.png"
-                loading="lazy"
-                width="100"
-                height="100"
-                alt=""
-                class="img-style"
-              />
-            </div>
-            <div class="content-box">
-              <div class="title-item">Smart HUD Glasses</div>
-              <div class="color-box">
-                <div class="title-style-5">Color</div>
-                <div class="frame-144">
-                  <div class="frame-158">
-                    <div class="dot-2"></div>
-                  </div>
-                  <div class="dot-3"></div>
-                  <div class="dot-5"></div>
-                </div>
+          {% for product in collection.products limit: section.settings.products_limit %}
+            <div class="cart-itm">
+              <div class="no">
+                <div class="label-style-9">{{ forloop.index }}</div>
               </div>
-            </div>
-            <div class="price-2">
-              <div class="prices">$120</div>
-              <div class="input-div">
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="input">
-                  <div class="text-4">0</div>
-                </div>
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall-2 w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998H5v-2h14z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
+              <div class="img-b">
+                <img
+                  src="{{ product.featured_image | img_url: '200x200' }}"
+                  loading="lazy"
+                  width="auto"
+                  height="auto"
+                  alt=""
+                  class="img-style"
+                />
               </div>
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div class="cart-itm">
-            <div class="no">
-              <div class="label-style-9">2</div>
-            </div>
-            <div class="img-b">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee113f375a6f0e0d53e5_51aCbrU88ZL._AC_SL1500_-Photoroom-1.png"
-                loading="lazy"
-                width="100"
-                height="100"
-                alt=""
-                class="img-style"
-              />
-            </div>
-            <div class="content-box">
-              <div class="title-item">Noise-Canceling Earbuds</div>
-              <div class="color-box">
-                <div class="title-style-5">Color</div>
-                <div class="frame-144">
-                  <div class="frame-158">
-                    <div class="dot-2"></div>
+              <div class="content-box">
+                <div class="title-item">{{ product.title | truncate:20 }}</div>
+                <div class="color-box">
+                  <div class="title-style-5">Color</div>
+                  <div class="frame-144">
+                    {% assign color_option_index = 0 %}
+                    {% for option in product.options_with_values %}
+                      {% if option.name == 'Color' %}
+                        {% assign color_option_index = forloop.index0 %}
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% assign colors_displayed = '' %}
+                    
+                    {% for variant in product.variants %}
+                      {% assign color = variant.options[color_option_index] %}
+                      
+                      {% unless colors_displayed contains color %}
+                        {% assign colors_displayed = colors_displayed | append: color | append: ',' %}
+                        <div class="dot-3 color-dot" title="{{ color }}" style="background: {{ color }}; width:16px !important;height:16px !important;border-radius:100%"></div>
+                      {% endunless %}
+                    {% endfor %}
                   </div>
-                  <div class="dot-3"></div>
-                  <div class="dot-5"></div>
                 </div>
+                
               </div>
-            </div>
-            <div class="price-2">
-              <div class="prices">$120</div>
-              <div class="input-div">
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-                      ></path>
-                    </svg>
+              <div class="price-2">
+                <div class="prices">{{ product.price | money }}</div>
+                <div class="input-div">
+                  <div class="add-sub">
+                    <div class="icon-embed-xxsmall w-embed">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true"
+                        role="img"
+                        class="iconify iconify--ic"
+                        width="100%"
+                        height="100%"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
+                        ></path>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div class="input">
-                  <div class="text-4">0</div>
-                </div>
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall-2 w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998H5v-2h14z"
-                      ></path>
-                    </svg>
+                  <div class="input">
+                    <div class="text-4">0</div>
+                  </div>
+                  <div class="add-sub">
+                    <div class="icon-embed-xxsmall-2 w-embed">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true"
+                        role="img"
+                        class="iconify iconify--ic"
+                        width="100%"
+                        height="100%"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 12.998H5v-2h14z"
+                        ></path>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="divider"></div>
-          <div class="cart-itm">
-            <div class="no">
-              <div class="label-style-9">3</div>
-            </div>
-            <div class="img-b">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee1180e384bd84330760_71a-ndyECJL._AC_SX466_-Photoroom-1.png"
-                loading="lazy"
-                width="100"
-                height="100"
-                alt=""
-                class="img-style"
-              />
-            </div>
-            <div class="content-box">
-              <div class="title-item">Heated LED Jacket</div>
-              <div class="color-box">
-                <div class="title-style-5">Color</div>
-                <div class="frame-144">
-                  <div class="frame-158">
-                    <div class="dot-2"></div>
-                  </div>
-                  <div class="dot-3"></div>
-                  <div class="dot-5"></div>
-                </div>
-              </div>
-            </div>
-            <div class="price-2">
-              <div class="prices">$120</div>
-              <div class="input-div">
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="input">
-                  <div class="text-4">0</div>
-                </div>
-                <div class="add-sub">
-                  <div class="icon-embed-xxsmall-2 w-embed">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      class="iconify iconify--ic"
-                      width="100%"
-                      height="100%"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19 12.998H5v-2h14z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <div class="divider"></div>
+          {% endfor %}
+          
+          
+          
         </div>
         <div class="cta-box">
           <div class="cart-btn">
@@ -280,19 +116,71 @@
           </div>
         </div>
       </div>
-    </div>
-  {% schema %}
+    {% else %}
+      <div class="empty-state" style="width:50%;height:300px;display:flex;justify-content:center;align-items:center; padding:24px; font-size:26px">No Collection Selected</div>
+    {% endif %}
+    
+  </div>
+
+{% schema %}
 {
   "name": "GearUp",
   "tag": "section",
   "class": "gearup-sec GearUp",
   "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Don&#x27;t Miss Out Gear Up Now!"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Slide delay (seconds)",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
+      "unit": "s"
+    },
    
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+        "type": "image_picker",
+        "id": "slide_image",
+        "label": "Image",
+        },
+      ]
+    }
   ],
   "presets": [
     {
       "name": "GearUp",
-      "category": "Custom"
+      "category": "Custom",
+      "blocks": [
+          {
+            "type": "slide",
+          }
+
+        ]
     }
   ]
 }

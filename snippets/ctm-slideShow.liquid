@@ -1,4 +1,5 @@
-<div class="slideShow" data-autoplay="{{ settings.autoplay }}" data-delay="{{ settings.delay | times : 1000 }}">
+<div class="slideShow" data-autoplay="{{ settings.autoplay }}" data-delay="{{ settings.delay | times : 1000 }}" 
+  data-slideshow-id="{{ slideShowId }}">
   <div class="img-slides">
     {% for block in blocks %}
       {% if block.type == "slide" %}
@@ -31,67 +32,87 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const slideshow = document.querySelector('.slideShow');
-    const slides = document.querySelectorAll('.img-slides .image-wear');
-    if (slides.length <= 1) return;
-    
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    const autoplay = slideshow.dataset.autoplay === 'true';
-    const delay = parseInt(slideshow.dataset.delay) || 5000;
-    let autoplayInterval;
-    
-    // Initialize first slide
-    slides[currentIndex].classList.add('active');
-    
-    function transitionSlides(newIndex) {
-      slides[currentIndex].classList.remove('active');
-      slides[newIndex].classList.add('active');
-      currentIndex = newIndex;
-    }
-    
-    window.nextSlide = function() {
-      const newIndex = (currentIndex + 1) % totalSlides;
-      transitionSlides(newIndex);
-      resetAutoplay();
-    };
-    
-    window.prevSlide = function() {
-      const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-      transitionSlides(newIndex);
-      resetAutoplay();
-    };
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+    // Initialize each slideshow separately
+    document.querySelectorAll('.slideShow[data-slideshow-id]').forEach(slideshow => {
+      const slideShowId = slideshow.dataset.slideshowId;
+      const slides = slideshow.querySelectorAll('.img-slides .image-wear');
+      
+      if (slides.length <= 1) return;
+      
+      console.log(`Initializing slideshow: ${slideShowId} with ${slides.length} slides`);
+      
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      const autoplay = slideshow.dataset.autoplay === 'true';
+      const normalDelay = parseInt(slideshow.dataset.delay) || 5000;
+      const loopDelay = 1000;
+      let autoplayInterval;
+      
+      // Initialize first slide
+      slides[currentIndex].classList.add('active');
+      
+      function transitionSlides(newIndex) {
+        slides[currentIndex].classList.remove('active');
+        slides[newIndex].classList.add('active');
+        currentIndex = newIndex;
+      }
+      
+      // Create unique function names for this slideshow
+      const nextSlideFn = `nextSlide_${slideShowId}`;
+      const prevSlideFn = `prevSlide_${slideShowId}`;
+      
+      window[nextSlideFn] = function() {
+        const newIndex = (currentIndex + 1) % totalSlides;
+        transitionSlides(newIndex);
+        resetAutoplay(newIndex);
+      };
+      
+      window[prevSlideFn] = function() {
+        const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        transitionSlides(newIndex);
+        resetAutoplay(newIndex);
+      };
+      
+      // Update button click handlers
+      slideshow.querySelector('.left-arrow').onclick = window[prevSlideFn];
+      slideshow.querySelector('.right-arrow').onclick = window[nextSlideFn];
+      
+      // Autoplay functionality
+      function startAutoplay(delay) {
+        if (autoplay) {
+          autoplayInterval = setInterval(window[nextSlideFn], delay);
+        }
+      }
+      
+      function stopAutoplay() {
+        clearInterval(autoplayInterval);
+      }
+      
+      function resetAutoplay(newIndex) {
+        stopAutoplay();
+        const isLooping = newIndex === 0;
+        startAutoplay(isLooping ? loopDelay : normalDelay);
+      }
+      
+      // Initialize autoplay
+      startAutoplay(normalDelay);
+      
+      // Pause on hover
+      slideshow.addEventListener('mouseenter', stopAutoplay);
+      slideshow.addEventListener('mouseleave', () => startAutoplay(normalDelay));
     });
     
-    // Autoplay functionality
-    function startAutoplay() {
-      if (autoplay) {
-        autoplayInterval = setInterval(nextSlide, delay);
-      }
-    }
-    
-    function stopAutoplay() {
-      clearInterval(autoplayInterval);
-    }
-    
-    function resetAutoplay() {
-      stopAutoplay();
-      startAutoplay();
-    }
-    
-    // Initialize autoplay
-    startAutoplay();
-    
-    // Pause on hover
-    slideshow.addEventListener('mouseenter', stopAutoplay);
-    slideshow.addEventListener('mouseleave', startAutoplay);
+    // Optional: Global keyboard navigation for active slideshow
+    document.addEventListener('keydown', function(e) {
+      const activeSlideshow = document.querySelector('.slideShow:hover');
+      if (!activeSlideshow) return;
+      
+      const slideShowId = activeSlideshow.dataset.slideshowId;
+      if (e.key === 'ArrowLeft') window[`prevSlide_${slideShowId}`]();
+      if (e.key === 'ArrowRight') window[`nextSlide_${slideShowId}`]();
+    });
   });
-</script>
+  </script>
 
 <style>
   /* Add this to your existing CSS without changing your classes */
