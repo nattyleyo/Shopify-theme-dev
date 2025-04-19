@@ -66,8 +66,8 @@
                       />
                     </div>
                     <div class="content-box">
-                      <a href="{{ item.url }}" class="title-item title-carts">{{ item.title }}</a>
-                      <div class="title-item price-carts">{{ item.unit_price  | money_without_trailing_zeros }}</div>
+                      <a href="{{ item.product.url }}" class="title-item title-carts">{{ item.title }}</a>
+                      <div class="title-item price-carts">{{ item.original_price  | money_without_trailing_zeros }}</div>
                       <div class="color-box">
                         <div class="title-style-5">Color</div>
                         <div class="frame-144">          

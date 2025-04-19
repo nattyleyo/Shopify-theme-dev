@@ -4930,16 +4930,16 @@ textarea.w-select {
     padding: 12px !important;
   }
   .input {
-    padding: 6px 28px;
+    padding: 10px 28px;
   }
   .add-sub {
-    top: 2px;
-    right: 2px;
+    top: 5px;
+    right: 5px;
     padding: 2px;
   }
   .subtract {
     right: auto;
-    left: 2px;
+    left: 5px;
   }
   .cart-col1 {
     align-items: flex-start;
