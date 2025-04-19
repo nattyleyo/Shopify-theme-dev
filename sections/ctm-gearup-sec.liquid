@@ -1,13 +1,13 @@
 {% assign collection = collections[section.settings.collection] %}
 
   <div class="title-style">{{ section.settings.title }}</div>
-  <div class="gear-box">
+  <div class="gear-box" >
     {% render 'ctm-slideShow' settings:section.settings, blocks:section.blocks, slideShowId:"slide-show-gear" %}
     {% if collection != blank %}
       <div class="cart-lists">
         <div class="list-3">
           {% for product in collection.products limit: section.settings.products_limit %}
-            <div class="cart-itm">
+            <div class="cart-itm" data-product-id="{{ product.selected_or_first_available_variant.id }}">
               <div class="no">
                 <div class="label-style-9">{{ forloop.index }}</div>
               </div>
@@ -50,6 +50,28 @@
               <div class="price-2">
                 <div class="prices">{{ product.price | money }}</div>
                 <div class="input-div">
+                  
+                  <div class="add-sub subtract">
+                    <div class="icon-embed-xxsmall-2 w-embed">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true"
+                        role="img"
+                        class="iconify iconify--ic"
+                        width="100%"
+                        height="100%"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 12.998H5v-2h14z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <input type="number" placeholder="1" class="input input-item" data-maxitem="{{ section.settings.maxItem }}"/>
                   <div class="add-sub">
                     <div class="icon-embed-xxsmall w-embed">
                       <svg
@@ -66,29 +88,6 @@
                         <path
                           fill="currentColor"
                           d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="input">
-                    <div class="text-4">0</div>
-                  </div>
-                  <div class="add-sub">
-                    <div class="icon-embed-xxsmall-2 w-embed">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true"
-                        role="img"
-                        class="iconify iconify--ic"
-                        width="100%"
-                        height="100%"
-                        preserveAspectRatio="xMidYMid meet"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M19 12.998H5v-2h14z"
                         ></path>
                       </svg>
                     </div>
@@ -121,6 +120,164 @@
     {% endif %}
     
   </div>
+  <style>
+    /* Hide number input spinners */
+    .input-item::-webkit-outer-spin-button,
+    .input-item::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    .input-item[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Quantity input functionality
+      document.querySelectorAll('.input-item').forEach(function(input) {
+        const container = input.closest('.input-div');
+        const addBtn = container.querySelector('.add-sub:not(.subtract)');
+        const subtractBtn = container.querySelector('.add-sub.subtract');
+        const maxItem = parseInt(input.dataset.maxitem) || 20; // Fallback to 20 if not set
+        
+        // Set initial value to 1 if empty
+        if (!input.value || input.value < 1) input.value = 1;
+        
+        // Add button click handler
+        addBtn.addEventListener('click', function() {
+          let value = parseInt(input.value) || 0;
+          if (value < maxItem) {
+            input.value = value + 1;
+          }
+        });
+        
+        // Subtract button click handler
+        subtractBtn.addEventListener('click', function() {
+          let value = parseInt(input.value) || 0;
+          if (value > 1) {
+            input.value = value - 1;
+          }
+        });
+        
+        // Input validation
+        input.addEventListener('input', function(e) {
+          // Allow empty value during editing
+          if (e.target.value === '') return;
+          
+          let value = parseInt(e.target.value);
+          
+          if (isNaN(value)) {
+            e.target.value = 1;
+          } else if (value < 1) {
+            e.target.value = 1;
+          } else if (value > maxItem) {
+            e.target.value = maxItem;
+          }
+        });
+        
+        // Handle blur to ensure valid value when leaving field
+        input.addEventListener('blur', function(e) {
+          if (e.target.value === '' || e.target.value < 1) {
+            e.target.value = 1;
+          }
+        });
+        
+        // Prevent non-numeric input
+        input.addEventListener('keydown', function(e) {
+          // Allow: backspace, delete, tab, escape, enter
+          if ([46, 8, 9, 27, 13].includes(e.keyCode) || 
+              // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+              (e.keyCode === 65 && e.ctrlKey === true) || 
+              (e.keyCode === 67 && e.ctrlKey === true) || 
+              (e.keyCode === 86 && e.ctrlKey === true) || 
+              (e.keyCode === 88 && e.ctrlKey === true) ||
+              // Allow: home, end, left, right
+              (e.keyCode >= 35 && e.keyCode <= 39)) {
+            return;
+          }
+          
+          // Ensure it's a number and stop the keypress if not
+          if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+          }
+        });
+      });
+
+    // Add All To Cart functionality
+  document.querySelector('.cart-btn').addEventListener('click', async function() {
+    const productItems = document.querySelectorAll('.cart-itm');
+    const items = [];
+    const btn = this;
+    
+    // Show loading state
+    btn.classList.add('loading');
+    btn.disabled = true;
+    btn.querySelector('.text-5').textContent = 'Adding...';
+    
+    // Gather all products and quantities
+    productItems.forEach(item => {
+      const productId = item.dataset.productId;
+      const quantity = parseInt(item.querySelector('.input-item').value) || 1;
+      items.push({ id: productId, quantity });
+    });
+
+    try {
+      // Add items sequentially
+      for (const item of items) {
+        await addToCart(item.id, item.quantity);
+      }
+      
+      // Success - redirect to cart
+      window.location.href = '/cart';
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Error adding items to cart. Please try again.');
+    } finally {
+      // Reset button state
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      btn.querySelector('.text-5').textContent = 'Add All To Cart';
+    }
+  });
+
+  // Helper function to add single item to cart
+  function addToCart(variantId, quantity) {
+    return fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: quantity
+      })
+    }).then(response => {
+      if (!response.ok) throw new Error('Failed to add to cart');
+      return response.json();
+    });
+  }
+});
+</script>
+
+<style>
+  /* Add loading state styles */
+  .cart-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .cart-btn.loading .frame-style {
+    animation: spin 0.5s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
 
 {% schema %}
 {
@@ -139,6 +296,15 @@
       "id": "title",
       "label": "Title",
       "default": "Don&#x27;t Miss Out Gear Up Now!"
+    },
+    {
+      "type": "range",
+      "id": "maxItem",
+      "label": "Max Item",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
     },
     {
       "type": "checkbox",
