@@ -3188,6 +3188,7 @@ textarea.w-select {
   padding: 12px 24px;
   text-decoration: none;
   display: flex;
+  justify-content: space-between;
 }
 
 .no {
@@ -3356,7 +3357,17 @@ textarea.w-select {
   position: relative;
   z-index: 1;
 }
+.cart-col1 {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
 
+.img-carts img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
 .add-sub {
   position: absolute;
   top: 6px;
@@ -4527,7 +4538,9 @@ textarea.w-select {
   width: 80%;
   max-width: none;
 }
-
+.price-carts {
+  font-size: 16px;
+}
 .img-b {
   background-color: var(--secondary-2);
   border-radius: 24px;
@@ -4559,6 +4572,20 @@ textarea.w-select {
   height: 94%;
   max-width: none;
   margin-left: 10%;
+}
+.price-2 {
+  width: 140px;
+}
+/* Hide number input spinners */
+.input-item::-webkit-outer-spin-button,
+.input-item::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-item[type="number"] {
+  -moz-appearance: textfield;
 }
 
 @media screen and (min-width: 1280px) {
@@ -4688,6 +4715,13 @@ textarea.w-select {
   }
 }
 @media screen and (max-width: 991px) {
+  .img-carts {
+    padding: 16px !important;
+  }
+  .img-carts img {
+    width: 80px;
+    height: 80px;
+  }
   .hero {
     padding-left: 6%;
     padding-right: 6%;
@@ -4891,6 +4925,32 @@ textarea.w-select {
 }
 
 @media screen and (max-width: 767px) {
+  .img-carts {
+    width: auto !important;
+    padding: 12px !important;
+  }
+  .input {
+    padding: 6px 28px;
+  }
+  .add-sub {
+    top: 2px;
+    right: 2px;
+    padding: 2px;
+  }
+  .subtract {
+    right: auto;
+    left: 2px;
+  }
+  .cart-col1 {
+    align-items: flex-start;
+  }
+  .title-carts {
+    font-size: 18px;
+  }
+  .img-carts img {
+    width: 72px;
+    height: 72px;
+  }
   .hero {
     padding-left: 20px;
     padding-right: 20px;
@@ -5076,6 +5136,12 @@ textarea.w-select {
 }
 
 @media screen and (max-width: 479px) {
+  .title-carts {
+    font-size: 16px;
+  }
+  .price-carts {
+    font-size: 14px;
+  }
   .test-title {
     padding: 0px 20px;
   }

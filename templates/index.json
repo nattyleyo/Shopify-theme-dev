@@ -34,7 +34,38 @@
     },
     "ctm_gearup_sec_Vh76eV": {
       "type": "ctm-gearup-sec",
-      "settings": {}
+      "blocks": {
+        "slide_PrTQtK": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/41XWCbvwy1L._AC_-Photoroom.png"
+          }
+        },
+        "slide_gAcFAy": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/51aCbrU88ZL._AC_SL1500_-Photoroom.png"
+          }
+        },
+        "slide_T9TTNj": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/audo-Photoroom.png"
+          }
+        }
+      },
+      "block_order": [
+        "slide_PrTQtK",
+        "slide_gAcFAy",
+        "slide_T9TTNj"
+      ],
+      "settings": {
+        "collection": "top-selling",
+        "title": "Don't Miss Out Gear Up Now!",
+        "maxItem": 3,
+        "autoplay": true,
+        "delay": 3
+      }
     },
     "ctm_testmoney_Yj9Ty6": {
       "type": "ctm-testmoney",
@@ -87,7 +118,11 @@
         "testimonial_KNFmx7",
         "testimonial_bTk8KM"
       ],
-      "settings": {}
+      "settings": {
+        "title": "Our Happy Customers",
+        "autoscroll": true,
+        "delay": 3
+      }
     },
     "ctm_lifestyle_sec_7PJfzt": {
       "type": "ctm-lifestyle-sec",
