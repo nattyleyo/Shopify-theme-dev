@@ -28,7 +28,7 @@
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
     <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
+      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}hhh</h1>
       <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
         {{- 'general.continue_shopping' | t -}}
       </a>
@@ -52,7 +52,157 @@
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
         <div class="js-contents">
           {%- if cart != empty -%}
-            <table class="cart-items">
+            {%- for item in cart.items -%}
+              <div class="cart-itm" data-product-id="{{ item.selected_or_first_available_variant.id }}">
+                <div class="no">
+                  <div class="label-style-9">{{ forloop.index }}</div>
+                </div>
+                <div class="img-b">
+                  <img
+                    src="{{ item.image | img_url: '200x200' }}"
+                    loading="lazy"
+                    width="auto"
+                    height="auto"
+                    alt=""
+                    class="img-style"
+                  />
+                </div>
+                <div class="content-box">
+                  <div class="title-item">{{ item.product.title }}</div>
+                  <div class="color-box">
+                    <div class="title-style-5">Color</div>
+                    <div class="frame-144">
+                      {% assign color_option_index = 0 %}
+                      {% for option in item.options_with_values %}
+                        {% if option.name == 'Color' %}
+                          {% assign color_option_index = forloop.index0 %}
+                        {% endif %}
+                      {% endfor %}
+                      
+                      {% assign colors_displayed = '' %}
+                      
+                      {% for variant in product.variants %}
+                        {% assign color = variant.options[color_option_index] %}
+                        
+                        {% unless colors_displayed contains color %}
+                          {% assign colors_displayed = colors_displayed | append: color | append: ',' %}
+                          <div class="dot-3 color-dot" title="{{ color }}" style="background: {{ color }}; width:16px !important;height:16px !important;border-radius:100%"></div>
+                        {% endunless %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="price-2">
+                  <div class="prices">{{ item.price | money }}</div>
+                  <div class="input-div">
+                    
+                    <div class="add-sub subtract">
+                      <div class="icon-embed-xxsmall-2 w-embed">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          aria-hidden="true"
+                          role="img"
+                          class="iconify iconify--ic"
+                          width="100%"
+                          height="100%"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M19 12.998H5v-2h14z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                    <input type="number" placeholder="1" class="input input-item" data-maxitem="{{ section.settings.maxItem }}"/>
+                    <div class="add-sub">
+                      <div class="icon-embed-xxsmall w-embed">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          aria-hidden="true"
+                          role="img"
+                          class="iconify iconify--ic"
+                          width="100%"
+                          height="100%"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="divider"></div>
+            {% endfor %}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
+      <p
+        class="visually-hidden"
+        id="shopping-cart-line-item-status"
+        aria-live="polite"
+        aria-hidden="true"
+        role="status"
+      >
+        {{ 'accessibility.loading' | t }}
+      </p>
+    </form>
+  </div>
+</cart-items>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-items.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+{% comment %} <table class="cart-items">
               <caption class="visually-hidden">
                 {{ 'sections.cart.title' | t }}
               </caption>
@@ -84,7 +234,7 @@
                       {% if item.image %}
                         {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
                         <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
-                        <div class="cart-item__image-container gradient global-media-settings">
+                        <div class="cart-item__image-container gradient global-media-settings img-b" style="width: 150px; height: 150px; padding: 4px;">
                           <img
                             src="{{ item.image | image_url: width: 300 }}"
                             class="cart-item__image"
@@ -102,7 +252,7 @@
                         <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                       {%- endif -%}
 
-                      <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      <a href="{{ item.url }}" class="cart-item__name h4 break title-style">{{ item.product.title | escape }}</a>
 
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
@@ -432,59 +582,4 @@
                   </tr>
                 {%- endfor -%}
               </tbody>
-            </table>
-          {%- endif -%}
-        </div>
-      </div>
-
-      <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
-      <p
-        class="visually-hidden"
-        id="shopping-cart-line-item-status"
-        aria-live="polite"
-        aria-hidden="true"
-        role="status"
-      >
-        {{ 'accessibility.loading' | t }}
-      </p>
-    </form>
-  </div>
-</cart-items>
-
-{% schema %}
-{
-  "name": "t:sections.main-cart-items.name",
-  "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    }
-  ]
-}
-{% endschema %}
+            </table> {% endcomment %}

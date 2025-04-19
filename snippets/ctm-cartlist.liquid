@@ -1,0 +1,150 @@
+<div class="cart-lists">
+    <div class="list-3">
+      {%- for item in cart.items -%}
+        <div class="cart-itm" data-variant-id="{{ item.variant_id }}">
+          <div class="product-header" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <div class="img-b">
+              <img
+                src="{{ item.image | img_url: '200x200' }}"
+                loading="lazy"
+                width="auto"
+                height="auto"
+                alt="{{ item.product.title | escape }}"
+                class="img-style"
+              />
+            </div>
+            <a href="{{ item.url }}" class="cart-item__name h4 break title-item">
+              {{ item.product.title | escape }}
+              {% unless item.variant.title contains 'Default' %}
+                <small>{{ item.variant.title }}</small>
+              {% endunless %}
+            </a>
+          </div>
+          
+          <div class="content-box">
+            <div class="color-box">
+              <div class="title-style-5">Color</div>
+              <div class="frame-144">
+                {%- for option in item.product.options -%}
+                  {%- if option == 'Color' -%}
+                    {%- assign option_index = forloop.index0 -%}
+                    <div class="dot-3 color-dot" 
+                         title="{{ item.variant.options[option_index] }}" 
+                         style="background: {{ item.variant.options[option_index] | handleize }}; 
+                                width:16px !important;
+                                height:16px !important;
+                                border-radius:100%">
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+          
+          <div class="price-2">
+            <div class="prices">{{ item.final_price | money }}</div>
+            <div class="input-div">
+              <div class="add-sub subtract" onclick="updateCartItem('{{ item.variant_id }}', -1)">
+                <div class="icon-embed-xxsmall-2 w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 12.998H5v-2h14z"/>
+                  </svg>
+                </div>
+              </div>
+              <input 
+                type="number" 
+                value="{{ item.quantity }}" 
+                min="1" 
+                class="input input-item" 
+                data-variant-id="{{ item.variant_id }}"
+                onchange="updateCartItem('{{ item.variant_id }}', 0, this.value)"
+              />
+              <div class="add-sub" onclick="updateCartItem('{{ item.variant_id }}', 1)">
+                <div class="icon-embed-xxsmall w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="remove-item" style="margin-top: 8px; display: block; font-size: 12px;">
+              Remove
+            </a>
+          </div>
+        </div>
+        <div class="divider"></div>
+      {%- endfor -%}
+    </div>
+  </div>
+  
+  <style>
+    /* Hide number input spinners */
+    .input-item::-webkit-outer-spin-button,
+    .input-item::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    .input-item[type=number] {
+      -moz-appearance: textfield;
+    }
+    
+    .cart-itm {
+      position: relative;
+      padding: 15px 0;
+    }
+    
+    .remove-item {
+      color: #ff0000;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    
+    small {
+      display: block;
+      font-size: 0.8em;
+      color: #666;
+    }
+  </style>
+  
+  <script>
+    function updateCartItem(variantId, change, newQuantity) {
+      const input = document.querySelector(`.input-item[data-variant-id="${variantId}"]`);
+      let quantity = parseInt(input.value);
+      
+      if (newQuantity !== undefined) {
+        quantity = parseInt(newQuantity);
+      } else {
+        quantity += change;
+      }
+      
+      // Ensure quantity is at least 1
+      quantity = Math.max(1, quantity);
+      
+      // Update UI immediately for better UX
+      input.value = quantity;
+      
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('id', variantId);
+      formData.append('quantity', quantity);
+      
+      // Send update to Shopify
+      fetch('/cart/change.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(cart => {
+        // Optional: Update cart count or total
+        console.log('Cart updated', cart);
+        // You could trigger a cart refresh here if needed
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+        // Revert UI if error
+        input.value = quantity - change;
+      });
+    }
+  </script>

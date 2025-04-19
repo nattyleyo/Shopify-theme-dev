@@ -4625,7 +4625,7 @@ textarea.w-select {
   }
   .add-sub {
     grid-row-gap: 0px;
-    padding: 2px 12px;
+    padding: 4px;
   }
   .text-4 {
     font-family: Onest, sans-serif;
