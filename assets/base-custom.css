@@ -2588,6 +2588,7 @@ textarea.w-select {
 }
 
 .cate-list::-webkit-scrollbar-thumb {
+  width: 24px !important;
   background: var(--neutral-1);
   height: 4px;
   border-radius: 99px;
@@ -2598,7 +2599,7 @@ textarea.w-select {
   scroll-behavior: smooth;
 }
 .title-bb {
-  width: 90vw !important;
+  width: 96% !important;
 }
 
 .list-2 {
