@@ -1,3 +1,8 @@
+{% comment %}
+  This section is used to display the cart footer in the cart page.
+  It includes the subtotal and checkout buttons.
+{% endcomment %}
+
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -51,7 +56,7 @@
                         <li class="discounts__discount discounts__discount--position">
                           {{- 'icon-discount.svg' | inline_asset_content -}}
                           {{ discount.title | escape }}
-                          (-{{ discount.total_allocated_amount | money }})
+                          (-<span class="money">{{ discount.total_allocated_amount | money }}</span>)
                         </li>
                       {%- endfor -%}
                     </ul>
@@ -60,7 +65,7 @@
 
                 <div class="totals">
                   <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                  <p class="totals__total-value money">{{ cart.total_price | money_with_currency }}</p>
                 </div>
 
                 <small class="tax-note caption-large rte">
@@ -135,13 +140,29 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Function to format money with Shopify's currency formatting
+    function formatMoneyWithCurrency(amount, currency) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(amount, '{{ shop.money_with_currency_format }}');
+      }
+      return amount / 100 + ' ' + currency;
+    }
+
+    // Function to format money without currency
+    function formatMoney(amount) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(amount, '{{ shop.money_format }}');
+      }
+      return amount / 100;
+    }
+
     // Function to update subtotal display
     function updateSubtotal(cart) {
       const subtotalElement = document.querySelector('.totals__total-value');
       const discountsContainer = document.querySelector('.discounts.list-unstyled');
       
       if (subtotalElement) {
-        subtotalElement.textContent = formatMoney(cart.total_price);
+        subtotalElement.textContent = formatMoneyWithCurrency(cart.total_price, cart.currency);
       }
       
       // Update discounts if any
@@ -151,34 +172,37 @@
           const discountElement = document.createElement('li');
           discountElement.className = 'discounts__discount discounts__discount--position';
           discountElement.innerHTML = `
-            ${discount.title | escape}
-            (-${formatMoney(discount.total_allocated_amount)})
+            ${discount.title}
+            (-<span class="money">${formatMoney(discount.total_allocated_amount)}</span>)
           `;
           discountsContainer.appendChild(discountElement);
         });
       }
     }
-  
-    // Format money function to match your store's format
-    function formatMoney(amount) {
-      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
-        return Shopify.formatMoney(amount, '{{ shop.money_format }}');
-      }
-      return '$' + (amount / 100).toFixed(2);
-    }
-  
+
     // Listen for cart updates
     document.addEventListener('cart:updated', function(e) {
       updateSubtotal(e.detail.cart);
     });
-  
+
     // Initial cart fetch to ensure we have the correct starting value
     fetch('/cart.js')
       .then(response => response.json())
       .then(cart => {
         updateSubtotal(cart);
       });
-  });  
+
+    // Handle currency changes if using Shopify's multi-currency
+    if (typeof Currency !== 'undefined' && Currency.moneyFormats) {
+      document.addEventListener('currency:changed', function() {
+        fetch('/cart.js')
+          .then(response => response.json())
+          .then(cart => {
+            updateSubtotal(cart);
+          });
+      });
+    }
+  });
 </script>
 
 {% schema %}

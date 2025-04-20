@@ -258,12 +258,10 @@
       if (isNaN(quantity)) return; // Don't update if not a number
       
       const newPrice = unitPrice * quantity;
-      priceElement.textContent = formatMoney(newPrice);
+      priceElement.textContent = newPrice;
     }
   
-    function formatMoney(amount) {
-      return '$' + amount.toFixed(2);
-    }
+    
   
     function updateCartItem(variantId, quantity) {
       fetch('/cart/change.js', {
