@@ -344,8 +344,93 @@
       });
     });
   });
+
+  function updateCartItem(variantId, quantity) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: quantity
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Update cart count
+      const cartCount = document.querySelectorAll('.cart-count-bubble');
+      if (cartCount) {
+        cartCount.forEach(el => {
+          el.textContent = data.item_count;
+        });
+      }
+      
+      // Dispatch custom event with updated cart data
+      const event = new CustomEvent('cart:updated', {
+        detail: {
+          cart: data
+        }
+      });
+      document.dispatchEvent(event);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
+  // Handle remove item clicks
+  document.querySelectorAll('.cart-item__remove').forEach(button => {
+    button.addEventListener('click', function() {
+      const lineItem = this.closest('.cart-itm');
+      const variantId = this.dataset.variantId;
+      
+      // Remove the item visually first for better UX
+      lineItem.style.opacity = '0.5';
+      lineItem.style.pointerEvents = 'none';
+      
+      // Remove from cart
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 0
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Remove the item from DOM
+        lineItem.remove();
+        
+        // Check if cart is empty
+        if (data.item_count === 0) {
+          document.querySelector('.cart__warnings').classList.remove('hidden');
+          document.querySelector('.js-contents').classList.add('hidden');
+        }
+        
+        // Dispatch custom event with updated cart data
+        const event = new CustomEvent('cart:updated', {
+          detail: {
+            cart: data
+          }
+        });
+        document.dispatchEvent(event);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Reset the item if there was an error
+        lineItem.style.opacity = '1';
+        lineItem.style.pointerEvents = 'auto';
+      });
+    });
+  });
 });
-  </script>
+</script>
 
 {% schema %}
 {

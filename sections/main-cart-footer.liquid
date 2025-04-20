@@ -135,33 +135,51 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Listen for subtotal updates
-    document.addEventListener('cart:subtotal-updated', function(e) {
+    // Function to update subtotal display
+    function updateSubtotal(cart) {
       const subtotalElement = document.querySelector('.totals__total-value');
+      const discountsContainer = document.querySelector('.discounts.list-unstyled');
+      
       if (subtotalElement) {
-        subtotalElement.textContent = formatMoney(e.detail.subtotal);
+        subtotalElement.textContent = formatMoney(cart.total_price);
       }
-    });
+      
+      // Update discounts if any
+      if (discountsContainer && cart.cart_level_discount_applications.length > 0) {
+        discountsContainer.innerHTML = '';
+        cart.cart_level_discount_applications.forEach(discount => {
+          const discountElement = document.createElement('li');
+          discountElement.className = 'discounts__discount discounts__discount--position';
+          discountElement.innerHTML = `
+            ${discount.title | escape}
+            (-${formatMoney(discount.total_allocated_amount)})
+          `;
+          discountsContainer.appendChild(discountElement);
+        });
+      }
+    }
   
     // Format money function to match your store's format
     function formatMoney(amount) {
       if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
-        return Shopify.formatMoney(amount * 100, '{{ shop.money_format }}');
+        return Shopify.formatMoney(amount, '{{ shop.money_format }}');
       }
-      return '$' + amount.toFixed(2);
+      return '$' + (amount / 100).toFixed(2);
     }
+  
+    // Listen for cart updates
+    document.addEventListener('cart:updated', function(e) {
+      updateSubtotal(e.detail.cart);
+    });
   
     // Initial cart fetch to ensure we have the correct starting value
     fetch('/cart.js')
       .then(response => response.json())
       .then(cart => {
-        const subtotalElement = document.querySelector('.totals__total-value');
-        if (subtotalElement) {
-          subtotalElement.textContent = Shopify.formatMoney(cart.total_price, '{{ shop.money_format }}');
-        }
+        updateSubtotal(cart);
       });
-  });
-  </script>
+  });  
+</script>
 
 {% schema %}
 {

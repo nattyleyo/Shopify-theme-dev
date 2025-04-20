@@ -3471,6 +3471,9 @@ textarea.w-select {
   text-decoration: none;
   display: flex;
 }
+.cart-btn:hover {
+  cursor: pointer;
+}
 
 .text-5 {
   color: #fff;
