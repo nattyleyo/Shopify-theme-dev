@@ -3612,6 +3612,12 @@ textarea.w-select {
   display: flex;
   overflow: hidden;
 }
+span .icon-close {
+  width: 36px !important;
+  height: 36px !important;
+  color: var(--neutral-1);
+  background: var(--secondary-2);
+}
 
 .icon-x {
   object-fit: cover;
