@@ -2599,6 +2599,7 @@ textarea.w-select {
 }
 .title-bb {
   width: 90vw !important;
+  padding-right: 8%;
 }
 
 .list-2 {
@@ -5211,7 +5212,8 @@ textarea.w-select {
     padding-right: 6px;
   }
   .scroll-overlay {
-    height: 51%;
+    height: 60%;
+    right: -12px;
   }
   .list-2 {
     grid-column-gap: 16px;

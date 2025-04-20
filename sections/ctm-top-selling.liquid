@@ -11,6 +11,7 @@
       {% for product in collection.products limit: section.settings.products_limit %}
         <a href="{{ product.url }}" class="pr-card">
           <div class="img-box">
+            
             {% if product.tags contains 'NEW' %}
               <div class="tag">
                 <div class="label-style-6">NEW!</div>
@@ -79,8 +80,8 @@
     </div>
   </div>
   
-  <div class="scroll-overlay">
-    <div class="dot">
+  {% comment %} <div class="scroll-overlay">
+    <div class="dot next-btn">
       <img
         src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ed9a57dda30ad1ce57d8_Frame.svg"
         loading="lazy"
@@ -90,7 +91,7 @@
         class="frame-style"
       />
     </div>
-  </div>
+  </div> {% endcomment %}
 
 {% endif %}
 
@@ -116,6 +117,60 @@
 }
 
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the next button and product list container
+    const nextBtn = document.querySelector('.next-btn');
+    const productList = document.querySelector('.list-2');
+    
+    if (nextBtn && productList) {
+      // Get all product cards
+      const productCards = document.querySelectorAll('.pr-card');
+      let currentIndex = 0;
+      const cardWidth = productCards[0] ? productCards[0].offsetWidth : 0;
+      const gap = 20; // Adjust this value based on your actual gap between cards
+      
+      nextBtn.addEventListener('click', function() {
+        // Check if there are more cards to scroll to
+        if (currentIndex < productCards.length - 1) {
+          currentIndex++;
+          
+          // Calculate scroll position
+          const scrollAmount = (cardWidth + gap) * currentIndex;
+          
+          // Smooth scroll to the next card
+          productList.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+          });
+        } else {
+          // If at the end, scroll back to the first card
+          currentIndex = 0;
+          productList.scrollTo({
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      });
+      
+      // Optional: Add previous button functionality if needed
+      // const prevBtn = document.querySelector('.prev-btn');
+      // if (prevBtn) {
+      //   prevBtn.addEventListener('click', function() {
+      //     if (currentIndex > 0) {
+      //       currentIndex--;
+      //       const scrollAmount = (cardWidth + gap) * currentIndex;
+      //       productList.scrollTo({
+      //         left: scrollAmount,
+      //         behavior: 'smooth'
+      //       });
+      //     }
+      //   });
+      // }
+    }
+  });
+  </script>
 
 {% schema %}
 {
