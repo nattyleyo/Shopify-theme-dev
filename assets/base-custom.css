@@ -5220,7 +5220,7 @@ textarea.w-select {
   }
   .list-2 {
     grid-column-gap: 16px;
-    padding-right: 64px;
+    padding-right: 24px;
   }
   .pr-card {
     width: 206px;
