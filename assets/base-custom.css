@@ -2572,7 +2572,30 @@ textarea.w-select {
   width: 100%;
   text-decoration: none;
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll !important;
+  padding-bottom: 64px;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.cate-list::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+  border-radius: 99px;
+}
+
+.cate-list::-webkit-scrollbar-track {
+  background: var(--secondary-2);
+}
+
+.cate-list::-webkit-scrollbar-thumb {
+  background: var(--neutral-1);
+  height: 4px;
+  border-radius: 99px;
+}
+
+/* Smooth scrolling */
+.cate-list {
+  scroll-behavior: smooth;
 }
 .title-bb {
   width: 90vw !important;
@@ -2972,7 +2995,7 @@ textarea.w-select {
 
 .card {
   grid-row-gap: 64px;
-  background-color: #f8f8f8;
+  background-color: var(--secondary-2);
   border-radius: 16px;
   flex-direction: column;
   justify-content: flex-start;
@@ -2983,6 +3006,10 @@ textarea.w-select {
   padding: 64px 48px;
   text-decoration: none;
   display: flex;
+}
+.card:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
 }
 
 .img-box-3 {
@@ -5289,5 +5316,8 @@ textarea.w-select {
     object-fit: contain;
     width: 100%;
     height: 382px;
+  }
+  .cate-list {
+    padding-bottom: 32px;
   }
 }
