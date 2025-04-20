@@ -4559,6 +4559,11 @@ textarea.w-select {
   height: 24px;
   display: flex;
 }
+.right-box {
+  display: flex;
+  gap: 3%;
+  align-items: end;
+}
 
 .divider {
   background-color: var(--secondary-2);
@@ -4721,6 +4726,9 @@ textarea.w-select {
   .img-carts img {
     width: 80px;
     height: 80px;
+  }
+  .remove-mob {
+    display: flex;
   }
   .hero {
     padding-left: 6%;
@@ -5009,7 +5017,7 @@ textarea.w-select {
     height: 85%;
   }
   .content-box {
-    width: 42%;
+    width: 68%;
   }
   .frame-10 {
     width: 42%;
@@ -5044,15 +5052,21 @@ textarea.w-select {
     justify-content: flex-start;
     align-items: center;
   }
-  .price-2 {
-    grid-column-gap: 48px;
+  .right-box {
+    width: 100%;
+    gap: 2%;
+    justify-content: space-between;
+    padding: 2px 4px;
+  }
+  /* .price-2 {
+    grid-column-gap: 16px;
     grid-row-gap: 48px;
     flex-flow: row-reverse wrap;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     padding: 24px 48px 24px 64px;
-  }
+  } */
   .text-5 {
     font-size: 16px;
   }
@@ -5199,13 +5213,13 @@ textarea.w-select {
     padding-left: 12px;
     padding-right: 12px;
   }
-  .price-2 {
+  /* .price-2 {
     flex-flow: row-reverse;
     justify-content: flex-end;
     align-items: center;
     padding-left: 0;
     padding-right: 24px;
-  }
+  } */
   .cta-box {
     padding-top: 48px;
     padding-left: 4px;

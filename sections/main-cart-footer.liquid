@@ -133,6 +133,36 @@
   </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Listen for subtotal updates
+    document.addEventListener('cart:subtotal-updated', function(e) {
+      const subtotalElement = document.querySelector('.totals__total-value');
+      if (subtotalElement) {
+        subtotalElement.textContent = formatMoney(e.detail.subtotal);
+      }
+    });
+  
+    // Format money function to match your store's format
+    function formatMoney(amount) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(amount * 100, '{{ shop.money_format }}');
+      }
+      return '$' + amount.toFixed(2);
+    }
+  
+    // Initial cart fetch to ensure we have the correct starting value
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        const subtotalElement = document.querySelector('.totals__total-value');
+        if (subtotalElement) {
+          subtotalElement.textContent = Shopify.formatMoney(cart.total_price, '{{ shop.money_format }}');
+        }
+      });
+  });
+  </script>
+
 {% schema %}
 {
   "name": "t:sections.main-cart-footer.name",
