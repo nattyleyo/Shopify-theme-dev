@@ -2,7 +2,7 @@
   <div class="title-box test-title" style="padding: 0px 8%">
     <div class="title-style">{{ section.settings.title }}</div>
   </div>
-  <div class="cate-list">
+  <div class="cate-list" style="overflow-x: hidden !important;">
     <div class="list-4">
       {% for block in section.blocks %}
         <div class="client-box{% if forloop.index > 1 %}-2{% endif %}">
