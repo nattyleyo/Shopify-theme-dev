@@ -30,7 +30,41 @@
     },
     "ctm_most_popular_jW6KQ8": {
       "type": "ctm-most-popular",
-      "settings": {}
+      "blocks": {
+        "card_iyMGxh": {
+          "type": "card",
+          "settings": {
+            "product": "smart-glasses"
+          }
+        },
+        "card_79k8NW": {
+          "type": "card",
+          "settings": {
+            "product": "noise-canceling-earbuds"
+          }
+        },
+        "card_yqBq4x": {
+          "type": "card",
+          "settings": {
+            "product": "heated-led-jacket"
+          }
+        },
+        "card_NECger": {
+          "type": "card",
+          "settings": {
+            "product": "lg-49-ultragear-dqhd"
+          }
+        }
+      },
+      "block_order": [
+        "card_iyMGxh",
+        "card_79k8NW",
+        "card_yqBq4x",
+        "card_NECger"
+      ],
+      "settings": {
+        "title": "Our Most Popular Tech Picks"
+      }
     },
     "ctm_gearup_sec_Vh76eV": {
       "type": "ctm-gearup-sec",
@@ -62,6 +96,7 @@
       "settings": {
         "collection": "top-selling",
         "title": "Don't Miss Out Gear Up Now!",
+        "products_limit": 3,
         "maxItem": 3,
         "autoplay": true,
         "delay": 3
