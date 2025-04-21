@@ -12,17 +12,17 @@
         <a href="{{ product.url }}" class="pr-card">
           <div class="img-box">
             
-            {% if product.tags contains 'NEW' %}
+            {% if product.tags contains 'new' %}
               <div class="tag">
                 <div class="label-style-6">NEW!</div>
               </div>
-            {% elsif product.tags contains 'Best Seller' %}
+            {% elsif product.tags contains 'best-selling' %}
               <div class="tag-2">
                 <div class="label-style-7">Best Seller</div>
               </div>
-            {% elsif product.tags contains 'Pre-Order' %}
+            {% elsif product.tags contains 'most-popular' %}
               <div class="tag-3">
-                <div class="label-style-6">Pre-Order</div>
+                <div class="label-style-6">Most-Popular</div>
               </div>
             {% endif %}
             <img

@@ -1,108 +1,65 @@
-
-    <div class="title-style">Our Most Popular Tech Picks</div>
-    <div class="card-container">
-      <div class="card">
-        <div class="img-box-3">
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee11213f3f8e60ddb8da_41XWCbvwy1L._AC_-Photoroom-1.png"
-            loading="lazy"
-            width="200"
-            height="200"
-            alt=""
-            class="picks-img"
-          />
-        </div>
-        <div class="card-content">
-          <div class="card-title">Smart HUD Glasses</div>
-          <div class="subtext-5">
-            Wear the future, power your lifestyle. The most advanced tech wear
-            &amp; gadgets are here.
-          </div>
-          <div class="cta-btn-5">
-            <div class="label-style-8">Shop Now →</div>
-          </div>
-        </div>
+<div class="title-style">{{ section.settings.title }}</div>
+<div class="card-container">
+  {% for block in section.blocks %}
+    {% assign product = block.settings.product %}
+    <div class="card">
+      <div class="img-box-3">
+        <img
+          src="{{ product.featured_image | img_url: '200x200' }}"
+          loading="lazy"
+          width="200"
+          height="200"
+          alt="{{ product.title }}"
+          class="picks-img"
+        />
       </div>
-      <div class="card">
-        <div class="img-box-3">
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee113f375a6f0e0d53e5_51aCbrU88ZL._AC_SL1500_-Photoroom-1.png"
-            loading="lazy"
-            width="200"
-            height="200"
-            alt=""
-            class="picks-img"
-          />
-        </div>
-        <div class="card-content">
-          <div class="card-title">Noise-Canceling Earbuds</div>
-          <div class="subtext-5">
-            Wear the future, power your lifestyle. The most advanced tech wear
-            &amp; gadgets are here.
-          </div>
-          <div class="cta-btn-5">
-            <div class="label-style-8">Shop Now →</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="img-box-3">
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee1180e384bd84330760_71a-ndyECJL._AC_SX466_-Photoroom-1.png"
-            loading="lazy"
-            width="200"
-            height="200"
-            alt=""
-            class="picks-img"
-          />
-        </div>
-        <div class="card-content">
-          <div class="card-title">Heated LED Jacket</div>
-          <div class="subtext-5">
-            Wear the future, power your lifestyle. The most advanced tech wear
-            &amp; gadgets are here.
-          </div>
-          <div class="cta-btn-5">
-            <div class="label-style-8">Shop Now →</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="img-box-3">
-          <img
-            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ee11997bf480b4293b8e_61dmFw-toML._AC_SL1500_-1.png"
-            loading="lazy"
-            width="200"
-            height="200"
-            alt=""
-            class="picks-img"
-          />
-        </div>
-        <div class="card-content">
-          <div class="card-title">LG 49&quot; UltraGear DQHD</div>
-          <div class="subtext-5">
-            Wear the future, power your lifestyle. The most advanced tech wear
-            &amp; gadgets are here.
-          </div>
-          <div class="cta-btn-5">
-            <div class="label-style-8">Shop Now →</div>
-          </div>
+      <div class="card-content">
+        <div class="card-title">{{ product.title }}</div>
+        <div class="subtext-5">{{ product.description | truncate: 100 }}</div>
+        <div class="cta-btn-5">
+          <a href="{{ product.url }}" class="label-style-8">Shop Now →</a>
         </div>
       </div>
     </div>
-  
-  {% schema %}
+  {% endfor %}
+</div>
+
+
+{% schema %}
 {
   "name": "Most-Popular",
   "tag": "section",
   "class": "most-popular",
   "settings": [
-   
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Most Popular Tech Picks"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
   ],
   "presets": [
     {
       "name": "Most-Popular",
-      "category": "Custom"
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "card"
+        }
+      ]
     }
   ]
 }

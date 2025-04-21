@@ -131,10 +131,8 @@
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
-      {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
-      {%- endif -%}
-          <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+          <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset header__heading">
             {%- if settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 Logo
@@ -143,9 +141,9 @@
               <span class="h2">Logo.</span>
             {%- endif -%}
           </a>
-      {%- if request.page_type == 'index' -%}
+      {% comment %} {%- if request.page_type == 'index' -%} {% endcomment %}
         </h1>
-      {%- endif -%}
+      {% comment %} {%- endif -%} {% endcomment %}
     {%- endif -%}
 
     {%- liquid
