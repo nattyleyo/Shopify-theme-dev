@@ -34,6 +34,17 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  /* Default (Desktop) */
+.product-grid-item {
+  width: calc(90% / var(--desktop-cols));
+}
+
+/* Mobile (Below 750px) */
+@media screen and (max-width: 749px) {
+  .product-grid-item {
+    width: calc(90% / var(--mobile-cols));
+  }
+}
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
@@ -145,6 +156,8 @@
             <div class="loading-overlay gradient"></div>
             <ul
               id="product-grid"
+              style="row-gap: {{ section.settings.rows_gap }}px; column-gap: {{ section.settings.columns_gap }}px"
+
               data-id="{{ section.id }}"
               class="
                 grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
@@ -158,15 +171,20 @@
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
-                <li
+                {% comment %} <li
                   class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
                     data-cascade
                     style="--animation-order: {{ forloop.index }};"
                   {% endif %}
-                >
+                > {% endcomment %}
+                <li style="--desktop-cols: {{ section.settings.columns_desktop }}; --mobile-cols: {{ section.settings.columns_mobile }};" class="product-grid-item">
+                  {%- if forloop.index == 1 -%}
+                    <div class="loading-overlay gradient"></div>
+                  {%- endif -%}
+                  
                   {% render 'card-product',
-                    card_product: product,
+                    product: product,
                     media_aspect_ratio: section.settings.image_ratio,
                     image_shape: section.settings.image_shape,
                     show_secondary_image: section.settings.show_secondary_image,
@@ -217,6 +235,25 @@
       "step": 1,
       "default": 4,
       "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
+    },
+    
+    {
+      "type": "range",
+      "id": "rows_gap",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 4,
+      "label": "Rows gap"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 4,
+      "label": "Columns gap"
     },
     {
       "type": "color_scheme",

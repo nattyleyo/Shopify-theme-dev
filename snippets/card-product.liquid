@@ -2,7 +2,7 @@
   Renders a product card
 
   Accepts:
-  - card_product: {Object} Product Liquid object (optional)
+  - product: {Object} Product Liquid object (optional)
   - media_aspect_ratio: {String} Size of the product image card. Values are "square" and "portrait". Default is "square" (optional)
   - image_shape: {String} Image mask to apply to the product image card. Values are "arch", "blob", "chevronleft", "chevronright", "diamond", "parallelogram", and "round". (optional)
   - show_secondary_image: {Boolean} Show the secondary image on hover. Default: false (optional)
@@ -31,166 +31,73 @@
   - show_tags: {Boolean} Show product tags as badges. Default: true
 {% endcomment %}
 
-<a href="{{ card_product.url }}" class="pr-card" aria-label="{{ card_product.title | escape }}">
+
+
+<a href="{{ product.url }}" class="pr-card" style="width:100%">
   <div class="img-box">
-    {% if show_tags != false %}
-      {% if card_product.tags contains 'new' %}
-        <div class="tag new-badge">
-          <span class="label-style-6">NEW!</span>
-        </div>
-      {% elsif card_product.tags contains 'best-selling' %}
-        <div class="tag best-seller-badge">
-          <span class="label-style-7">Best Seller</span>
-        </div>
-      {% elsif card_product.tags contains 'most-popular' %}
-        <div class="tag popular-badge">
-          <span class="label-style-6">Most Popular</span>
-        </div>
-      {% endif %}
-    {% endif %}
     
+    {% if product.tags contains 'new' %}
+      <div class="tag">
+        <div class="label-style-6">NEW!</div>
+      </div>
+    {% elsif product.tags contains 'best-selling' %}
+      <div class="tag-2">
+        <div class="label-style-7">Best Seller</div>
+      </div>
+    {% elsif product.tags contains 'most-popular' %}
+      <div class="tag-3">
+        <div class="label-style-6">Most-Popular</div>
+      </div>
+    {% endif %}
     <img
-      src="{{ card_product.featured_image | img_url: '400x400', crop: 'center' }}"
-      alt="{{ card_product.featured_image.alt | default: card_product.title | escape }}"
+      src="{{ product.featured_image | img_url: 'medium' }}"
+      alt="{{ product.title }}"
       class="product-img"
       loading="lazy"
       width="260"
       height="230"
-      onerror="this.src='{{ placeholder_image | default: 'product-apparel-2' | placeholder_svg_tag }}'"
+      style="width:100%"
     />
   </div>
-  
   <div class="content-box">
-    {% if show_reviews != false %}
-      <div class="review-box">
-        <div class="star-rating" aria-label="Rating: {{ card_product.metafields.reviews.rating.value.rating | default: 0 }} out of 5">
-          {% render 'star-rating', rating: card_product.metafields.reviews.rating.value.rating %}
-        </div>
-        <div class="title-style-4">
-          {{ card_product.metafields.reviews.rating_count | default: 13 }} Reviews
-        </div>
-      </div>
-    {% endif %}
-    
-    {% if show_colors != false %}
-      <div class="color-box">
-        <div class="title-style-5">Color</div>
-        <div class="color-options">
-          {% assign color_option = card_product.options_with_values | where: 'name', 'Color' | first %}
-          {% if color_option %}
-            {% assign unique_colors = '' %}
-            {% for variant in card_product.variants limit: 5 %}
-              {% assign color = variant.options[color_option.position - 1] %}
-              {% unless unique_colors contains color %}
-                <span 
-                  class="color-dot" 
-                  style="background-color: {{ color | downcase | replace: ' ', '-' }};"
-                  aria-label="{{ color }}"
-                  data-tooltip="{{ color }}"
-                ></span>
-                {% assign unique_colors = unique_colors | append: ',' | append: color %}
-              {% endunless %}
-            {% endfor %}
-            {% if card_product.variants.size > 5 %}
-              <span class="color-more">+{{ card_product.variants.size | minus: 5 }}</span>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
-    
-    <h3 class="pr-title">{{ card_product.title }}</h3>
-    
-    <div class="price">
-      {% if card_product.compare_at_price > card_product.price %}
-        <span class="compare-price">{{ card_product.compare_at_price | money }}</span>
-      {% endif %}
-      <span class="current-price">{{ card_product.price | money }}</span>
-      {% if card_product.compare_at_price > card_product.price %}
-        <span class="sale-badge">
-          Save {{ card_product.compare_at_price | minus: card_product.price | money }}
-        </span>
-      {% endif %}
+    <div class="review-box">
+      <img
+        src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
+        loading="lazy"
+        width="138.842041015625"
+        height="22.5789852142334"
+        alt=""
+        class="frame-10"
+      />
+      <div class="title-style-4">13 Reviews</div>
     </div>
     
-    {% if quick_add %}
-      <button class="quick-add-btn" data-product-id="{{ card_product.selected_or_first_available_variant.id }}">
-        Add to Cart
-      </button>
-    {% endif %}
+    <div class="color-box">
+      <div class="title-style-5">Color</div>
+      <div class="frame-144">
+        {% assign color_option_index = 0 %}
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' %}
+            {% assign color_option_index = forloop.index0 %}
+          {% endif %}
+        {% endfor %}
+        
+        {% assign colors_displayed = '' %}
+        
+        {% for variant in product.variants %}
+          {% assign color = variant.options[color_option_index] %}
+          
+          {% unless colors_displayed contains color %}
+            {% assign colors_displayed = colors_displayed | append: color | append: ',' %}
+            <div class="dot-3 color-dot" title="{{ color }}" style="background: {{ color }}; width:16px !important;height:16px !important;border-radius:100%"></div>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="pr-title">{{ product.title }}</div>
+    <div class="price">
+      <div class="text-2">{{ product.price | money }}</div>
+    </div>
   </div>
 </a>
-
-<style>
-  /* Improved CSS for the product card */
-  .pr-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.3s ease;
-  }
-  
-  .pr-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .tag {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-  }
-  
-  .new-badge { background: #FF4136; color: white; }
-  .best-seller-badge { background: #2ECC40; color: white; }
-  .popular-badge { background: #FFDC00; color: black; }
-  
-  .color-options {
-    display: flex;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  
-  .color-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1px solid #eee;
-    cursor: pointer;
-  }
-  
-  .price {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .compare-price {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 0.9em;
-  }
-  
-  .sale-badge {
-    background: #FF4136;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.8em;
-  }
-  
-  .quick-add-btn {
-    width: 100%;
-    margin-top: 12px;
-    padding: 8px;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-</style>

@@ -4621,6 +4621,12 @@ span .icon-close {
   max-width: none;
   margin-left: 10%;
 }
+.grid_item {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
 .price-2 {
   width: 140px;
 }
@@ -4758,6 +4764,10 @@ span .icon-close {
     display: flex;
     width: 40vw;
     justify-content: center;
+  }
+  .grid {
+    column-gap: 24px;
+    row-gap: 24px;
   }
 }
 @media screen and (max-width: 991px) {
@@ -4977,6 +4987,10 @@ span .icon-close {
   .img-carts {
     width: auto !important;
     padding: 12px !important;
+  }
+  .grid {
+    column-gap: 12px;
+    row-gap: 24px;
   }
   .input {
     padding: 10px 28px;
