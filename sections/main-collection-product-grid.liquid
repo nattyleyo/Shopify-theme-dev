@@ -42,8 +42,19 @@
 /* Mobile (Below 750px) */
 @media screen and (max-width: 749px) {
   .product-grid-item {
-    width: calc(90% / var(--mobile-cols));
+    width: calc(96% / 2);
   }
+}
+@media screen and (max-width: 475px) {
+  .product-grid {
+    justify-content: center;
+  }
+  .product-grid-item {
+    display: flex;
+    width: calc(96% / var(--mobile-cols));
+    justify-content: center;
+  }
+  
 }
 {%- endstyle -%}
 
@@ -156,7 +167,7 @@
             <div class="loading-overlay gradient"></div>
             <ul
               id="product-grid"
-              style="row-gap: {{ section.settings.rows_gap }}px; column-gap: {{ section.settings.columns_gap }}px"
+              style="row-gap: {{ section.settings.rows_gap }}px; column-gap: {{ section.settings.columns_gap }}px;margin-top: 24px;"
 
               data-id="{{ section.id }}"
               class="
