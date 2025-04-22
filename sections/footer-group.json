@@ -11,6 +11,10 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "ctm_footer_xH4Bw6": {
+      "type": "ctm-footer",
+      "settings": {}
+    },
     "footer": {
       "type": "footer",
       "disabled": true,
@@ -31,6 +35,7 @@
     }
   },
   "order": [
+    "ctm_footer_xH4Bw6",
     "footer"
   ]
 }
