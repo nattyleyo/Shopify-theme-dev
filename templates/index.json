@@ -303,10 +303,6 @@
     "ctm_subscribe_erVWKL": {
       "type": "ctm-subscribe",
       "settings": {}
-    },
-    "ctm_footer_yzKQMm": {
-      "type": "ctm-footer",
-      "settings": {}
     }
   },
   "order": [
@@ -319,7 +315,6 @@
     "ctm_collections_M9CVdg",
     "ctm_faq_FnXKHM",
     "ctm_cta_sec_QXB9eg",
-    "ctm_subscribe_erVWKL",
-    "ctm_footer_yzKQMm"
+    "ctm_subscribe_erVWKL"
   ]
 }
