@@ -101,6 +101,44 @@
         "padding_bottom": 28
       }
     },
+    "ctm_most_popular_dtGUX4": {
+      "type": "ctm-most-popular",
+      "blocks": {
+        "card_dahDby": {
+          "type": "card",
+          "settings": {
+            "product": "noise-canceling-earbuds"
+          }
+        },
+        "card_bFWbfF": {
+          "type": "card",
+          "settings": {
+            "product": "short-t-shirt"
+          }
+        },
+        "card_nXnYEH": {
+          "type": "card",
+          "settings": {
+            "product": "lg-49-ultragear-dqhd"
+          }
+        },
+        "card_rcLHfR": {
+          "type": "card",
+          "settings": {
+            "product": "heated-led-jacket"
+          }
+        }
+      },
+      "block_order": [
+        "card_dahDby",
+        "card_bFWbfF",
+        "card_nXnYEH",
+        "card_rcLHfR"
+      ],
+      "settings": {
+        "title": "Similar Products"
+      }
+    },
     "ctm_faq_MK7wRQ": {
       "type": "ctm-faq",
       "blocks": {
@@ -138,44 +176,6 @@
         "title": "Frequently Asked Questions (FAQ)"
       }
     },
-    "ctm_most_popular_dtGUX4": {
-      "type": "ctm-most-popular",
-      "blocks": {
-        "card_dahDby": {
-          "type": "card",
-          "settings": {
-            "product": "noise-canceling-earbuds"
-          }
-        },
-        "card_bFWbfF": {
-          "type": "card",
-          "settings": {
-            "product": "noise-canceling-earbuds"
-          }
-        },
-        "card_nXnYEH": {
-          "type": "card",
-          "settings": {
-            "product": "noise-canceling-earbuds"
-          }
-        },
-        "card_rcLHfR": {
-          "type": "card",
-          "settings": {
-            "product": "noise-canceling-earbuds"
-          }
-        }
-      },
-      "block_order": [
-        "card_dahDby",
-        "card_bFWbfF",
-        "card_nXnYEH",
-        "card_rcLHfR"
-      ],
-      "settings": {
-        "title": "Similar Products"
-      }
-    },
     "ctm_subscribe_yhVjjK": {
       "type": "ctm-subscribe",
       "settings": {}
@@ -184,8 +184,8 @@
   "order": [
     "main",
     "related-products",
-    "ctm_faq_MK7wRQ",
     "ctm_most_popular_dtGUX4",
+    "ctm_faq_MK7wRQ",
     "ctm_subscribe_yhVjjK"
   ]
 }
