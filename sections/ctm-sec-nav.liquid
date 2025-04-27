@@ -1,0 +1,49 @@
+<div class="inner-box">
+    <a href="#features" class="tab tab-active" onclick="toggleTab(event)"><div class="headline-14">Features</div></a>
+    <a href="#spec" class="tab" onclick="toggleTab(event)"><div class="headline-15">Spec</div></a>
+    <a href="#faq" class="tab" onclick="toggleTab(event)"><div class="headline-15">FAQ</div></a>
+    <a href="#reviews" class="tab" onclick="toggleTab(event)"><div class="headline-15">Reviews</div></a>
+  </div>
+  
+  <script>
+    function toggleTab(event) {
+      // Prevent default anchor behavior (we'll handle scrolling manually)
+      event.preventDefault();
+      
+      // Get the target section ID from href
+      const targetId = event.currentTarget.getAttribute('href').substring(1);
+      
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('tab-active');
+        tab.querySelector('div').className = 'headline-15';
+      });
+      
+      // Add active class to clicked tab
+      event.currentTarget.classList.add('tab-active');
+      event.currentTarget.querySelector('div').className = 'headline-14';
+      
+      // Scroll to section
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+  
+  {% schema %}
+  {
+    "name": "Nav-Section",
+    "tag": "section",
+    "class": "section-nav",
+    "settings": [
+     
+    ],
+    "presets": [
+      {
+        "name": "Nav-Section",
+        "category": "Custom"
+      }
+    ]
+  }
+  {% endschema %}

@@ -101,6 +101,62 @@
         "padding_bottom": 28
       }
     },
+    "ctm_sec_nav_a4JPRy": {
+      "type": "ctm-sec-nav",
+      "name": "Nav-Section",
+      "settings": {}
+    },
+    "ctm_product_feature_RDM4Lr": {
+      "type": "ctm-product-feature",
+      "blocks": {
+        "product_feature_NQRfmM": {
+          "type": "product-feature",
+          "settings": {
+            "title": "215” Virtual Display",
+            "description": "Enjoy a massive 215-inch virtual screen with Full HD 1080p resolution, delivering an immersive viewing experience. Whether you're watching movies, gaming, or working, the crisp visuals make everything more engaging.",
+            "image": "shopify://shop_images/card-1.png",
+            "block_layout": "default"
+          }
+        },
+        "product_feature_gCkjjw": {
+          "type": "product-feature",
+          "settings": {
+            "title": "3D Spatial Audio",
+            "description": "Experience immersive surround sound with dual directional speakers that create a private audio space. The built-in noise-canceling technology ensures crystal-clear sound without distractions.",
+            "image": "shopify://shop_images/card-2.png",
+            "block_layout": "content-image"
+          }
+        },
+        "product_feature_JXERtU": {
+          "type": "product-feature",
+          "settings": {
+            "title": "Lightweight & Comfortable",
+            "description": "Weighing only 75g, Rokid Max is lighter than sunglasses, making it comfortable for all-day wear. Adjustable nose pads and an ergonomic fit ensure a secure and pressure-free experience.",
+            "image": "shopify://shop_images/card-3.png",
+            "block_layout": "default"
+          }
+        }
+      },
+      "block_order": [
+        "product_feature_NQRfmM",
+        "product_feature_gCkjjw",
+        "product_feature_JXERtU"
+      ],
+      "name": "Product features",
+      "settings": {
+        "layout_direction": "image-content"
+      }
+    },
+    "ctm_product_galley_dmathp": {
+      "type": "ctm-product-galley",
+      "name": "Product gallery",
+      "settings": {}
+    },
+    "ctm_spec_iqbQgK": {
+      "type": "ctm-spec",
+      "name": "Product specifications",
+      "settings": {}
+    },
     "ctm_most_popular_dtGUX4": {
       "type": "ctm-most-popular",
       "blocks": {
@@ -184,6 +240,10 @@
   "order": [
     "main",
     "related-products",
+    "ctm_sec_nav_a4JPRy",
+    "ctm_product_feature_RDM4Lr",
+    "ctm_product_galley_dmathp",
+    "ctm_spec_iqbQgK",
     "ctm_most_popular_dtGUX4",
     "ctm_faq_MK7wRQ",
     "ctm_subscribe_yhVjjK"

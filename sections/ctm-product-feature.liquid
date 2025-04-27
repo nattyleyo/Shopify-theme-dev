@@ -1,0 +1,118 @@
+{% for block in section.blocks %}
+  {%- comment -%} Determine layout for this block {%- endcomment -%}
+  {%- assign layout = block.settings.block_layout -%}
+  {%- if layout == 'default' -%}
+    {%- assign layout = section.settings.layout_direction -%}
+  {%- endif -%}
+
+  <div class="f-row {% if layout == 'content-image' %}content-first{% else %}image-first{% endif %}" {{ block.shopify_attributes }}>
+    {%- if layout == 'content-image' -%}
+      {%- comment -%} Content first layout {%- endcomment -%}
+      <div class="detaills">
+        <div class="card-content-2">
+          <div class="headline-16">{{ block.settings.title }}</div>
+          <div class="subtext-8">
+            {{ block.settings.description }}
+          </div>
+        </div>
+      </div>
+      <div class="card-f-2">
+        {{ block.settings.image | img_url: 'large' | img_tag: block.settings.title, 'feature-image' }}
+      </div>
+    {%- else -%}
+      {%- comment -%} Image first layout (default) {%- endcomment -%}
+      <div class="card-f-2">
+        {{ block.settings.image | img_url: 'large' | img_tag: block.settings.title, 'feature-image' }}
+      </div>
+      <div class="detaills">
+        <div class="card-content-2">
+          <div class="headline-16">{{ block.settings.title }}</div>
+          <div class="subtext-8">
+            {{ block.settings.description }}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+{% endfor %}
+{% schema %}
+{
+  "name": "product-feature",
+  "tag": "section",
+  "class": "features",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Default Layout Direction",
+      "options": [
+        {
+          "value": "image-content",
+          "label": "Image - Content"
+        },
+        {
+          "value": "content-image",
+          "label": "Content - Image"
+        }
+      ],
+      "default": "image-content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-feature",
+      "name": "Product feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "3D Spatial Audio"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Experience immersive surround sound with dual directional speakers that create a private audio space. The built-in noise-canceling technology ensures crystal-clear sound without distractions."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "block_layout",
+          "label": "Block Layout",
+          "options": [
+            {
+              "value": "default",
+              "label": "Use Section Default"
+            },
+            {
+              "value": "image-content",
+              "label": "Image - Content"
+            },
+            {
+              "value": "content-image",
+              "label": "Content - Image"
+            }
+          ],
+          "default": "default"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product features",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "product-feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
