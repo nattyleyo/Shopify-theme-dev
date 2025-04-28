@@ -9,6 +9,11 @@
  */
 {
   "sections": {
+    "ctm_product_hero_gNx7pt": {
+      "type": "ctm-product-hero",
+      "name": "Product Hero",
+      "settings": {}
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -66,6 +71,7 @@
         "description",
         "share"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
@@ -238,6 +244,7 @@
     }
   },
   "order": [
+    "ctm_product_hero_gNx7pt",
     "main",
     "related-products",
     "ctm_sec_nav_a4JPRy",

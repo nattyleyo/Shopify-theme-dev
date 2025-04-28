@@ -5,7 +5,7 @@
     {%- assign layout = section.settings.layout_direction -%}
   {%- endif -%}
 
-  <div class="f-row {% if layout == 'content-image' %}content-first{% else %}image-first{% endif %}" {{ block.shopify_attributes }}>
+  <div id="features" class="f-row {% if layout == 'content-image' %}content-first{% else %}image-first{% endif %}" {{ block.shopify_attributes }}>
     {%- if layout == 'content-image' -%}
       {%- comment -%} Content first layout {%- endcomment -%}
       <div class="detaills">
