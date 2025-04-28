@@ -12,7 +12,10 @@
     "ctm_product_hero_gNx7pt": {
       "type": "ctm-product-hero",
       "name": "Product Hero",
-      "settings": {}
+      "settings": {
+        "autoplay": true,
+        "delay": 5
+      }
     },
     "main": {
       "type": "main-product",
