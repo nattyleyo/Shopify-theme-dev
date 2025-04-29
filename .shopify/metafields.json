@@ -19,6 +19,16 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "features",
+      "namespace": "custom",
+      "name": "Product Features",
+      "description": "list of features a product can have.",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [],

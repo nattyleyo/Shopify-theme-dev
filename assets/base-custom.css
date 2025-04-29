@@ -2799,7 +2799,7 @@ textarea.w-select {
   overflow: hidden;
 }
 
-.pr-title {
+.pr-card-title {
   color: #000;
   width: 100%;
   margin-top: 0;
@@ -4835,7 +4835,7 @@ span .icon-close {
     width: 280px;
   }
 
-  .pr-title {
+  .pr-card-title {
     font-size: 20px;
   }
   .text-2 {
@@ -5079,7 +5079,7 @@ span .icon-close {
   .title-style-4 {
     font-size: 16px;
   }
-  .pr-title {
+  .pr-card-title {
     font-size: 16px;
     font-weight: 500;
   }
@@ -5256,7 +5256,7 @@ span .icon-close {
   .title-style-4 {
     font-size: 14px;
   }
-  .pr-title {
+  .pr-card-title {
     font-size: 16px;
   }
   .card-container {

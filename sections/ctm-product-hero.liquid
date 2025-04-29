@@ -1,178 +1,501 @@
 <div class="inner-detail">
-    <div class="left-sliders">
-      
-      <div class="image-display">
-        {% render 'ctm-productSlideShow', 
-            images: product.images, 
-            settings: section.settings, 
-            slideShowId: "product-main-slideshow"
-          %}
-        
+  <div class="left-sliders">
+    <div class="image-display">
+      {% render 'ctm-productSlideShow', 
+          images: product.images, 
+          settings: section.settings, 
+          slideShowId: "product-main-slideshow"
+        %}
+    </div>
+    {% if product.images.size > 1 %}
+    <div class="images-window">
+      <div class="dot-indicator">
+        {% for image in product.images %}
+          <div class="frame-220">
+            <div class="dot-22 {% if forloop.first %}active{% endif %}"></div>
+          </div>
+        {% endfor %}
       </div>
-      {% if product.images.size > 1 %}
-      <div class="images-window">
-        <div class="dot-indicator">
-          {% for image in product.images %}
-            <div class="frame-220">
-              <div class="dot-22 {% if forloop.first %}active{% endif %}"></div>
-            </div>
-          {% endfor %}
+      <div class="image-indicator">
+        {% for image in product.images %}
+          <div class="pr-image {% if forloop.first %}pr-image-active{% endif %}" data-image-id="{{ image.id }}">
+            <img
+              src="{{ image | img_url: '200x' }}"
+              loading="lazy"
+              width="Auto"
+              height="Auto"
+              alt="{{ image.alt | escape }}"
+              class="pr-inner-image"
+              data-image-id="{{ image.id }}"
+              data-zoom="{{ image | img_url: '2000x' }}"
+            />
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="right-content">
+    <div class="logo-pr">{{ shop.name }}</div>
+    <h1 class="pr-title">{{ product.title }}</h1>
+    <div class="review-box-ctm">
+      <div class="review-no-box">
+        <div class="review-no">
+          {% if product.metafields.reviews.rating_count %}
+            {{ product.metafields.reviews.rating_count }} Reviews
+          {% else %}
+            No reviews yet
+          {% endif %}
         </div>
-        <div class="image-indicator">
-          {% for image in product.images %}
-            <div class="pr-image {% if forloop.first %}pr-image-active{% endif %}" data-image-id="{{ image.id }}">
+        {% if product.metafields.reviews.rating.value %}
+          <div class="star-box">
+            {% assign rating = product.metafields.reviews.rating.value | round %}
+            {% for i in (1..5) %}
+              {% if i <= rating %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="price-tag">
+        <div class="text">{{ product.price | money }}</div>
+        {% if product.compare_at_price > product.price %}
+          <div class="compare-price">{{ product.compare_at_price | money }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="desc-wrapper">
+      <div class="short-desc">
+        {{ product.description | strip_html | truncate: 120 }}
+        <span class="see-detail-btn" onclick="seeDetail()">Full details</span>
+      </div>
+    </div>
+    
+    {% if product.variants.size > 1 %}
+    <div class="box-div">
+      <div class="box-title">Color</div>
+      <div class="color-div">
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' %}
+            {% for value in option.values %}
+              <div class="frame-158" data-value="{{ value | escape }}">
+                <div class="dot-18"></div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    
+    <div class="box-div">
+      <div class="box-title">Quantity</div>
+      <div class="input-div input-div-2" style="max-width: 160px; height: 54px;">
+        <div class="add-sub subtract "style="left: 10px;top: 10px;">
+          <div class="icon-embed-xxsmall-2 w-embed">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              class="iconify iconify--ic"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M19 12.998H5v-2h14z"></path>
+            </svg>
+          </div>
+        </div>
+        <input type="number" placeholder="1" class="input input-item" data-maxitem="20"/>
+        <div class="add-sub" style="right: 10px;top: 10px;">
+          <div class="icon-embed-xxsmall w-embed">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              class="iconify iconify--ic"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="btn-wrapper">
+      <form method="post" action="/cart/add" class="add-to-cart-form">
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        <input type="hidden" name="quantity" value="1" id="quantity-input">
+        <button type="submit" class="add-cart-btn" id="add-to-cart-btn">
+          <img
+            src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9be628045ba1a2e6b2_Frame.svg"
+            loading="lazy"
+            width="18"
+            height="18"
+            alt=""
+            class="cart-icon"
+          />
+          <div class="button-label">Add To Cart</div>
+        </button>
+      </form>
+      <div class="cart-2" id="buy-now-btn">
+        <div class="btn-label-2">Buy It Now</div>
+      </div>
+    </div>
+    
+    <div class="trust-box">
+      <div class="trust-title">Guaranteed Quality & Secure Shopping!</div>
+      <div class="badge-list">
+        <div class="badge-list">
+          <div class="item-box">
+            <div class="badge-box">
               <img
-                src="{{ image | img_url: '200x' }}"
+                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9be495062fc7ca590d_Frame.svg"
                 loading="lazy"
-                width="Auto"
-                height="Auto"
-                alt="{{ image.alt | escape }}"
-                class="pr-inner-image"
-                data-image-id="{{ image.id }}"
-                data-zoom="{{ image | img_url: '2000x' }}"
+                width="32"
+                height="32"
+                alt=""
+                class="badge-icons"
               />
             </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-    </div>
-    <div class="right-content">
-      <div class="logo-pr">{{ shop.name }}</div>
-      <h1 class="pr-title">{{ product.title }}</h1>
-      <div class="review-box-ctm">
-        <div class="review-no-box">
-          <div class="review-no">
-            {% if product.metafields.reviews.rating_count %}
-              {{ product.metafields.reviews.rating_count }} Reviews
-            {% else %}
-              No reviews yet
-            {% endif %}
+            <div class="badge-title">Fast &amp; Free Shipping</div>
           </div>
-          {% if product.metafields.reviews.rating.value %}
-            <div class="star-box">
-              {% assign rating = product.metafields.reviews.rating.value | round %}
-              {% for i in (1..5) %}
-                {% if i <= rating %}
-                  ★
-                {% else %}
-                  ☆
-                {% endif %}
-              {% endfor %}
+          <div class="item-box">
+            <div class="badge-box">
+              <img
+                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9bf5887312df552dee_Frame.svg"
+                loading="lazy"
+                width="32"
+                height="32"
+                alt=""
+                class="badge-icons"
+              />
             </div>
-          {% endif %}
-        </div>
-        <div class="price">
-          <div class="text">{{ product.price | money }}</div>
-          {% if product.compare_at_price > product.price %}
-            <div class="compare-price">{{ product.compare_at_price | money }}</div>
-          {% endif %}
-        </div>
-      </div>
-      <div class="desc-wrapper">
-        <div class="short-desc">
-          {{ product.description | strip_html | truncate: 150 }}
-          <span class="see-detail-btn">Full details</span>
-        </div>
-      </div>
-      
-      {% if product.variants.size > 1 %}
-      <div class="box-div">
-        <div class="box-title">Color</div>
-        <div class="color-div">
-          {% for option in product.options_with_values %}
-            {% if option.name == 'Color' %}
-              {% for value in option.values %}
-                <div class="frame-158" data-value="{{ value | escape }}">
-                  <div class="dot-18"></div>
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-      
-      <div class="box-div">
-        <div class="box-title">Quantity</div>
-        <input type="number" name="quantity" value="1" min="1" class="quantity-input">
-      </div>
-      
-      <div class="btn-wrapper">
-        <form method="post" action="/cart/add" class="add-to-cart-form">
-          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-          <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="add-cart-btn">
-            <img
-              src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9be628045ba1a2e6b2_Frame.svg"
-              loading="lazy"
-              width="18"
-              height="18"
-              alt=""
-              class="cart-icon"
-            />
-            <div class="button-label">Add To Cart</div>
-          </button>
-        </form>
-        <div class="cart-2">
-          <div class="btn-label-2">Buy It Now</div>
-        </div>
-      </div>
-      
-      <div class="trust-box">
-        <div class="trust-title">Guaranteed Quality & Secure Shopping!</div>
-        <div class="badge-list">
-          <!-- Your trust badges remain static -->
+            <div class="badge-title">Secure Checkout</div>
+          </div>
+          <div class="item-box">
+            <div class="badge-box">
+              <img
+                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9b814b1da8e33c56d5_Frame.svg"
+                loading="lazy"
+                width="32"
+                height="32"
+                alt=""
+                class="badge-icons"
+              />
+            </div>
+            <div class="badge-title">30-Day Warranty</div>
+          </div>
+          <div class="item-box">
+            <div class="badge-box">
+              <img
+                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/68071f9b65c61b719dbb4d07_Frame.svg"
+                loading="lazy"
+                width="32"
+                height="32"
+                alt=""
+                class="badge-icons"
+              />
+            </div>
+            <div class="badge-title">24/7 Customer Support</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+<style>
+  /* Quantity Input Styles */
+  .input-item::-webkit-outer-spin-button,
+  .input-item::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .input-item[type=number] {
+    -moz-appearance: textfield;
+  }
   
-  <script>
-    // JavaScript to handle image switching
-    document.querySelectorAll('.pr-image').forEach(thumb => {
-      thumb.addEventListener('click', function() {
-        // Remove active class from all thumbnails
-        document.querySelectorAll('.pr-image').forEach(el => el.classList.remove('pr-image-active'));
-        // Add active class to clicked thumbnail
-        this.classList.add('pr-image-active');
-        
-        // Get the image URL from data attributes
-        const newImageSrc = this.querySelector('img').getAttribute('src').replace('_200x', '_800x');
-        
-        // Update main image
-        document.getElementById('ProductMainImage').setAttribute('src', newImageSrc);
+  /* Button Loading States */
+  .add-cart-btn.loading,
+  #buy-now-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .add-cart-btn.loading .cart-icon {
+    animation: spin 0.5s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Toast Notification */
+  .simple-toast {
+    position: fixed;
+    top: 24vh;
+    right: 3%;
+    transform: translateX(100%) translateY(0);
+    background: white;
+    color: #333;
+    padding: 16px 32px;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  .simple-toast.show {
+    transform: translateX(0%) translateY(0);
+    opacity: 1;
+  }
+  .simple-toast-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .simple-toast-message {
+    font-size: 16px;
+  }
+  @keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .simple-toast-icon path {
+    animation: checkmark 0.3s ease-out;
+  }
+</style>
+
+<script>
+  function seeDetail() {
+    const descWrapper = document.querySelector('.desc-wrapper');
+    const shortDesc = descWrapper.querySelector('.short-desc');
+    const fullDesc = `{{ product.description | strip_html | escape }}`;
+    const seeDetailBtn = shortDesc.querySelector('.see-detail-btn');
+    
+    // Check current state
+    if (shortDesc.dataset.expanded === 'true') {
+      // Collapse back to short version
+      shortDesc.innerHTML = `${fullDesc.substring(0, 120)}... <span class="see-detail-btn" onclick="seeDetail()">Full details</span>`;
+      shortDesc.dataset.expanded = 'false';
+    } else {
+      // Expand to full version
+      shortDesc.innerHTML = `${fullDesc} <span class="see-detail-btn" onclick="seeDetail()">Show less</span>`;
+      shortDesc.dataset.expanded = 'true';
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // State tracking
+    let itemAdded = false;
+    const currentVariantId = document.querySelector('[name="id"]').value;
+    const quantityInput = document.getElementById('quantity-input');
+    const inputItem = document.querySelector('.input-item');
+  
+    // Create and append toast element
+    const toast = document.createElement('div');
+    toast.className = 'simple-toast';
+    toast.innerHTML = `
+      <svg class="simple-toast-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 6L9 17L4 12" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="simple-toast-message"></span>
+    `;
+    document.body.appendChild(toast);
+  
+    // Toast controller
+    function showToast(message, duration = 3000) {
+      toast.querySelector('.simple-toast-message').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+  
+    // Cart count updater
+    function updateCartCount() {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          document.querySelectorAll('.cart-count-bubble span').forEach(span => {
+            span.textContent = cart.item_count;
+          });
+        })
+        .catch(console.error);
+    }
+  
+    // Quantity controller
+    if (inputItem) {
+      const container = inputItem.closest('.input-div');
+      const addBtn = container.querySelector('.add-sub:not(.subtract)');
+      const subtractBtn = container.querySelector('.add-sub.subtract');
+      const maxItem = parseInt(inputItem.dataset.maxitem) || 20;
+  
+      // Initialize
+      if (!inputItem.value || inputItem.value < 1) {
+        inputItem.value = 1;
+        quantityInput.value = 1;
+      }
+  
+      // Event handlers
+      addBtn.addEventListener('click', () => {
+        const value = parseInt(inputItem.value) || 0;
+        if (value < maxItem) {
+          inputItem.value = value + 1;
+          quantityInput.value = inputItem.value;
+        }
       });
-    });
-  </script>
   
-  {% schema %}
+      subtractBtn.addEventListener('click', () => {
+        const value = parseInt(inputItem.value) || 0;
+        if (value > 1) {
+          inputItem.value = value - 1;
+          quantityInput.value = inputItem.value;
+        }
+      });
+  
+      inputItem.addEventListener('input', (e) => {
+        let value = parseInt(e.target.value);
+        if (isNaN(value)) value = 1;
+        if (value < 1) value = 1;
+        if (value > maxItem) value = maxItem;
+        e.target.value = value;
+        quantityInput.value = value;
+      });
+  
+      inputItem.addEventListener('blur', (e) => {
+        if (!e.target.value || e.target.value < 1) {
+          e.target.value = 1;
+          quantityInput.value = 1;
+        }
+      });
+    }
+  
+    // Cart actions
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const buyNowBtn = document.getElementById('buy-now-btn');
+  
+    async function addToCart() {
+      const quantity = parseInt(quantityInput.value) || 1;
+      
+      try {
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: currentVariantId,
+            quantity: quantity
+          })
+        });
+  
+        if (!response.ok) throw new Error('Failed to add to cart');
+        
+        itemAdded = true;
+        updateCartCount();
+        return true;
+      } catch (error) {
+        console.error('Cart error:', error);
+        throw error;
+      }
+    }
+  
+    // Add to Cart handler
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        const btn = addToCartBtn;
+        const originalText = btn.querySelector('.button-label').textContent;
+        
+        btn.classList.add('loading');
+        btn.disabled = true;
+        btn.querySelector('.button-label').textContent = 'Adding...';
+  
+        try {
+          await addToCart();
+          showToast('Item added to cart');
+        } catch {
+          showToast('Error adding item');
+        } finally {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          btn.querySelector('.button-label').textContent = originalText;
+        }
+      });
+    }
+  
+    // Buy Now handler
+    if (buyNowBtn) {
+      buyNowBtn.addEventListener('click', async (e) => {
+        const btn = buyNowBtn;
+        const originalText = btn.querySelector('.btn-label-2').textContent;
+        
+        btn.classList.add('loading');
+        btn.disabled = true;
+        btn.querySelector('.btn-label-2').textContent = 'Processing...';
+  
+        try {
+          // Only add to cart if not already added
+          if (!itemAdded) {
+            await addToCart();
+          }
+          window.location.href = '/cart';
+        } catch {
+          showToast('Error processing order');
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          btn.querySelector('.btn-label-2').textContent = originalText;
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Hero",
+  "tag": "section",
+  "class": "product-hero",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Delay (seconds)",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
     {
       "name": "Product Hero",
-      "tag": "section",
-      "class": "product-hero",
-      "settings": [
-        {
-        "type": "checkbox",
-        "id": "autoplay",
-        "label": "Autoplay",
-        "default": true
-        },
-        {
-          "type": "range",
-          "id": "delay",
-          "label": "Delay (seconds)",
-          "min": 1,
-          "max": 10,
-          "step": 1,
-          "default": 5
-        }
-      ],
-      "presets": [
-        {
-          "name": "Product Hero",
-          "category": "Custom"
-        }
-      ]
+      "category": "Custom"
     }
-  {% endschema %}
+  ]
+}
+{% endschema %}
