@@ -120,8 +120,8 @@
       "name": "Product features",
       "settings": {
         "heading": "Product Features",
-        "show_section_heading": true,
-        "layout_direction": "image-content"
+        "show_section_heading": false,
+        "mobile_layout": "image-content"
       }
     },
     "ctm_product_galley_dmathp": {
