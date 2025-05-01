@@ -1,84 +1,196 @@
-
-    <div class="top-box">
-      <div class="sec-headline-2">Specifications</div>
-      <div class="sec-subtext-2">
-        Everything you need to know under the hood.
+<div class="top-box">
+  <div class="sec-headline-2">{{ section.settings.heading }}</div>
+  <div class="sec-subtext-2">{{ section.settings.subheading }}</div>
+</div>
+<div class="contents-center">
+  {% for block in section.blocks %}
+    <div class="spec-col">
+      <!-- First Spec Item -->
+      <div class="spec-item">
+        <div class="spec-title{% if block.settings.expand_first_item %} active{% endif %}" 
+             onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+          <div class="frame-217">
+            <img
+              src="{{ block.settings.icon_1 | img_url: '24x24' }}"
+              loading="lazy"
+              width="24"
+              height="24"
+              alt="{{ block.settings.icon_1.alt | escape }}"
+              class="frame-style-6"
+            />
+          </div>
+          <div class="title-style-22">{{ block.settings.title_1 }}</div>
+        </div>
+        {% if block.settings.spec_1 != blank %}
+          <div class="item-desc-box{% if block.settings.expand_first_item %} active{% endif %}">
+            {{ block.settings.spec_1 }}
+          </div>
+        {% endif %}
       </div>
-    </div>
-    <div class="contents-center">
-      <div class="spec-col">
+      
+      <!-- Second Spec Item (Conditional) -->
+      {% unless block.settings.hide_second_item %}
         <div class="spec-item">
-          <div class="spec-title-active">
+          <div class="spec-title{% if block.settings.expand_second_item %} active{% endif %}" 
+               onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
             <div class="frame-217">
               <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722fe95dbb312db5654f8_Frame.svg"
+                src="{{ block.settings.icon_2 | img_url: '24x24' }}"
                 loading="lazy"
                 width="24"
                 height="24"
-                alt=""
+                alt="{{ block.settings.icon_2.alt | escape }}"
                 class="frame-style-6"
               />
             </div>
-            <div class="title-style-22">Display &amp; Optics</div>
+            <div class="title-style-22">{{ block.settings.title_2 }}</div>
           </div>
-          <ul role="list" class="item-desc-box">
-            <li>
-              <div class="item-details">
-                <div class="title-style-23">
-                  <strong class="strong-txt">Screen Type:</strong> Dual
-                  Micro-OLED displays
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="item-details">
-                <div class="title-style-23">
-                  <strong class="strong-txt">Resolution:</strong> Full HD (per
-                  eye)
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="item-details">
-                <div class="title-style-23">
-                  <strong class="strong-txt">Field of View:</strong> 45°
-                  diagonal
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="item-details">
-                <div class="title-style-23">
-                  <strong class="strong-txt">Lens Adjustment:</strong> Diopter
-                  support (-6.0D to 0.0D)
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="item-details">
-                <div class="title-style-23">
-                  <strong class="strong-txt">Brightness:</strong> High
-                  visibility in daylight
-                </div>
-              </div>
-            </li>
-          </ul>
+          {% if block.settings.spec_2 != blank %}
+            <div class="item-desc-box{% if block.settings.expand_second_item %} active{% endif %}">
+              {{ block.settings.spec_2 }}
+            </div>
+          {% endif %}
         </div>
-      </div>
+      {% endunless %}
     </div>
-  {% schema %}
-  {
-    "name": "product_specifications",
-    "tag": "section",
-    "class": "specification",
-    "settings": [
-     
-    ],
-    "presets": [
-      {
-        "name": "Product specifications",
-        "category": "Custom"
-      }
-    ]
+  {% endfor %}
+</div>
+
+<style>
+  .item-desc-box {
+    display: none;
+    padding: 15px 0;
   }
-  {% endschema %}
+  .item-desc-box.active {
+    display: block;
+  }
+  .spec-title {
+    cursor: pointer;
+    /* Add any existing styles for inactive state */
+  }
+  .spec-title.active {
+    /* Add any styles for active state (e.g., different background) */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all spec items based on their default state
+    document.querySelectorAll('.spec-title').forEach(title => {
+      const content = title.nextElementSibling;
+      if (title.classList.contains('active')) {
+        content.classList.add('active');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Specifications",
+  "tag": "section",
+  "class": "specification",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Specifications"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know under the hood."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec_column",
+      "name": "Specification Column",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hide_second_item",
+          "label": "Hide second specification item",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "First Specification Item"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+          "default": "Specifications-Item-Title"
+        },
+        {
+          "type": "richtext",
+          "id": "spec_1",
+          "label": "Specification",
+          "default": "<p><strong>Spec:</strong> Details</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "expand_first_item",
+          "label": "Expand first item by default",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Second Specification Item"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+          "default": "Specifications-Item-Title"
+        },
+        {
+          "type": "richtext",
+          "id": "spec_2",
+          "label": "Specification",
+          "default": "<p><strong>Spec:</strong> Details</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "expand_second_item",
+          "label": "Expand second item by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Specifications",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "spec_column",
+          "settings": {
+            "hide_second_item": false,
+            "title_1": "Display & Optics",
+            "spec_1": "<p><strong>Screen Type:</strong> Dual Micro-OLED displays</p>",
+            "expand_first_item": true,
+            "title_2": "Audio & Connectivity",
+            "spec_2": "<p><strong>Speakers:</strong> Dual directional speakers</p>",
+            "expand_second_item": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

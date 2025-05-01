@@ -1,94 +1,99 @@
-<img
-      src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186.png"
-      loading="lazy"
-      width="608"
-      height="400"
-      alt=""
-      srcset="
-        https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186-p-500.png 500w,
-        https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186.png       608w
-      "
-      sizes="(max-width: 608px) 100vw, 608px"
-      class="img-top"
-    />
-    <div class="image-box">
+  <img
+    src="{{ section.settings.top_image | img_url: '608x' }}"
+    loading="lazy"
+    width="608"
+    height="400"
+    alt="{{ section.settings.top_image.alt | escape }}"
+    srcset="
+      {{ section.settings.top_image | img_url: '500x' }} 500w,
+      {{ section.settings.top_image | img_url: '608x' }} 608w
+    "
+    sizes="(max-width: 608px) 100vw, 608px"
+    class="img-top"
+  />
+  
+  <div class="image-box">
+    {% for block in section.blocks %}
       <img
-        src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186.png"
+        src="{{ block.settings.image | img_url: '608x' }}"
         loading="lazy"
-        width="608"
-        height="400"
-        alt=""
-        srcset="
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186-p-500.png 500w,
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2c2578d5de65cd0f1_Frame-186.png       608w
-        "
+        width="auto"
+        height="auto"
+        alt="{{ block.settings.image.alt | escape }}"
         
         class="img img-h"
       />
-      <img
-        src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187.png"
-        loading="lazy"
-        width="608"
-        height="400"
-        alt=""
-        srcset="
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187-p-500.png 500w,
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187.png       608w
-        "
-        class="img img-h"
-      />
-      <img
-        src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187.png"
-        loading="lazy"
-        width="608"
-        height="400"
-        alt=""
-        srcset="
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187-p-500.png 500w,
-          https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d24c0675de9ff89151_Frame-187.png       608w
-        "
-        class="img img-h"
-      />
-    </div>
-    <div class="indicators-2"><div class="dot-17"></div></div>
-    <div class="contents-2">
-      <div class="card-content-3">
-        <div class="sec-headline">
-          Seamless Integration into Your Daily Life
-        </div>
-        <div class="sec-subtext">
-          Meet the next generation of eyewear. More than just a pair of
-          glasses, these Smart Glasses are your personal assistant, music hub,
-          and AR navigator—all in one sleek design.
-        </div>
+    {% endfor %}
+  </div>
+  
+  <div class="indicators-2">
+    <div class="dot-17"></div>
+  </div>
+  
+  <div class="contents-2">
+    <div class="card-content-3">
+      <div class="sec-headline">
+        {{ section.settings.headline }}
+      </div>
+      <div class="sec-subtext">
+        {{ section.settings.subtext }}
       </div>
     </div>
-    {% comment %} <div class="scroll-overlay-2">
-      <div class="next-arrow-btn">
-        <img
-          src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/680722d2b954cda87cbff33c_icon.svg"
-          loading="lazy"
-          width="32"
-          height="32"
-          alt=""
-          class="img"
-        />
-      </div>
-    </div> {% endcomment %}
-    
-    {% schema %}
+  </div>
+
+{% schema %}
+{
+  "name": "Product Gallery",
+  "tag": "section",
+  "class": "product-gallery ",
+  "settings": [
     {
-      "name": "product-gallery",
-      "tag": "section",
-      "class": "product-galley",
+      "type": "image_picker",
+      "id": "top_image",
+      "label": "Top Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Seamless Integration into Your Daily Life"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Meet the next generation of eyewear. More than just a pair of glasses, these Smart Glasses are your personal assistant, music hub, and AR navigator—all in one sleek design."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery Image",
       "settings": [
-       
-      ],
-      "presets": [
         {
-          "name": "Product gallery",
-          "category": "Custom"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         }
       ]
     }
-    {% endschema %}
+  ],
+  "presets": [
+    {
+      "name": "Product Gallery",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

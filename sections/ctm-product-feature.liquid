@@ -103,39 +103,85 @@
       "default": true
     },
     {
-      "type": "header",
-      "content": "Default Content",
-      "info": "Shown when no product features exist"
-    },
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout direction",
+      "options": [
+        {
+          "value": "image-content",
+          "label": "Image first"
+        },
+        {
+          "value": "content-image",
+          "label": "Content first"
+        }
+      ],
+      "default": "image-content"
+    }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "default_title_1",
-      "label": "Default Title 1",
-      "default": "Premium Materials"
-    },
-    {
-      "type": "textarea",
-      "id": "default_description_1",
-      "label": "Default Description 1",
-      "default": "Crafted with high-quality, durable materials for long-lasting performance."
-    },
-    {
-      "type": "text",
-      "id": "default_title_2",
-      "label": "Default Title 2",
-      "default": "Advanced Technology"
-    },
-    {
-      "type": "textarea",
-      "id": "default_description_2",
-      "label": "Default Description 2",
-      "default": "Incorporating the latest innovations for superior functionality and user experience."
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Feature description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "block_layout",
+          "label": "Block layout",
+          "options": [
+            {
+              "value": "default",
+              "label": "Default"
+            },
+            {
+              "value": "content-image",
+              "label": "Content first"
+            }
+          ],
+          "default": "default"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Product Features",
-      "category": "Custom"
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Premium Materials",
+            "description": "Crafted with high-quality, durable materials for long-lasting performance.",
+            "block_layout": "default"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Advanced Technology",
+            "description": "Incorporating the latest innovations for superior functionality and user experience.",
+            "block_layout": "content-image"
+          }
+        }
+      ]
     }
   ]
 }

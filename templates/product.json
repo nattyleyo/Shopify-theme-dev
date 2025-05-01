@@ -117,54 +117,158 @@
     },
     "ctm_product_feature_RDM4Lr": {
       "type": "ctm-product-feature",
-      "blocks": {
-        "product_feature_NQRfmM": {
-          "type": "product-feature",
-          "settings": {
-            "title": "215” Virtual Display",
-            "description": "Enjoy a massive 215-inch virtual screen with Full HD 1080p resolution, delivering an immersive viewing experience. Whether you're watching movies, gaming, or working, the crisp visuals make everything more engaging.",
-            "image": "shopify://shop_images/card-1.png",
-            "block_layout": "default"
-          }
-        },
-        "product_feature_gCkjjw": {
-          "type": "product-feature",
-          "settings": {
-            "title": "3D Spatial Audio",
-            "description": "Experience immersive surround sound with dual directional speakers that create a private audio space. The built-in noise-canceling technology ensures crystal-clear sound without distractions.",
-            "image": "shopify://shop_images/card-2.png",
-            "block_layout": "content-image"
-          }
-        },
-        "product_feature_JXERtU": {
-          "type": "product-feature",
-          "settings": {
-            "title": "Lightweight & Comfortable",
-            "description": "Weighing only 75g, Rokid Max is lighter than sunglasses, making it comfortable for all-day wear. Adjustable nose pads and an ergonomic fit ensure a secure and pressure-free experience.",
-            "image": "shopify://shop_images/card-3.png",
-            "block_layout": "default"
-          }
-        }
-      },
-      "block_order": [
-        "product_feature_NQRfmM",
-        "product_feature_gCkjjw",
-        "product_feature_JXERtU"
-      ],
       "name": "Product features",
       "settings": {
+        "heading": "Product Features",
+        "show_section_heading": true,
         "layout_direction": "image-content"
       }
     },
     "ctm_product_galley_dmathp": {
       "type": "ctm-product-galley",
+      "blocks": {
+        "gallery_image_UKGQTF": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/top-img.png"
+          }
+        },
+        "gallery_image_6mmBxh": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/img-2.png"
+          }
+        },
+        "gallery_image_3yN7Fm": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/card-1.png"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_image_UKGQTF",
+        "gallery_image_6mmBxh",
+        "gallery_image_3yN7Fm"
+      ],
       "name": "Product gallery",
-      "settings": {}
+      "settings": {
+        "top_image": "shopify://shop_images/top-img_e838cb3f-5e12-4420-ac23-82d15cd182ae.png",
+        "headline": "Seamless Integration into Your Daily Life",
+        "subtext": "Meet the next generation of eyewear. More than just a pair of glasses, these Smart Glasses are your personal assistant, music hub, and AR navigator—all in one sleek design."
+      }
     },
     "ctm_spec_iqbQgK": {
       "type": "ctm-spec",
+      "blocks": {
+        "spec_column_QW64GU": {
+          "type": "spec_column",
+          "settings": {
+            "hide_second_item": false,
+            "icon_1": "shopify://shop_images/display-icon.svg",
+            "title_1": "Display & Optics",
+            "spec_1": "<ul><li><strong>Screen Type: </strong>Dual Micro-OLED displays</li><li><strong>Resolution: </strong>Full HD (per eye)</li><li><strong>Field of View: </strong>45° diagonal</li><li><strong>Lens Adjustment: </strong>Diopter support (-6.0D to 0.0D)</li><li><strong>Brightness: </strong>High visibility in daylight</li></ul>",
+            "expand_first_item": true,
+            "icon_2": "shopify://shop_images/battery-icon.svg",
+            "title_2": "Battery & Power",
+            "spec_2": "<ul><li><strong>Battery Life: </strong>Up to 5 hours usage</li><li><strong>Charging Time: </strong>~1.5 hours full charge</li><li><strong>Charging Method: </strong>USB-C or magnetic dock</li></ul>",
+            "expand_second_item": false
+          }
+        },
+        "spec_column_eUPMaM": {
+          "type": "spec_column",
+          "settings": {
+            "hide_second_item": false,
+            "icon_1": "shopify://shop_images/audio-icon.svg",
+            "title_1": "Audio & Microphone",
+            "spec_1": "<ul><li><strong>Speakers: </strong>Open-ear stereo speakers</li><li><strong>Microphones: </strong>Dual noise-canceling mics</li><li><strong>Audio Features: </strong>Voice command, call support</li></ul>",
+            "expand_first_item": true,
+            "icon_2": "shopify://shop_images/connect-icon.svg",
+            "title_2": "Connectivity",
+            "spec_2": "<ul><li><strong>Wireless: </strong>Up to 5 hours usage</li><li><strong>Wired: </strong>~1.5 hours full charge</li><li><strong>Lens Adjustment: </strong>45° diagonal</li><li><strong>App Support: </strong>Android & iOS companion app</li></ul>",
+            "expand_second_item": false
+          }
+        }
+      },
+      "block_order": [
+        "spec_column_QW64GU",
+        "spec_column_eUPMaM"
+      ],
       "name": "Product specifications",
-      "settings": {}
+      "settings": {
+        "heading": "Specifications",
+        "subheading": "Everything you need to know under the hood."
+      }
+    },
+    "ctm_faq_MK7wRQ": {
+      "type": "ctm-faq",
+      "blocks": {
+        "collapse_item_4ndQ6L": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "1. Are the smart glasses compatible with my phone?",
+            "answer": "Yes, the smart glasses work with both Android and iOS devices via a companion app that unlocks additional features and updates.",
+            "active": true
+          }
+        },
+        "collapse_item_qPQpmH": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "2. How long does the battery last?",
+            "answer": "coming soon.",
+            "active": false
+          }
+        },
+        "collapse_item_ppTUCq": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "3. Can I wear them with prescription lenses?",
+            "answer": "coming soon.",
+            "active": false
+          }
+        },
+        "collapse_item_xjfBLM": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "4. How do I control the glasses?",
+            "answer": "coming soon.",
+            "active": false
+          }
+        },
+        "collapse_item_3yJgdN": {
+          "type": "collapse_item",
+          "settings": {
+            "question": "5. Are they safe to wear in the rain?",
+            "answer": "coming soon.",
+            "active": false
+          }
+        }
+      },
+      "block_order": [
+        "collapse_item_4ndQ6L",
+        "collapse_item_qPQpmH",
+        "collapse_item_ppTUCq",
+        "collapse_item_xjfBLM",
+        "collapse_item_3yJgdN"
+      ],
+      "settings": {
+        "title": "Frequently Asked Questions (FAQ)"
+      }
+    },
+    "1745885083de6d8c16": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_MmihqH": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_MmihqH"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     },
     "ctm_most_popular_dtGUX4": {
       "type": "ctm-most-popular",
@@ -204,43 +308,6 @@
         "title": "Similar Products"
       }
     },
-    "ctm_faq_MK7wRQ": {
-      "type": "ctm-faq",
-      "blocks": {
-        "collapse_item_4ndQ6L": {
-          "type": "collapse_item",
-          "settings": {
-            "question": "How can I track my order?",
-            "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
-            "active": true
-          }
-        },
-        "collapse_item_qPQpmH": {
-          "type": "collapse_item",
-          "settings": {
-            "question": "How can I track my order?",
-            "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
-            "active": false
-          }
-        },
-        "collapse_item_4t7N6X": {
-          "type": "collapse_item",
-          "settings": {
-            "question": "How can I track my order?",
-            "answer": "From AI-driven smart wear to cutting-edge wearables, experience the technology redefining daily life.",
-            "active": false
-          }
-        }
-      },
-      "block_order": [
-        "collapse_item_4ndQ6L",
-        "collapse_item_qPQpmH",
-        "collapse_item_4t7N6X"
-      ],
-      "settings": {
-        "title": "Frequently Asked Questions (FAQ)"
-      }
-    },
     "ctm_subscribe_yhVjjK": {
       "type": "ctm-subscribe",
       "settings": {}
@@ -254,8 +321,9 @@
     "ctm_product_feature_RDM4Lr",
     "ctm_product_galley_dmathp",
     "ctm_spec_iqbQgK",
-    "ctm_most_popular_dtGUX4",
     "ctm_faq_MK7wRQ",
+    "1745885083de6d8c16",
+    "ctm_most_popular_dtGUX4",
     "ctm_subscribe_yhVjjK"
   ]
 }
