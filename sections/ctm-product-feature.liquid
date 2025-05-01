@@ -1,34 +1,48 @@
+<style>
+
+  /* Desktop layout - alternating pattern */
+  .features .f-row.image-first {
+    flex-direction: row;
+  }
+  .features .f-row.content-first {
+    flex-direction: row-reverse;
+  }
+
+  /* Mobile layout - consistent direction */
+  @media screen and (max-width: 749px) {
+    .features .f-row {
+      flex-direction: var(--mobile-layout-direction, column);
+    }
+    .features .f-row .detaills,
+    .features .f-row .card-f-2 {
+      width: 100% !important;
+    }
+    
+    /* Override desktop classes on mobile */
+    .features .f-row.image-first,
+    .features .f-row.content-first {
+      flex-direction: var(--mobile-layout-direction, column);
+    }
+  }
+</style>
+
 {% assign product_features = product.metafields.custom.features.value %}
+{% assign mobile_layout = section.settings.mobile_layout %}
 
-{% if product_features %}
-  {% for feature in product_features %}
-    {% assign mod_result = forloop.index0 | modulo: 2 %}
-    {% if mod_result == 0 %}
-      {% assign layout = 'image-content' %}
-    {% else %}
-      {% assign layout = 'content-image' %}
-    {% endif %}
+<div class="features" style="--mobile-layout-direction: {% if mobile_layout == 'image-content' %}column{% else %}column-reverse{% endif %}">
+  {% if section.settings.show_section_heading and section.settings.heading != blank %}
+    <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
 
-    <div id="features-{{ forloop.index }}" class="f-row {% if layout == 'content-image' %}content-first{% else %}image-first{% endif %}">
-      {% if layout == 'content-image' %}
-        <div class="detaills" >
-          <div class="card-content-2">
-            <div class="headline-16">
-              {{ feature.title.value | default: feature.title }}
-            </div>
-            <div class="subtext-8">
-              {{ feature.description.value | default: feature.description }}
-            </div>
-          </div>
-        </div>
-        <div class="card-f-2" id="features">
-          {% if feature.image.value != blank %}
-            {{ feature.image.value | img_url: 'large' | img_tag: feature.title.value, 'feature-image' }}
-          {% elsif feature.image != blank %}
-            {{ feature.image | img_url: 'large' | img_tag: feature.title, 'feature-image' }}
-          {% endif %}
-        </div>
-      {% else %}
+  {% if product_features %}
+    {% for feature in product_features %}
+      {% assign mod_result = forloop.index0 | modulo: 2 %}
+      {% assign layout_class = 'image-first' %}
+      {% if mod_result != 0 %}
+        {% assign layout_class = 'content-first' %}
+      {% endif %}
+
+      <div id="features-{{ forloop.index }}" class="f-row {{ layout_class }}">
         <div class="card-f-2">
           {% if feature.image.value != blank %}
             {{ feature.image.value | img_url: 'large' | img_tag: feature.title.value, 'feature-image' }}
@@ -46,43 +60,36 @@
             </div>
           </div>
         </div>
-      {% endif %}
-    </div>
-  {% endfor %}
-{% else %}
-  {% comment %} Default features when none exist in metafields {% endcomment %}
-  <div id="features-default" class="f-row image-first">
-    <div class="card-f-2">
-      {{ 'product-1' | placeholder_svg_tag: 'feature-image' }}
-    </div>
-    <div class="detaills">
-      <div class="card-content-2">
-        <div class="headline-16">
-          Premium Materials
-        </div>
-        <div class="subtext-8">
-          Crafted with high-quality, durable materials for long-lasting performance.
+      </div>
+    {% endfor %}
+
+  {% else %}
+    {% comment %} Default features {% endcomment %}
+    <div id="features-default" class="f-row image-first">
+      <div class="card-f-2">
+        {{ 'product-1' | placeholder_svg_tag: 'feature-image' }}
+      </div>
+      <div class="detaills">
+        <div class="card-content-2">
+          <div class="headline-16">Premium Materials</div>
+          <div class="subtext-8">Crafted with high-quality materials.</div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <div id="features-default-2" class="f-row content-first">
-    <div class="detaills">
-      <div class="card-content-2">
-        <div class="headline-16">
-          Advanced Technology
-        </div>
-        <div class="subtext-8">
-          Incorporating the latest innovations for superior functionality and user experience.
+    
+    <div id="features-default-2" class="f-row content-first">
+      <div class="card-f-2">
+        {{ 'product-2' | placeholder_svg_tag: 'feature-image' }}
+      </div>
+      <div class="detaills">
+        <div class="card-content-2">
+          <div class="headline-16">Advanced Technology</div>
+          <div class="subtext-8">Incorporating the latest innovations.</div>
         </div>
       </div>
     </div>
-    <div class="card-f-2">
-      {{ 'product-2' | placeholder_svg_tag: 'feature-image' }}
-    </div>
-  </div>
-{% endif %}
+  {% endif %}
+</div>
 
 {% schema %}
 {
@@ -104,84 +111,25 @@
     },
     {
       "type": "select",
-      "id": "layout_direction",
-      "label": "Layout direction",
+      "id": "mobile_layout",
+      "label": "Mobile Layout Direction",
       "options": [
         {
           "value": "image-content",
-          "label": "Image first"
+          "label": "Image first on mobile"
         },
         {
           "value": "content-image",
-          "label": "Content first"
+          "label": "Content first on mobile"
         }
       ],
       "default": "image-content"
     }
   ],
-  "blocks": [
-    {
-      "type": "feature",
-      "name": "Feature",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Feature title"
-        },
-        {
-          "type": "textarea",
-          "id": "description",
-          "label": "Description",
-          "default": "Feature description"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "select",
-          "id": "block_layout",
-          "label": "Block layout",
-          "options": [
-            {
-              "value": "default",
-              "label": "Default"
-            },
-            {
-              "value": "content-image",
-              "label": "Content first"
-            }
-          ],
-          "default": "default"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Product Features",
-      "category": "Custom",
-      "blocks": [
-        {
-          "type": "feature",
-          "settings": {
-            "title": "Premium Materials",
-            "description": "Crafted with high-quality, durable materials for long-lasting performance.",
-            "block_layout": "default"
-          }
-        },
-        {
-          "type": "feature",
-          "settings": {
-            "title": "Advanced Technology",
-            "description": "Incorporating the latest innovations for superior functionality and user experience.",
-            "block_layout": "content-image"
-          }
-        }
-      ]
+      "category": "Custom"
     }
   ]
 }
