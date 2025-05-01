@@ -40,6 +40,20 @@
     <h1 class="pr-title">{{ product.title }}</h1>
     <div class="review-box-ctm">
       <div class="review-no-box">
+        {% if product.metafields.reviews.rating.value %}
+          <div class="star-rating">
+            {% assign rating = product.metafields.reviews.rating.value.rating | round: 1 %}
+            {% assign max_rating = product.metafields.reviews.rating.value.scale_max | default: 5 %}
+            {% assign percentage = rating | divided_by: max_rating | times: 100 %}
+            
+            <div class="stars-outer">
+              <div class="stars-inner" style="width: {{ percentage }}%"></div>
+            </div>
+            
+            <span class="rating-value">{{ rating | round: 1 }}</span>
+          </div>
+        {% endif %}
+        
         <div class="review-no">
           {% if product.metafields.reviews.rating_count %}
             {{ product.metafields.reviews.rating_count }} Reviews
@@ -47,18 +61,6 @@
             No reviews yet
           {% endif %}
         </div>
-        {% if product.metafields.reviews.rating.value %}
-          <div class="star-box">
-            {% assign rating = product.metafields.reviews.rating.value | round %}
-            {% for i in (1..5) %}
-              {% if i <= rating %}
-                ★
-              {% else %}
-                ☆
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
       </div>
       <div class="price-tag">
         <div class="text">{{ product.price | money }}</div>
@@ -279,6 +281,57 @@
   .simple-toast-icon path {
     animation: checkmark 0.3s ease-out;
   }
+
+  /* Star Rating Styles */
+.star-rating {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  position: relative;
+}
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.stars-outer::before {
+  content: "★★★★★";
+  color: #ddd;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.stars-inner::before {
+  content: "★★★★★";
+  color: #ECB213;
+}
+
+.rating-value {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+.review-no-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-no {
+  font-size: 14px;
+  color: #666;
+}
 </style>
 
 <script>
