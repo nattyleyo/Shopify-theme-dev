@@ -469,7 +469,7 @@
   display: flex;
   overflow: hidden;
 }
-
+/* 
 .text-5 {
   color: #040303;
   text-align: center;
@@ -481,7 +481,7 @@
   font-weight: 500;
   line-height: 100%;
   text-decoration: none;
-}
+} */
 
 .frame-220 {
   grid-column-gap: 8.52288px;
