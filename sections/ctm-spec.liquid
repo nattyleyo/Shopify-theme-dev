@@ -1,89 +1,108 @@
+{% assign product_specs = product.metafields.custom.product_specifications.value %}
+
+{% if product_specs and product_specs != empty %}
+  <div id="spec" style="height:0px;width:0px;z-index:-1;"></div>
 <div class="top-box">
-  <div class="sec-headline-2">{{ section.settings.heading }}</div>
-  <div class="sec-subtext-2">{{ section.settings.subheading }}</div>
+  <div class="sec-headline-2">{{ section.settings.heading | default: "Specifications" }}</div>
+  <div class="sec-subtext-2">{{ section.settings.subheading | default: "Everything you need to know under the hood." }}</div>
 </div>
-<div class="contents-center">
-  {% for block in section.blocks %}
-    <div class="spec-col">
-      <!-- First Spec Item -->
-      <div class="spec-item">
-        <div class="spec-title{% if block.settings.expand_first_item %} active{% endif %}" 
-             onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
-          <div class="frame-217">
-            <img
-              src="{{ block.settings.icon_1 | img_url: '24x24' }}"
-              loading="lazy"
-              width="24"
-              height="24"
-              alt="{{ block.settings.icon_1.alt | escape }}"
-              class="frame-style-6"
-            />
-          </div>
-          <div class="title-style-22">{{ block.settings.title_1 }}</div>
-        </div>
-        {% if block.settings.spec_1 != blank %}
-          <div class="title-style-23 item-desc-box{% if block.settings.expand_first_item %} active{% endif %}">
-            {{ block.settings.spec_1 }}
-          </div>
-        {% endif %}
-      </div>
-      
-      <!-- Second Spec Item (Conditional) -->
-      {% unless block.settings.hide_second_item %}
+
+<div class="specs-container">
+    <div class="specs-masonry">
+      {% for spec in product_specs %}
         <div class="spec-item">
-          <div class="spec-title{% if block.settings.expand_second_item %} active{% endif %}" 
-               onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+          <div class="spec-title active" onclick="toggleSpecItem(this)">
             <div class="frame-217">
               <img
-                src="{{ block.settings.icon_2 | img_url: '24x24' }}"
+                src="{{ spec.icon | img_url: '24x24' }}"
                 loading="lazy"
                 width="24"
                 height="24"
-                alt="{{ block.settings.icon_2.alt | escape }}"
+                alt="{{ spec.title | escape }}"
                 class="frame-style-6"
               />
             </div>
-            <div class="title-style-22">{{ block.settings.title_2 }}</div>
+            <div class="title-style-22">{{ spec.title }}</div>
           </div>
-          {% if block.settings.spec_2 != blank %}
-            <div class="title-style-23 item-desc-box{% if block.settings.expand_second_item %} active{% endif %}">
-              {{ block.settings.spec_2 }}
-            </div>
-          {% endif %}
+          <div class="title-style-23 item-desc-box active">
+            {{ spec.specs | metafield_tag }}
+          </div>
         </div>
-      {% endunless %}
+      {% endfor %}
     </div>
-  {% endfor %}
 </div>
 
 <style>
+  .specification:not(:has(.specs-container)) {
+    height: 24px !important;
+    padding: 24px !important;
+  }
+  
+  .specs-container {
+    width: 100%;
+  }
+  
+  /* Masonry grid styles */
+  .specs-masonry {
+    column-count: 2;
+    column-gap: 20px;
+    width: 100%;
+  }
+  
+  .spec-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+  }
+  
   .item-desc-box {
     display: none;
     padding: 15px 0;
   }
+  
   .item-desc-box.active {
     display: block;
   }
+  
   .spec-title {
     cursor: pointer;
-    /* Add any existing styles for inactive state */
+    width: 100%;
   }
-  .spec-title.active {
-    /* Add any styles for active state (e.g., different background) */
+
+  @media (max-width: 768px) {
+    .specs-masonry {
+      column-count: 1;
+    }
   }
 </style>
 
 <script>
+  function toggleSpecItem(element) {
+    element.classList.toggle('active');
+    element.nextElementSibling.classList.toggle('active');
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all spec items based on their default state
+    // Initialize all specs as open by default
     document.querySelectorAll('.spec-title').forEach(title => {
-      const content = title.nextElementSibling;
-      if (title.classList.contains('active')) {
-        content.classList.add('active');
+      title.classList.add('active');
+      if (title.nextElementSibling) {
+        title.nextElementSibling.classList.add('active');
       }
     });
   });
 </script>
+{% else %}
+<style>
+  .specification {
+    height: 24px !important;
+    padding: 24px !important;
+  }
+</style>
+{% endif %}
 
 {% schema %}
 {
@@ -104,92 +123,10 @@
       "default": "Everything you need to know under the hood."
     }
   ],
-  "blocks": [
-    {
-      "type": "spec_column",
-      "name": "Specification Column",
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "hide_second_item",
-          "label": "Hide second specification item",
-          "default": false
-        },
-        {
-          "type": "header",
-          "content": "First Specification Item"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon_1",
-          "label": "Icon"
-        },
-        {
-          "type": "text",
-          "id": "title_1",
-          "label": "Title",
-          "default": "Specifications-Item-Title"
-        },
-        {
-          "type": "richtext",
-          "id": "spec_1",
-          "label": "Specification",
-          "default": "<p><strong>Spec:</strong> Details</p>"
-        },
-        {
-          "type": "checkbox",
-          "id": "expand_first_item",
-          "label": "Expand first item by default",
-          "default": true
-        },
-        {
-          "type": "header",
-          "content": "Second Specification Item"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon_2",
-          "label": "Icon"
-        },
-        {
-          "type": "text",
-          "id": "title_2",
-          "label": "Title",
-          "default": "Specifications-Item-Title"
-        },
-        {
-          "type": "richtext",
-          "id": "spec_2",
-          "label": "Specification",
-          "default": "<p><strong>Spec:</strong> Details</p>"
-        },
-        {
-          "type": "checkbox",
-          "id": "expand_second_item",
-          "label": "Expand second item by default",
-          "default": false
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Product Specifications",
-      "category": "Custom",
-      "blocks": [
-        {
-          "type": "spec_column",
-          "settings": {
-            "hide_second_item": false,
-            "title_1": "Display & Optics",
-            "spec_1": "<p><strong>Screen Type:</strong> Dual Micro-OLED displays</p>",
-            "expand_first_item": true,
-            "title_2": "Audio & Connectivity",
-            "spec_2": "<p><strong>Speakers:</strong> Dual directional speakers</p>",
-            "expand_second_item": false
-          }
-        }
-      ]
+      "category": "Custom"
     }
   ]
 }

@@ -28,9 +28,10 @@
 
 {% assign product_features = product.metafields.custom.features.value %}
 {% assign mobile_layout = section.settings.mobile_layout %}
-
+<div id="features" style="height:0px;width:0px;z-index:-1;"></div>
 <div class="features" style="--mobile-layout-direction: {% if mobile_layout == 'image-content' %}column{% else %}column-reverse{% endif %}">
   {% if section.settings.show_section_heading and section.settings.heading != blank %}
+    
     <h2 class="section-heading">{{ section.settings.heading }}</h2>
   {% endif %}
 
@@ -63,31 +64,6 @@
       </div>
     {% endfor %}
 
-  {% else %}
-    {% comment %} Default features {% endcomment %}
-    <div id="features-default" class="f-row image-first">
-      <div class="card-f-2">
-        {{ 'product-1' | placeholder_svg_tag: 'feature-image' }}
-      </div>
-      <div class="detaills">
-        <div class="card-content-2">
-          <div class="headline-16">Premium Materials</div>
-          <div class="subtext-8">Crafted with high-quality materials.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div id="features-default-2" class="f-row content-first">
-      <div class="card-f-2">
-        {{ 'product-2' | placeholder_svg_tag: 'feature-image' }}
-      </div>
-      <div class="detaills">
-        <div class="card-content-2">
-          <div class="headline-16">Advanced Technology</div>
-          <div class="subtext-8">Incorporating the latest innovations.</div>
-        </div>
-      </div>
-    </div>
   {% endif %}
 </div>
 

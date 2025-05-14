@@ -469,6 +469,8 @@
   display: flex;
   overflow: hidden;
 }
+.jdgm-sort-dropdown {
+}
 /* 
 .text-5 {
   color: #040303;
@@ -838,7 +840,7 @@
   flex-flow: column;
   justify-content: flex-start;
   align-items: stretch;
-  width: 50%;
+  width: 100%;
   display: flex;
 }
 .spec-item {

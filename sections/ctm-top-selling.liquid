@@ -35,16 +35,28 @@
             />
           </div>
           <div class="content-box">
-            <div class="review-box">
-              <img
-                src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4edd9561ff05199ff40e6_Frame-10.svg"
-                loading="lazy"
-                width="138.842041015625"
-                height="22.5789852142334"
-                alt=""
-                class="frame-10"
-              />
-              <div class="title-style-4">13 Reviews</div>
+            <div class="review-no-box">
+              {% if product.metafields.reviews.rating.value %}
+                <div class="star-rating">
+                  {% assign rating = product.metafields.reviews.rating.value.rating | round: 1 %}
+                  {% assign max_rating = product.metafields.reviews.rating.value.scale_max | default: 5 %}
+                  {% assign percentage = rating | divided_by: max_rating | times: 100 %}
+                  
+                  <div class="stars-outer">
+                    <div class="stars-inner" style="width: {{ percentage }}%"></div>
+                  </div>
+                  
+                  <span class="rating-value">{{ rating | round: 1 }}</span>
+                </div>
+              {% endif %}
+              
+              <div class="review-no">
+                {% if product.metafields.reviews.rating_count %}
+                  {{ product.metafields.reviews.rating_count }} Reviews
+                {% else %}
+                  No reviews yet
+                {% endif %}
+              </div>
             </div>
             
             <div class="color-box">
@@ -79,42 +91,81 @@
       {% endfor %}
     </div>
   </div>
-  
-  {% comment %} <div class="scroll-overlay">
-    <div class="dot next-btn">
-      <img
-        src="https://cdn.prod.website-files.com/67f4ea3ec31bfd1ce606f755/67f4ed9a57dda30ad1ce57d8_Frame.svg"
-        loading="lazy"
-        width="24"
-        height="24"
-        alt=""
-        class="frame-style"
-      />
-    </div>
-  </div> {% endcomment %}
-
 {% endif %}
 
 <style>
-  /* Add this to your CSS file or within a <style> tag in your HTML */
-
-.pr-card .img-box {
-  transition: transform 0.3s ease-in-out; /* Smooth scaling transition */
+    /* Star Rating Styles */
+.star-rating {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  position: relative;
 }
 
-.pr-card:hover .img-box {
-  transform: scale(1.03); /* Scale the image to 110% when hovered */
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  letter-spacing: 2px;
 }
 
-.product-img {
-  width: 100%; /* Ensure the image fills the container */
-  height: auto;
-  transition: transform 0.3s ease-in-out; /* Smooth transition for the image itself */
+.stars-outer::before {
+  content: "★★★★★";
+  color: #ddd;
 }
 
-.pr-card:hover .product-img {
-  transform: scale(1.09); /* Scale the image up on hover */
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
+.stars-inner::before {
+  content: "★★★★★";
+  color: #ECB213;
+}
+
+.rating-value {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+.review-no-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-no {
+  font-size: 14px;
+  color: #010101;
+}
+</style>
+
+<style>
+    /* Add this to your CSS file or within a <style> tag in your HTML */
+
+  .pr-card .img-box {
+    transition: transform 0.3s ease-in-out; /* Smooth scaling transition */
+  }
+
+  .pr-card:hover .img-box {
+    transform: scale(1.03); /* Scale the image to 110% when hovered */
+  }
+
+  .product-img {
+    width: 100%; /* Ensure the image fills the container */
+    height: auto;
+    transition: transform 0.3s ease-in-out; /* Smooth transition for the image itself */
+  }
+
+  .pr-card:hover .product-img {
+    transform: scale(1.09); /* Scale the image up on hover */
+  }
 
 </style>
 
@@ -170,7 +221,7 @@
       // }
     }
   });
-  </script>
+</script>
 
 {% schema %}
 {
@@ -210,3 +261,4 @@
   ]
 }
 {% endschema %}
+

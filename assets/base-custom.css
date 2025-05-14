@@ -3630,6 +3630,11 @@ span .icon-close {
   width: 100%;
   max-width: none;
 }
+.icon-x img,
+.icon-plus img {
+  width: 20px;
+  height: 20px;
+}
 
 .acc-body {
   grid-row-gap: 32px;
