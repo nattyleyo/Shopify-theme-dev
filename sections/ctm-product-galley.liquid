@@ -7,6 +7,11 @@
 {%- assign top_image = gallery.top_image -%}
 {%- assign image_gallery = gallery.bottom_images.value -%}
 {%- if gallery -%}
+
+{%- assign gallery = product.metafields.custom.gallery_product.value -%}
+{%- assign top_image = gallery.top_image -%}
+{%- assign image_gallery = gallery.bottom_images.value -%}
+{%- if gallery -%}
 <img
     src="{{ top_image | img_url: '608x' }}"
     loading="lazy"
