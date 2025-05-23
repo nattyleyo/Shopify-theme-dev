@@ -2,37 +2,41 @@
   This section is used to create a product gallery with a top image and multiple images in a scrollable box.
   The images are responsive and adapt to different screen sizes.
 {% endcomment %}
+
+{%- assign gallery = product.metafields.custom.gallery_product.value -%}
+{%- assign top_image = gallery.top_image -%}
+{%- assign image_gallery = gallery.bottom_images.value -%}
+{%- if gallery -%}
 <img
-    src="{{ section.settings.top_image | img_url: '608x' }}"
+    src="{{ top_image | img_url: '608x' }}"
     loading="lazy"
     width="608"
     height="400"
-    alt="{{ section.settings.top_image.alt | escape }}"
+    alt="{{ top_image.alt | escape }}"
     srcset="
-      {{ section.settings.top_image | img_url: '500x' }} 500w,
-      {{ section.settings.top_image | img_url: '608x' }} 608w
+      {{ top_image | img_url: '500x' }} 500w,
+      {{ top_image | img_url: '608x' }} 608w
     "
     sizes="(max-width: 608px) 100vw, 608px"
     class="img-top"
   />
   
+
   <div class="image-box">
-    {% for block in section.blocks %}
-      <img
-        src="{{ block.settings.image | img_url: '608x' }}"
-        loading="lazy"
-        width="auto"
-        height="auto"
-        alt="{{ block.settings.image.alt | escape }}"
-        
-        class="img img-h"
-      />
-    {% endfor %}
+      {% for image in image_gallery %}
+       <img
+          src="{{ image | img_url: '608x' }}"
+          loading="lazy"
+          width="auto"
+          height="auto"
+          alt="{{ image.alt | escape }}"
+          
+          class="img img-h"
+        /> 
+      {% endfor %}
   </div>
   
-  <div class="indicators-2">
-    <div class="dot-17"></div>
-  </div>
+  
   
   <div class="contents-2">
     <div class="card-content-3">
@@ -44,6 +48,8 @@
       </div>
     </div>
   </div>
+
+{%- endif -%}
 <style>
   .image-box {
     
@@ -160,11 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
   "tag": "section",
   "class": "product-gallery ",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "top_image",
-      "label": "Top Image"
-    },
+   
     {
       "type": "text",
       "id": "headline",
@@ -188,34 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "info": "Adjust the scrolling speed (lower = slower)"
     }
   ],
-  "blocks": [
-    {
-      "type": "gallery_image",
-      "name": "Gallery Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        }
-      ]
-    }
-  ],
+  
   "presets": [
     {
       "name": "Product Gallery",
       "category": "Custom",
-      "blocks": [
-        {
-          "type": "gallery_image"
-        },
-        {
-          "type": "gallery_image"
-        },
-        {
-          "type": "gallery_image"
-        }
-      ]
+      
     }
   ]
 }

@@ -1,4 +1,4 @@
-.gradient {
+.body {
   overflow-x: hidden;
 }
 .product-hero {
@@ -11,6 +11,7 @@
   text-decoration: none;
   display: flex;
   overflow: hidden;
+  z-index: 0;
 }
 .inner-detail {
   grid-column-gap: 64px;
@@ -650,6 +651,7 @@
   text-decoration: none;
   display: flex;
 }
+
 .detaills {
   grid-row-gap: 32px;
   border-radius: 16px;
@@ -732,6 +734,7 @@
 }
 .img-h {
   width: 49%;
+  max-height: 400px;
   border-radius: 12px;
 }
 .img-top {
@@ -745,6 +748,7 @@
   align-items: flex-start;
   width: 100%;
   padding: 60px 96px;
+  padding-top: 34px;
   text-decoration: none;
   display: flex;
 }
@@ -1198,6 +1202,7 @@
   }
   .img-h {
     width: 300px;
+    max-height: 300px;
   }
 }
 @media screen and (max-width: 479px) {

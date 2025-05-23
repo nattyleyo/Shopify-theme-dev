@@ -2,37 +2,65 @@
   Custom product slideshow snippet
   Usage: {% render 'ctm-product-slideShow', images: product.images, settings: section.settings, slideShowId: "product-slideshow" %}
 {%- endcomment -%}
-
-<div class="product-slideShow" data-autoplay="{{ settings.autoplay | default: false }}" data-delay="{{ settings.delay | default: 5 | times: 1000 }}" 
-    data-slideshow-id="{{ slideShowId }}">
-    <div class="product-img-slides">
+<div class="image-display">
+  <div class="product-slideShow" data-autoplay="{{ settings.autoplay | default: false }}" data-delay="{{ settings.delay | default: 5 | times: 1000 }}" 
+      data-slideshow-id="{{ slideShowId }}">
+      <div class="product-img-slides">
+        {% for image in images %}
+          <img
+            src="{{ image | image_url: width: 800 }}"
+            loading="lazy"
+            width="auto"
+            height="auto"
+            alt="{{ image.alt | escape }}"
+            class="product-slide-image pr-inner-image {% if forloop.first %}active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            data-image-id="{{ image.id }}"
+          />
+        {% else %}
+          <div class="product-image-placeholder" style="background: #f5f5f5; height: 500px;"></div>
+        {% endfor %}
+      </div>
+    
+      {% if images.size > 1 %}
+      <div class="product-slide-buttons">
+        <div class="product-slide-arrow left-arrow">
+          {{ "icon-arrow-left.svg" | asset_url | img_tag: 'Left arrow', "product-arrow-icon" }}
+        </div>
+        <div class="product-slide-arrow right-arrow">
+          {{ "icon-arrow-right.svg" | asset_url | img_tag: 'Right arrow', "product-arrow-icon" }}
+        </div>
+      </div>
+      {% endif %}
+  </div>
+</div>
+{% if images.size > 1 %}
+  <div class="images-window">
+    <div class="dot-indicator">
       {% for image in images %}
-        <img
-          src="{{ image | image_url: width: 800 }}"
-          loading="lazy"
-          width="auto"
-          height="auto"
-          alt="{{ image.alt | escape }}"
-          class="product-slide-image pr-inner-image {% if forloop.first %}active{% endif %}"
-          data-index="{{ forloop.index0 }}"
-          data-image-id="{{ image.id }}"
-        />
-      {% else %}
-        <div class="product-image-placeholder" style="background: #f5f5f5; height: 500px;"></div>
+        {% comment %} <div class="frame-220"> {% endcomment %}
+          <div class="dot-22 {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" data-image-id="{{ image.id }}"></div>
+        {% comment %} </div> {% endcomment %}
       {% endfor %}
     </div>
-  
-    {% if images.size > 1 %}
-    <div class="product-slide-buttons">
-      <div class="product-slide-arrow left-arrow">
-        {{ "icon-arrow-left.svg" | asset_url | img_tag: 'Left arrow', "product-arrow-icon" }}
-      </div>
-      <div class="product-slide-arrow right-arrow">
-        {{ "icon-arrow-right.svg" | asset_url | img_tag: 'Right arrow', "product-arrow-icon" }}
-      </div>
+    <div class="image-indicator">
+      {% for image in images %}
+        <div class="pr-image {% if forloop.first %}pr-image-active{% endif %}" data-index="{{ forloop.index0 }}" data-image-id="{{ image.id }}">
+          <img
+            src="{{ image | img_url: '200x' }}"
+            loading="lazy"
+            width="Auto"
+            height="Auto"
+            alt="{{ image.alt | escape }}"
+            class="pr-inner-image"
+            data-image-id="{{ image.id }}"
+            data-zoom="{{ image | img_url: '2000x' }}"
+          />
+        </div>
+      {% endfor %}
     </div>
-    {% endif %}
   </div>
+{% endif %}
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -40,6 +68,8 @@
       document.querySelectorAll('.product-slideShow[data-slideshow-id]').forEach(slideshow => {
         const slideShowId = slideshow.dataset.slideshowId;
         const slides = slideshow.querySelectorAll('.product-img-slides .product-slide-image');
+        const dots = document.querySelectorAll(`.dot-indicator .dot-22[data-image-id]`);
+        const thumbnails = document.querySelectorAll(`.image-indicator .pr-image[data-image-id]`);
         
         if (slides.length <= 1) return;
         
@@ -49,13 +79,26 @@
         const normalDelay = parseInt(slideshow.dataset.delay) || 5000;
         const loopDelay = 1000;
         let autoplayInterval;
+        let isManualInteraction = false; // Track manual interactions
         
-        // Initialize first slide
+        // Initialize first slide and indicators
         slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+        thumbnails[currentIndex].classList.add('pr-image-active');
         
         function transitionSlides(newIndex) {
+          // Update slides
           slides[currentIndex].classList.remove('active');
           slides[newIndex].classList.add('active');
+          
+          // Update dot indicators
+          dots[currentIndex].classList.remove('active');
+          dots[newIndex].classList.add('active');
+          
+          // Update image indicators
+          thumbnails[currentIndex].classList.remove('pr-image-active');
+          thumbnails[newIndex].classList.add('pr-image-active');
+          
           currentIndex = newIndex;
           
           // Dispatch custom event when slide changes
@@ -85,12 +128,42 @@
         };
         
         // Update button click handlers
-        slideshow.querySelector('.left-arrow').onclick = window[prevSlideFn];
-        slideshow.querySelector('.right-arrow').onclick = window[nextSlideFn];
+        slideshow.querySelector('.left-arrow').onclick = function() {
+          isManualInteraction = true;
+          window[prevSlideFn]();
+        };
+        slideshow.querySelector('.right-arrow').onclick = function() {
+          isManualInteraction = true;
+          window[nextSlideFn]();
+        };
+        
+        // Add click handlers for dot indicators
+        dots.forEach(dot => {
+          dot.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            if (!isNaN(index) && index >= 0 && index < totalSlides) {
+              isManualInteraction = true;
+              transitionSlides(index);
+              resetAutoplay(index);
+            }
+          });
+        });
+        
+        // Add click handlers for image indicators
+        thumbnails.forEach(thumb => {
+          thumb.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            if (!isNaN(index) && index >= 0 && index < totalSlides) {
+              isManualInteraction = true;
+              transitionSlides(index);
+              resetAutoplay(index);
+            }
+          });
+        });
         
         // Autoplay functionality
         function startAutoplay(delay) {
-          if (autoplay) {
+          if (autoplay && !isManualInteraction) {
             autoplayInterval = setInterval(window[nextSlideFn], delay);
           }
         }
@@ -102,25 +175,31 @@
         function resetAutoplay(newIndex) {
           stopAutoplay();
           const isLooping = newIndex === 0;
-          startAutoplay(isLooping ? loopDelay : normalDelay);
+          if (!isManualInteraction) {
+            startAutoplay(isLooping ? loopDelay : normalDelay);
+          }
         }
         
         // Initialize autoplay
         startAutoplay(normalDelay);
         
-        // Pause on hover
+        // Pause on hover, resume only if not manually interacted
         slideshow.addEventListener('mouseenter', stopAutoplay);
-        slideshow.addEventListener('mouseleave', () => startAutoplay(normalDelay));
+        slideshow.addEventListener('mouseleave', () => {
+          if (!isManualInteraction) {
+            startAutoplay(normalDelay);
+          }
+        });
         
-        // Optional: Add thumbnail click handlers if they exist on page
-        document.querySelectorAll(`[data-slideshow-target="${slideShowId}"]`).forEach(thumb => {
-          thumb.addEventListener('click', function() {
-            const index = parseInt(this.dataset.slideIndex);
-            if (!isNaN(index) && index >= 0 && index < totalSlides) {
-              transitionSlides(index);
-              resetAutoplay(index);
-            }
-          });
+        // Reset manual interaction flag on arrow clicks or after a delay
+        function resetManualInteraction() {
+          isManualInteraction = false;
+          startAutoplay(normalDelay);
+        }
+        
+        // Reset manual interaction after 10 seconds of inactivity
+        slideshow.addEventListener('click', () => {
+          setTimeout(resetManualInteraction, 10000);
         });
       });
     });
@@ -161,20 +240,37 @@
     .product-slide-arrow {
       cursor: pointer;
       background: rgba(255,255,255,0.7);
+      border: 1px solid #00000024;
       padding: 10px;
       border-radius: 50%;
       margin: 0 15px;
     }
-    
     .product-slide-arrow:hover {
-      background: rgba(255,255,255,0.9);
+      background: rgb(255, 255, 255);
+      border: 1px solid rgba(0, 0, 0, 0.5);
     }
     
     .product-arrow-icon {
       width: 20px;
       height: 20px;
     }
-    .product-img-slides{
-    display: flex;
-  justify-content: center;}
+    .product-img-slides {
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Dot indicator styles */
+    .dot-22 {
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .dot-22.active {
+      background-color: #333;
+      transform: scale(1.2);
+    }
   </style>
