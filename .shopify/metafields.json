@@ -59,6 +59,26 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "product_faq",
+      "namespace": "custom",
+      "name": "Product FAQ",
+      "description": "every product FAQ",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "gallery_product",
+      "namespace": "custom",
+      "name": "Gallery Product",
+      "description": "",
+      "type": {
+        "name": "metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [],

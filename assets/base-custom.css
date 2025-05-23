@@ -2620,8 +2620,8 @@ textarea.w-select {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 288px;
-  max-width: 288px;
+  width: 100%;
+  max-width: none;
   padding: 2px;
   text-decoration: none;
   display: flex;
@@ -2665,7 +2665,7 @@ textarea.w-select {
 
 .product-img {
   object-fit: contain;
-  width: 80%;
+  width: 100%;
   height: 200px !important;
 }
 

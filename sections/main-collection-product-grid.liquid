@@ -34,28 +34,34 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-  /* Default (Desktop) */
-.product-grid-item {
-  width: calc(90% / var(--desktop-cols));
-}
 
-/* Mobile (Below 750px) */
-@media screen and (max-width: 749px) {
+  /* Responsive Grid System */
+  #product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: {{ section.settings.columns_gap }}px;
+    row-gap: {{ section.settings.rows_gap }}px;
+    margin-top: 24px;
+  }
+
+  /* Medium devices (tablets, 750px and up) */
+  @media screen and (min-width: 750px) {
+    #product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Large devices (desktops, 990px and up) */
+  @media screen and (min-width: 990px) {
+    #product-grid {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    }
+  }
+
+  /* Ensure grid items take full width */
   .product-grid-item {
-    width: calc(96% / 2);
+    width: 100%;
   }
-}
-@media screen and (max-width: 475px) {
-  .product-grid {
-    justify-content: center;
-  }
-  .product-grid-item {
-    display: flex;
-    width: calc(96% / var(--mobile-cols));
-    justify-content: center;
-  }
-  
-}
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
@@ -161,20 +167,12 @@
             </div>
           </div>
         {%- else -%}
-          <div
-            class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-          >
+          <div class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}">
             <div class="loading-overlay gradient"></div>
-            <ul
+            <div
               id="product-grid"
-              style="row-gap: {{ section.settings.rows_gap }}px; column-gap: {{ section.settings.columns_gap }}px;margin-top: 24px;"
-
               data-id="{{ section.id }}"
-              class="
-                grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
-                grid--{{ section.settings.columns_desktop }}-col-desktop
-                {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
-              "
+              class="product-grid"
             >
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
@@ -182,14 +180,12 @@
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
-                {% comment %} <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                <div class="product-grid-item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
                     data-cascade
                     style="--animation-order: {{ forloop.index }};"
                   {% endif %}
-                > {% endcomment %}
-                <li style="--desktop-cols: {{ section.settings.columns_desktop }}; --mobile-cols: {{ section.settings.columns_mobile }};" class="product-grid-item">
+                >
                   {%- if forloop.index == 1 -%}
                     <div class="loading-overlay gradient"></div>
                   {%- endif -%}
@@ -206,10 +202,10 @@
                     quick_add: section.settings.quick_add,
                     section_id: section.id
                   %}
-                </li>
+                </div>
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
-            </ul>
+            </div>
 
             {%- if paginate.pages > 1 -%}
               {% render 'pagination', paginate: paginate, anchor: '' %}
@@ -241,30 +237,29 @@
     {
       "type": "range",
       "id": "columns_desktop",
-      "min": 1,
+      "min": 2,
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
+      "label": "Desktop Columns"
     },
-    
     {
       "type": "range",
       "id": "rows_gap",
-      "min": 1,
-      "max": 100,
+      "min": 0,
+      "max": 50,
       "step": 1,
-      "default": 4,
-      "label": "Rows gap"
+      "default": 20,
+      "label": "Row Gap (px)"
     },
     {
       "type": "range",
       "id": "columns_gap",
-      "min": 1,
-      "max": 100,
+      "min": 0,
+      "max": 50,
       "step": 1,
-      "default": 4,
-      "label": "Columns gap"
+      "default": 15,
+      "label": "Column Gap (px)"
     },
     {
       "type": "color_scheme",
@@ -415,26 +410,6 @@
       "id": "enable_sorting",
       "default": true,
       "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.main-collection-product-grid.settings.header_mobile.content"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "default": "2",
-      "label": "t:sections.main-collection-product-grid.settings.columns_mobile.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
-        }
-      ]
     },
     {
       "type": "header",

@@ -20,7 +20,7 @@
           {{- 'icon-search.svg' | inline_asset_content -}}
         </span>
         <span class="svg-wrapper header__icon-close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
+        &#128473;
         </span>
       </span>
     </summary>
@@ -70,7 +70,8 @@
               aria-label="{{ 'general.search.reset' | t }}"
             >
               <span class="svg-wrapper">
-                {{- 'icon-reset.svg' | inline_asset_content -}}
+                {% comment %} {{- 'icon-reset.svg' | inline_asset_content -}} {% endcomment %}
+                &#128473;
               </span>
             </button>
             <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
@@ -99,7 +100,9 @@
           aria-label="{{ 'accessibility.close' | t }}"
         >
           <span class="svg-wrapper">
-            {{- 'icon-close.svg' | inline_asset_content -}}
+            {% comment %} {{- 'icon-x.svg' | inline_asset_content -}}
+           {% endcomment %}
+            &#128473;
           </span>
         </button>
       </div>
