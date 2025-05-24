@@ -407,6 +407,8 @@
         .then(cart => {
           document.querySelectorAll('.cart-count-bubble span').forEach(span => {
             span.textContent = cart.item_count;
+            console.log("Cart",cart.item_count)
+            
           });
         })
         .catch(console.error);
