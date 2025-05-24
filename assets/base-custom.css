@@ -4993,6 +4993,9 @@ span .icon-close {
     width: auto !important;
     padding: 12px !important;
   }
+  .card-container {
+    grid-template-columns: 1fr !important;
+  }
   .grid {
     column-gap: 12px;
     row-gap: 24px;
@@ -5211,6 +5214,7 @@ span .icon-close {
   .product-img {
     height: 140px !important;
   }
+
   .title-carts {
     font-size: 16px;
   }
