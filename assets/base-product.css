@@ -139,7 +139,14 @@
   line-height: 100%;
   text-decoration: none;
 }
+.inner-box {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
 
+.inner-box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Edge */
+}
 .short-desc {
   color: #040303;
   width: 100%;
@@ -1119,7 +1126,16 @@
   }
   .image-display {
     height: 320px;
-    padding: 42px;
+    padding: 42px 0px;
+  }
+  .product-img-slides .product-slide-image.active {
+    padding: 0px 24px;
+  }
+
+  .img-top {
+    object-fit: cover;
+    object-position: center;
+    max-height: 360px;
   }
   .image-indicator {
     display: none;
