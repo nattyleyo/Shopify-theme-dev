@@ -198,6 +198,9 @@
   height: 18px;
   overflow: hidden;
 }
+.gallery-container {
+  width: 100%;
+}
 .product-gallery {
   grid-row-gap: 32px;
   flex-direction: column;
@@ -731,6 +734,7 @@
   gap: 32px;
   overflow-x: auto;
   padding-bottom: 32px;
+  margin-top: 32px;
 }
 .img-h {
   width: 49%;
