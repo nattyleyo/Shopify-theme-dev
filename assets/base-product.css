@@ -147,9 +147,16 @@
 .inner-box::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Edge */
 }
+
 .jdgm-rev__icon {
   background: rgb(246 246 246);
   border-radius: 100%;
+}
+.jdgm-rev__author {
+  color: black !important;
+}
+.jdgm-rev__author:before {
+  color: black !important;
 }
 .page-width {
   padding: 0px 8%;
