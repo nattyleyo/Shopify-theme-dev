@@ -499,59 +499,76 @@
     });
   
     // Cart actions
-    async function addToCart() {
-      const quantity = parseInt(quantityInput.value) || 1;
-      const currentVariantId = variantInput.value;
-      
-      try {
-        const response = await fetch('/cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            id: currentVariantId,
-            quantity: quantity
-          })
-        });
-  
-        if (!response.ok) throw new Error('Failed to add to cart');
-        
-        itemAdded = true;
-        updateCartCount();
-        return true;
-      } catch (error) {
-        console.error('Cart error:', error);
-        throw error;
-      }
+async function addToCart() {
+  const quantity = parseInt(quantityInput.value) || 1;
+  const currentVariantId = variantInput.value;
+
+  try {
+    // Check if cart is empty before adding
+    const cartResponse = await fetch('/cart.js');
+    const cart = await cartResponse.json();
+    const isCartEmpty = cart.item_count === 0;
+
+    // Add item to cart
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: currentVariantId,
+        quantity: quantity
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to add to cart');
+
+    itemAdded = true;
+
+    if (isCartEmpty) {
+      // One-time refresh for empty cart
+      // Store a flag in sessionStorage to prevent repeated refreshes
+      sessionStorage.setItem('cartRefreshed', 'true');
+      window.location.reload();
+    } else {
+      // Update cart count without refresh for non-empty cart
+      updateCartCount();
     }
-  
-    // Add to Cart handler
-    const addToCartBtn = document.getElementById('add-to-cart-btn');
-    if (addToCartBtn) {
-      addToCartBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        
-        const btn = addToCartBtn;
-        const originalText = btn.querySelector('.button-label').textContent;
-        
-        btn.classList.add('loading');
-        btn.disabled = true;
-        btn.querySelector('.button-label').textContent = 'Adding...';
-  
-        try {
-          await addToCart();
-          showToast('Item added to cart');
-        } catch {
-          showToast('Error adding item');
-        } finally {
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          btn.querySelector('.button-label').textContent = originalText;
-        }
-      });
+    return true;
+  } catch (error) {
+    console.error('Cart error:', error);
+    throw error;
+  }
+}
+
+// Add to Cart handler
+const addToCartBtn = document.getElementById('add-to-cart-btn');
+if (addToCartBtn) {
+  addToCartBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const btn = addToCartBtn;
+    const originalText = btn.querySelector('.button-label').textContent;
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+    btn.querySelector('.button-label').textContent = 'Adding...';
+
+    try {
+      await addToCart();
+      showToast('Item added to cart');
+    } catch {
+      showToast('Error adding item');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      btn.querySelector('.button-label').textContent = originalText;
     }
+  });
+}
+  
+    {% comment %} hrunjnj {% endcomment %}
   
     // Buy Now handler
     const buyNowBtn = document.getElementById('buy-now-btn');
